@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("includes/head") %>
+  <body>
+<%- include("includes/header") %>
+    <main class="container">
+
+    <h1><%= title %></h1>
+
+    <form action="/admin/rating/edit/<%= classificacao.id %>?_method=PUT" method="POST">
+      <input type="text" id="nome" name="nome" placeholder="Classificação" value="<%= classificacao.nome %>">
+      <button type="submit">Salvar alterações</button>
+      <a href="/admin/ratings"><button type="button">Cancelar</button></a>
+    </form>
+
+    </main>
+<%- include("includes/footer") %>
+<%- include("includes/scripts") %>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("includes/head") %>
+  <body>
+<%- include("includes/header") %>
+    <main class="container">
+
+    <h1><%= title %></h1>
+
+    <form action="/user/edit/<%= usuario.id %>?_method=PUT" method="POST">
+      <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Nome de usuário" value="<%= usuario.nomeUsuario %>">
+      <input type="email" id="email" name="email" placeholder="E-mail" value="<%= usuario.email %>">
+      <input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>">
+      <button type="submit">Salvar alterações</button>
+      <a href="/users"><button type="button">Cancelar</button></a>
+    </form>
+
+    </main>
+<%- include("includes/footer") %>
+<%- include("includes/scripts") %>
+  </body>
+</html>

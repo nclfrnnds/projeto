@@ -7,9 +7,11 @@
 
     <h1><%= title %></h1>
 
-    <p>Bem vindo, @<%= usuario.nomeUsuario %></p>
-
-      <a href="/admin"><button type="button">Admin</button></a>
+    <form action="/admin/rating/new" method="POST">
+      <input type="text" id="nome" name="nome" placeholder="Classificação">
+      <button type="submit">Cadastrar</button>
+      <a href="/admin/ratings"><button type="button">Cancelar</button></a>
+    </form>
 
     </main>
 <%- include("includes/footer") %>

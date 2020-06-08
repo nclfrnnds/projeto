@@ -1,4 +1,3 @@
-const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const { Usuario } = require("../models");
 
@@ -10,6 +9,10 @@ const authController = {
 
     home: (req, res) => {
         res.render("home", { title: "Início" });
+    },
+
+    admin: (req, res) => {
+        res.render("admin", { title: "Admin" });
     },
 
     create: (req, res) => {

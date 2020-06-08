@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `projeto-sql` DEFAULT CHARACTER SET utf8 ;
-USE `projeto-sql` ;
+CREATE SCHEMA IF NOT EXISTS `projetoDB` DEFAULT CHARACTER SET utf8 ;
+USE `projetoDB` ;
 
 -- -----------------------------------------------------
 -- Table `usuarios`
@@ -17,6 +17,7 @@ CREATE TABLE `usuarios` (
   `localizacao` VARCHAR(100),
   `emailSecundario` VARCHAR(200) UNIQUE,
   `celular` BIGINT UNIQUE,
+  `moderador` TINYINT,
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );
@@ -26,7 +27,7 @@ CREATE TABLE `usuarios` (
 -- -----------------------------------------------------
 CREATE TABLE `classificacoes` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `classificacao` VARCHAR(100),
+  `nome` VARCHAR(100),
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );
@@ -71,7 +72,7 @@ CREATE TABLE `capitulos` (
 -- -----------------------------------------------------
 CREATE TABLE `generos` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `genero` VARCHAR(100),
+  `nome` VARCHAR(100),
   `descricao` VARCHAR(250),
   `createdAt` DATETIME,
   `updatedAt` DATETIME
@@ -82,7 +83,7 @@ CREATE TABLE `generos` (
 -- -----------------------------------------------------
 CREATE TABLE `categorias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `categoria` VARCHAR(100),
+  `nome` VARCHAR(100),
   `descricao` VARCHAR(250),
   `createdAt` DATETIME,
   `updatedAt` DATETIME

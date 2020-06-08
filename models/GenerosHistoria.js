@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             updatedAt: DataTypes.DATE,
         }, {
             timestamps: false,
+            tableName: "generosHistoria",
         }
     );
 

@@ -8,9 +8,8 @@ const methodOverride = require("method-override");
 
 const indexRouter = require("./routes/index");
 const usuarioRouter = require("./routes/usuario");
-
-
-
+const historiaRouter = require("./routes/historia");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 
@@ -23,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: "got7imjaebum",
+    secret: "got06jae01bum7im",
     resave: true,
     saveUninitialized: true,
   })
@@ -34,9 +33,8 @@ app.use(methodOverride("_method"));
 
 app.use("/", indexRouter);
 app.use("/user", usuarioRouter);
-
-
-
+app.use("/story", historiaRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

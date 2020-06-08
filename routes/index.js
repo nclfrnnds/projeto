@@ -5,10 +5,6 @@ const authController = require("../controllers/authController");
 const usuarioController = require("../controllers/usuarioController");
 const historiaController = require("../controllers/historiaController");
 const capituloController = require("../controllers/capituloController");
-const autorController = require("../controllers/autorController");
-const generoController = require("../controllers/generoController");
-const categoriaController = require("../controllers/categoriaController");
-const classificacaoController = require("../controllers/classificacaoController");
 
 const auth = require("../middlewares/auth");
 const upload = require("../config/upload");
@@ -21,5 +17,9 @@ router.post("/login", authController.store);
 
 router.get("/signup", usuarioController.create);
 router.post("/signup", usuarioController.store);
+
+router.get("/users", auth, usuarioController.index);
+router.get("/stories", auth, historiaController.index);
+router.get("/chapters", auth, capituloController.index);
 
 module.exports = router;

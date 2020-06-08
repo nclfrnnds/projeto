@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("includes/head") %>
+  <body>
+<%- include("includes/header") %>
+    <main class="container">
+
+    <h1><%= title %></h1>
+
+    <form action="/admin/category/edit/<%= categoria.id %>?_method=PUT" method="POST">
+      <input type="text" id="nome" name="nome" placeholder="Categoria" value="<%= categoria.nome %>">
+      <input type="text" id="descricao" name="descricao" placeholder="Descrição" value="<%= categoria.descricao %>">
+      <button type="submit">Salvar alterações</button>
+      <a href="/admin/categories"><button type="button">Cancelar</button></a>
+    </form>
+
+    </main>
+<%- include("includes/footer") %>
+<%- include("includes/scripts") %>
+  </body>
+</html>

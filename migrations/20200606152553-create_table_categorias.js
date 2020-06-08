@@ -8,7 +8,7 @@ module.exports = {
             primaryKey: true,
             autoIncrement: true,
           },
-          categoria: Sequelize.STRING(100),
+          nome: Sequelize.STRING(100),
           descricao: Sequelize.STRING(250),
           createdAt: Sequelize.DATE,
           updatedAt: Sequelize.DATE,

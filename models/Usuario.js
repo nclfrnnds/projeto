@@ -29,10 +29,12 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.BIGINT,
                 unique: true,
             },
+            moderador: DataTypes.BOOLEAN,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
             timestamps: false,
+            tableName: "usuarios",
         }
     );
 

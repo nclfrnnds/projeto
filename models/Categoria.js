@@ -6,12 +6,14 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
-            categoria: DataTypes.STRING,
+            nome: DataTypes.STRING,
             descricao: DataTypes.STRING,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
             timestamps: false,
+            tableName: "categorias",
+            //freezeTableName: true,
         }
     );
 

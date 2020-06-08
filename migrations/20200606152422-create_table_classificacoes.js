@@ -8,7 +8,7 @@ module.exports = {
             primaryKey: true,
             autoIncrement: true,
           },
-          classificacao: Sequelize.STRING(100),
+          nome: Sequelize.STRING(100),
           createdAt: Sequelize.DATE,
           updatedAt: Sequelize.DATE,
       });
