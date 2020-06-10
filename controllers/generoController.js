@@ -37,16 +37,16 @@ const generoController = {
     },
 
     update: async (req, res) => {
-       const { id } = req.params;
-       const { nome, descricao } = req.body;
-       const genero = await Genero.update({
-           nome,
-           descricao,
-           updatedAt: new Date(),
-       },
-       {where:{id}});
-       console.log(genero);
-       return res.redirect("/admin/genres");
+        const { id } = req.params;
+        const { nome, descricao } = req.body;
+        const genero = await Genero.update({
+            nome,
+            descricao,
+            updatedAt: new Date(),
+        },
+        {where:{id}});
+        console.log(genero);
+        return res.redirect("/admin/genres");
     },
 
     destroy: async(req, res) => {

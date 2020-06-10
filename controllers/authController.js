@@ -26,8 +26,8 @@ const authController = {
         
         if (!usuario || !bcrypt.compareSync(senha, usuario.senha)) {
             return res.render("auth/login", {
-               title: "Entre",
-               msg: "E-mail ou senha incorretos!", 
+                title: "Entre",
+                msg: "E-mail ou senha incorretos!", 
             });
         }
 

@@ -11,12 +11,17 @@ module.exports = {
         nomeUsuario: {
             type: Sequelize.STRING(50),
             unique: true,
+            allowNull: false,
         },
         email: {
             type: Sequelize.STRING(200),
             unique: true,
+            allowNull: false,
         },
-        senha: Sequelize.STRING(200),
+        senha: {
+            type: Sequelize.STRING(200),
+            allowNull: false,
+        },
         nome: Sequelize.STRING(200),
         avatar: Sequelize.STRING(200),
         descricao: Sequelize.TEXT,
@@ -34,7 +39,7 @@ module.exports = {
         moderador: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-      });
+    });
   },
 
   down: (queryInterface, Sequelize) => {

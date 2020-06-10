@@ -9,8 +9,8 @@ const usuarioController = {
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPagina = Math.round(total/5);
-        return res.render("usuarios", { title: "Usuários", usuarios, totalPagina });
+        let totalPaginas = Math.round(total/5);
+        return res.render("usuarios", { title: "Usuários", usuarios, totalPaginas });
     },
 
     create: (req, res) => {
@@ -33,12 +33,6 @@ const usuarioController = {
         return res.redirect("/home");
     },
 
-    findByUsername: async (req, res) => {
-        let { nomeUsuario } = req.params;
-        let usuario = await Usuario.findOne({where:{nomeUsuario}});
-        return res.render("usuario", {title: "Usuário", usuario});
-    },
-
     edit: async (req, res) => {
         const { id } = req.params;
         const usuario = await Usuario.findByPk(id);
@@ -47,27 +41,51 @@ const usuarioController = {
 
     update: async (req, res) => {
         const { id } = req.params;
-        const { nomeUsuario, email, senha } = req.body;
+        const { 
+            nomeUsuario, 
+            email,
+            senha,
+            nome,
+            descricao,
+            dataNascimento, 
+            //genero,
+            localizacao,
+            emailSecundario,
+            celular,
+        } = req.body;
+        //const [ avatar ] = req.files;
         const usuario = await Usuario.update({
             nomeUsuario,
             email,
             senha,
-            /*
             nome,
-            avatar,
+            //avatar: avatar.filename,
             descricao,
             dataNascimento,
-            genero,
+            //genero,
             localizacao,
             emailSecundario,
             celular,
-            moderador,
-            */
             updatedAt: new Date(),
         },
         {where:{id}});
         console.log(usuario);
         return res.redirect("/users");
+    },
+
+    destroy: async(req, res) => {
+        const { id } = req.params;
+        const usuario = await Usuario.destroy({
+            where:{id},
+        });
+        console.log(usuario);
+        res.redirect("/users");
+    },
+
+    findByUsername: async (req, res) => {
+        let { nomeUsuario } = req.params;
+        let usuario = await Usuario.findOne({where:{nomeUsuario}});
+        return res.render("usuario", {title: "Usuário", usuario});
     },
 
 };

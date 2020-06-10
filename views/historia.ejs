@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("includes/head") %>
+  <body>
+<%- include("includes/header") %>
+    <main class="container">
+
+    <h1><%= title %></h1>
+
+    <p><%= historia.id %></p>
+    <p><%= historia.fkClassificacao %></p>
+    <p><%= historia.titulo %></p>
+    <p><%= historia.capa %></p>
+    <p><%= historia.sinopse %></p>
+    <p><%= historia.finalizada %></p>
+    <p><%= historia.interativa %></p>
+    <p><%= historia.visivel %></p>
+    <p><%= historia.createdAt %></p>
+    <p><%= historia.updatedAt %></p>
+
+    </main>
+<%- include("includes/footer") %>
+<%- include("includes/scripts") %>
+  </body>
+</html>

@@ -6,16 +6,16 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
-            visivel: DataTypes.BOOLEAN,
-            titulo: DataTypes.STRING,
-            sinopse: DataTypes.TEXT,
-            capa: DataTypes.STRING,
-            status: DataTypes.BOOLEAN,
-            interativa: DataTypes.BOOLEAN,
             fkClassificacao: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                allowNull: true,
             },
+            titulo: DataTypes.STRING,
+            capa: DataTypes.STRING,
+            sinopse: DataTypes.TEXT,
+            finalizada: DataTypes.BOOLEAN,
+            interativa: DataTypes.BOOLEAN,
+            visivel: DataTypes.BOOLEAN,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     Historia.associate = (models) => {
         Historia.belongsTo(models.Classificacao, {
             foreignKey: "fkClassificacao",
+        });
+        Historia.hasMany(models.Capitulo, {
+            foreignKey: "fkCapitulo",
         });
         Historia.belongsToMany(models.Usuario, {
             foreignKey: "fkHistoria",

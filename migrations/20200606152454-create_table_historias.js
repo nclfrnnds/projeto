@@ -7,24 +7,24 @@ module.exports = {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-          },
-          visivel: Sequelize.BOOLEAN,
-          titulo: Sequelize.STRING(200),
-          sinopse: Sequelize.TEXT,
-          capa: Sequelize.STRING(200),
-          status: Sequelize.BOOLEAN,
-          interativa: Sequelize.BOOLEAN,
-          fkClassificacao: {
+        },
+        fkClassificacao: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
-              model: "classificacoes",
-              key: "id",
+                model: "classificacoes",
+                key: "id",
             },
-          },
-          createdAt: Sequelize.DATE,
-          updatedAt: Sequelize.DATE,
-      });
+        },
+        titulo: Sequelize.STRING(200),
+        capa: Sequelize.STRING(200),
+        sinopse: Sequelize.TEXT,
+        finalizada: Sequelize.BOOLEAN,
+        interativa: Sequelize.BOOLEAN,
+        visivel: Sequelize.BOOLEAN,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {

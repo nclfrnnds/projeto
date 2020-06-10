@@ -37,16 +37,16 @@ const categoriaController = {
     },
 
     update: async (req, res) => {
-       const { id } = req.params;
-       const { nome, descricao } = req.body;
-       const categoria = await Categoria.update({
-           nome,
-           descricao,
-           updatedAt: new Date(),
-       },
-       {where:{id}});
-       console.log(categoria);
-       return res.redirect("/admin/categories");
+        const { id } = req.params;
+        const { nome, descricao } = req.body;
+        const categoria = await Categoria.update({
+            nome,
+            descricao,
+            updatedAt: new Date(),
+        },
+        {where:{id}});
+        console.log(categoria);
+        return res.redirect("/admin/categories");
     },
 
     destroy: async(req, res) => {

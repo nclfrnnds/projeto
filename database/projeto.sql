@@ -1,14 +1,14 @@
-CREATE SCHEMA IF NOT EXISTS `projetoDB` DEFAULT CHARACTER SET utf8 ;
-USE `projetoDB` ;
+CREATE SCHEMA IF NOT EXISTS `projetodb` DEFAULT CHARACTER SET utf8 ;
+USE `projetodb` ;
 
 -- -----------------------------------------------------
 -- Table `usuarios`
 -- -----------------------------------------------------
 CREATE TABLE `usuarios` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `nomeUsuario` VARCHAR(50) UNIQUE,
-  `email` VARCHAR(200) UNIQUE,
-  `senha` VARCHAR(200),
+  `nomeUsuario` VARCHAR(50) UNIQUE NOT NULL,
+  `email` VARCHAR(200) UNIQUE NOT NULL,
+  `senha` VARCHAR(200) NOT NULL,
   `nome` VARCHAR(200),
   `avatar` VARCHAR(200),
   `descricao` TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE `usuarios` (
 -- -----------------------------------------------------
 CREATE TABLE `classificacoes` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `nome` VARCHAR(100),
+  `nome` VARCHAR(100) UNIQUE NOT NULL,
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );
@@ -37,13 +37,13 @@ CREATE TABLE `classificacoes` (
 -- -----------------------------------------------------
 CREATE TABLE `historias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `visivel` TINYINT,
+  `fkClassificacao` INT,
   `titulo` VARCHAR(200),
-  `sinopse` TEXT,
   `capa` VARCHAR(200),
-  `status` TINYINT,
+  `sinopse` TEXT,
+  `finalizada` TINYINT,
   `interativa` TINYINT,
-  `fkClassificacao` INT NOT NULL,
+  `visivel` TINYINT,
   `createdAt` DATETIME,
   `updatedAt` DATETIME,
     FOREIGN KEY (`fkClassificacao`)
@@ -56,11 +56,11 @@ CREATE TABLE `historias` (
 CREATE TABLE `capitulos` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `fkHistoria` INT NOT NULL,
-  `visivel` TINYINT,
-  `notasIniciais` TEXT,
   `titulo` VARCHAR(200),
   `texto` VARCHAR(200),
+  `notasIniciais` TEXT,
   `notasFinais` TEXT,
+  `visivel` TINYINT,
   `createdAt` DATETIME,
   `updatedAt` DATETIME,
     FOREIGN KEY (`fkHistoria`)
@@ -72,7 +72,7 @@ CREATE TABLE `capitulos` (
 -- -----------------------------------------------------
 CREATE TABLE `generos` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `nome` VARCHAR(100),
+  `nome` VARCHAR(100) UNIQUE NOT NULL,
   `descricao` VARCHAR(250),
   `createdAt` DATETIME,
   `updatedAt` DATETIME
@@ -83,7 +83,7 @@ CREATE TABLE `generos` (
 -- -----------------------------------------------------
 CREATE TABLE `categorias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `nome` VARCHAR(100),
+  `nome` VARCHAR(100) UNIQUE NOT NULL,
   `descricao` VARCHAR(250),
   `createdAt` DATETIME,
   `updatedAt` DATETIME

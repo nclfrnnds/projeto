@@ -7,7 +7,6 @@ const historiaController = require("../controllers/historiaController");
 const capituloController = require("../controllers/capituloController");
 
 const auth = require("../middlewares/auth");
-const upload = require("../config/upload");
 
 router.get("/", authController.index);
 router.get("/home", auth, authController.home);

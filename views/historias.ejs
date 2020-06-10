@@ -7,7 +7,32 @@
 
     <h1><%= title %></h1>
 
-    <p></p>
+    <p><a href="/story/new"><button type="button">Publicar</button></a></p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">História</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% historias.forEach(historia => { %>
+        <tr>
+          <th scope="row"> <%= historia.id %></th>
+          <th> <%= historia.titulo %></th>
+          <th>
+            <a href="/story/<%= historia.id %>" class="btn btn-primary">Ver</a>
+            <a href="/story/edit/<%= historia.id %>" class="btn btn-warning">Editar</a>
+            <form action="/story/delete/<%= historia.id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-danger">Excluir</button>
+            </form>
+          </th>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
 
     </main>
 <%- include("includes/footer") %>

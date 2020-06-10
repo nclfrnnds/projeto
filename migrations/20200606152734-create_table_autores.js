@@ -7,27 +7,27 @@ module.exports = {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-          },
-          fkHistoria: {
+        },
+        fkHistoria: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "historias",
-              key: "id",
+                model: "historias",
+                key: "id",
             },
-          },
-          fkUsuario: {
+        },
+        fkUsuario: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "usuarios",
-              key: "id",
+                model: "usuarios",
+                key: "id",
             },
-          },
-          principal: Sequelize.BOOLEAN,
-          createdAt: Sequelize.DATE,
-          updatedAt: Sequelize.DATE,
-      });
+        },
+        principal: Sequelize.BOOLEAN,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {

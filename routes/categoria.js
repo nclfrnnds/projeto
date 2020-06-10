@@ -5,6 +5,7 @@ const categoriaController = require("../controllers/categoriaController");
 
 const auth = require("../middlewares/auth");
 
+router.get("/", auth, categoriaController.index);
 router.get("/new", auth, categoriaController.create);
 router.post("/new", auth, categoriaController.store);
 router.get("/edit/:id", auth, categoriaController.edit);

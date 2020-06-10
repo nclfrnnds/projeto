@@ -7,10 +7,14 @@ module.exports = {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-          },
-          nome: Sequelize.STRING(100),
-          createdAt: Sequelize.DATE,
-          updatedAt: Sequelize.DATE,
+        },
+        nome: {
+            type: Sequelize.STRING(100),
+            unique: true,
+            allowNull: false,
+        },
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
       });
   },
 

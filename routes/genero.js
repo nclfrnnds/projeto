@@ -5,6 +5,7 @@ const generoController = require("../controllers/generoController");
 
 const auth = require("../middlewares/auth");
 
+router.get("/", auth, generoController.index);
 router.get("/new", auth, generoController.create);
 router.post("/new", auth, generoController.store);
 router.get("/edit/:id", auth, generoController.edit);

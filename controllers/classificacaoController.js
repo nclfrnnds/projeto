@@ -36,15 +36,15 @@ const classificacaoController = {
     },
 
     update: async (req, res) => {
-       const { id } = req.params;
-       const { nome } = req.body;
-       const classificacao = await Classificacao.update({
-           nome,
-           updatedAt: new Date(),
-       },
-       {where:{id}});
-       console.log(classificacao);
-       return res.redirect("/admin/ratings");
+        const { id } = req.params;
+        const { nome } = req.body;
+        const classificacao = await Classificacao.update({
+            nome,
+            updatedAt: new Date(),
+        },
+        {where:{id}});
+        console.log(classificacao);
+        return res.redirect("/admin/ratings");
     },
 
     destroy: async(req, res) => {

@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
-            nome: DataTypes.STRING,
+            nome: {
+                type: DataTypes.STRING,
+                unique: true,
+                allowNull: false,
+            },
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
@@ -17,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Classificacao.associate = (models) => {
-
+        Classificacao.hasMany(models.Historia, {
+            foreignKey: "fkClassificacao",
+        });
     };
 
     return Classificacao;

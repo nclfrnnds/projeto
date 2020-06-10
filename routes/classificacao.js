@@ -5,6 +5,7 @@ const classificacaoController = require("../controllers/classificacaoController"
 
 const auth = require("../middlewares/auth");
 
+router.get("/", auth, classificacaoController.index);
 router.get("/new", auth, classificacaoController.create);
 router.post("/new", auth, classificacaoController.store);
 router.get("/edit/:id", auth, classificacaoController.edit);

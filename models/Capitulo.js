@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            visivel: DataTypes.BOOLEAN,
-            notasIniciais: DataTypes.TEXT,
             titulo: DataTypes.STRING,
             texto: DataTypes.STRING,
+            notasIniciais: DataTypes.TEXT,
             notasFinais: DataTypes.TEXT,
+            visivel: DataTypes.BOOLEAN,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {

@@ -7,23 +7,23 @@ module.exports = {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-          },
-          fkHistoria: {
+        },
+        fkHistoria: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "historias",
-              key: "id",
+                model: "historias",
+                key: "id",
             },
-          },
-          visivel: Sequelize.BOOLEAN,
-          notasIniciais: Sequelize.TEXT,
-          titulo: Sequelize.STRING(200),
-          texto: Sequelize.STRING(200),
-          notasFinais: Sequelize.TEXT,
-          createdAt: Sequelize.DATE,
-          updatedAt: Sequelize.DATE,
-      });
+        },
+        titulo: Sequelize.STRING(200),
+        texto: Sequelize.STRING(200),
+        notasIniciais: Sequelize.TEXT,
+        notasFinais: Sequelize.TEXT,
+        visivel: Sequelize.BOOLEAN,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
+    });
   },
 
   down: (queryInterface, Sequelize) => {
