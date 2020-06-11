@@ -3,17 +3,22 @@ const { Categoria } = require("../models");
 const categoriaController = {
 
     index: async (req, res) => {
-        let { page = 1 } = req.query;
-        let { count:total, rows:categorias } = await Categoria.findAndCountAll({
+        const categorias = await Categoria.findAll();
+        return res.render("categorias", { title: "Categorias", categorias });
+
+        /*
+        const { page = 1 } = req.query;
+        const { count:total, rows:categorias } = await Categoria.findAndCountAll({
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPaginas = Math.round(total/5);
+        const totalPaginas = Math.round(total/5);
         return res.render("categorias", { title: "Categorias", categorias, totalPaginas });
+        */
     },
 
     create: (req, res) => {
-        res.render("categoriaCadastrar", { title: "Cadastrar Categoria" });
+        return res.render("categoriaCadastrar", { title: "Cadastrar Categoria" });
     },
 
     store: async (req, res) => {
@@ -55,7 +60,7 @@ const categoriaController = {
             where:{id},
         });
         console.log(categoria);
-        res.redirect("/admin/categories");
+        return res.redirect("/admin/categories");
     },
 
 };

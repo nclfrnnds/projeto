@@ -4,17 +4,22 @@ const { Usuario } = require("../models");
 const usuarioController = {
 
     index: async (req, res) => {
-        let { page = 1 } = req.query;
-        let { count:total, rows:usuarios } = await Usuario.findAndCountAll({
+        const usuarios = await Usuario.findAll();
+        return res.render("usuarios", { title: "Usuários", usuarios });
+
+        /*
+        const { page = 1 } = req.query;
+        const { count:total, rows:usuarios } = await Usuario.findAndCountAll({
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPaginas = Math.round(total/5);
+        const totalPaginas = Math.round(total/5);
         return res.render("usuarios", { title: "Usuários", usuarios, totalPaginas });
+        */
     },
 
     create: (req, res) => {
-        res.render("auth/signup", { title: "Cadastre-se" });
+        return res.render("auth/signup", { title: "Cadastre-se" });
     },
 
     store: async (req, res) => {
@@ -53,11 +58,12 @@ const usuarioController = {
             emailSecundario,
             celular,
         } = req.body;
+        const hashSenha = bcrypt.hashSync(senha, 10);
         //const [ avatar ] = req.files;
         const usuario = await Usuario.update({
             nomeUsuario,
             email,
-            senha,
+            senha: hashSenha,
             nome,
             //avatar: avatar.filename,
             descricao,
@@ -79,12 +85,12 @@ const usuarioController = {
             where:{id},
         });
         console.log(usuario);
-        res.redirect("/users");
+        return res.redirect("/users");
     },
 
     findByUsername: async (req, res) => {
-        let { nomeUsuario } = req.params;
-        let usuario = await Usuario.findOne({where:{nomeUsuario}});
+        const { nomeUsuario } = req.params;
+        const usuario = await Usuario.findOne({where:{nomeUsuario}});
         return res.render("usuario", {title: "Usuário", usuario});
     },
 

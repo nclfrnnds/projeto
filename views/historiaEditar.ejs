@@ -18,11 +18,18 @@
       <label for="sinopse">Sinopse</label><br>
       <input type="text" id="sinopse" name="sinopse" placeholder="Sinopse" value="<%= historia.sinopse %>"><br>
       
-      <label for="classificacao">Classificação</label><br>
-        <select id="classificacao" name="classificacao" placeholder="Classificação">
-          <option value="<%=  %>"><%=  %></option>
-        </select>
-        <br><br>
+      <label for="fkClassificacao">Classificação</label><br>
+      <select id="fkClassificacao" name="fkClassificacao" placeholder="Classificação">
+        <option value="">Selecione...</option>
+        <% classificacoes.forEach(classificacao => {
+          if (historia.Classificacao.id == classificacao.id) { %>
+        <option value="<%= historia.Classificacao.id %>" selected><%= historia.Classificacao.nome %></option>
+        <% } else { %>
+        <option value="<%= classificacao.id %>"><%= classificacao.nome %></option>
+        <% }
+            }); %>
+      </select>
+      <br><br>
 
       <button type="submit">Salvar alterações</button><br><br>
       <a href="/stories"><button type="button">Cancelar</button></a>

@@ -3,23 +3,35 @@ const { Historia, Classificacao } = require("../models");
 const historiaController = {
 
     index: async (req, res) => {
-        let { page = 1 } = req.query;
-        let { count:total, rows:historias } = await Historia.findAndCountAll({
+        const historias = await Historia.findAll({
+            include: {
+                model: Classificacao,
+                //required: true,
+            },
+        });
+        return res.render("historias", { title: "Histórias", historias });
+
+        /*
+        const { page = 1 } = req.query;
+        const { count:total, rows:historias } = await Historia.findAndCountAll({
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPaginas = Math.round(total/5);
+        const totalPaginas = Math.round(total/5);
         return res.render("historias", { title: "Histórias", historias, totalPaginas });
+        */
     },
 
-    create: (req, res) => {
-        res.render("historiaPublicar", { title: "Publicar História" });
+    create: async (req, res) => {
+        const classificacoes = await Classificacao.findAll();
+        return res.render("historiaPublicar", { title: "Publicar História", classificacoes });
     },
 
     store: async (req, res) => {
         const { 
             titulo, 
             sinopse,
+            fkClassificacao,
         } = req.body;
         //const [ capa ] = req.files;
         //const { usuario } = req.session;
@@ -27,13 +39,13 @@ const historiaController = {
             titulo,
             //capa,
             sinopse,
+            fkClassificacao,
             createdAt: new Date(),
             updatedAt: new Date(),
-        }, { 
+        }, {
             include: {
                 model: Classificacao,
-                association: Classificacao,
-                required: true,
+                //required: true,
             },
         });
         if (!historia) {
@@ -44,37 +56,55 @@ const historiaController = {
 
     edit: async (req, res) => {
         const { id } = req.params;
-        const historia = await Historia.findByPk(id);
-        return res.render("historiaEditar", {title:"Editar história", historia});
+        const historia = await Historia.findByPk(id, {
+            include: {
+                model: Classificacao,
+                //required: true,
+            },
+        });
+        const classificacoes = await Classificacao.findAll();
+        return res.render("historiaEditar", {title:"Editar história", historia, classificacoes});
     },
 
     update: async (req, res) => {
         const { id } = req.params;
-        const { titulo, sinopse } = req.body;
+        const {
+            titulo,
+            sinopse,
+            fkClassificacao,
+        } = req.body;
         //const [ capa ] = req.files;
         const historia = await Historia.update({
             titulo,
             //capa,
             sinopse,
+            fkClassificacao,
             updatedAt: new Date(),
-        },
-        {where:{id}});
+        }, {where: {id}}, {
+            include: {
+                model: Classificacao,
+                //required: true,
+            },
+        });
         console.log(historia);
         return res.redirect("/stories");
     },
 
     destroy: async(req, res) => {
         const { id } = req.params;
-        const historia = await Historia.destroy({
-            where:{id},
-        });
+        const historia = await Historia.destroy({where: {id}});
         console.log(historia);
-        res.redirect("/stories");
+        return res.redirect("/stories");
     },
 
     findById: async (req, res) => {
-        let { id } = req.params;
-        let historia = await Historia.findOne({where:{id}});
+        const { id } = req.params;
+        const historia = await Historia.findOne({where: {id},
+            include: {
+                model: Classificacao,
+                //required: true,
+            },
+        });
         return res.render("historia", {title: "História", historia});
     },
 

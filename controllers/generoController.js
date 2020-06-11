@@ -3,17 +3,22 @@ const { Genero } = require("../models");
 const generoController = {
 
     index: async (req, res) => {
-        let { page = 1 } = req.query;
-        let { count:total, rows:generos } = await Genero.findAndCountAll({
+        const generos = await Genero.findAll();
+        return res.render("generos", { title: "Gêneros", generos });
+
+        /*
+        const { page = 1 } = req.query;
+        const { count:total, rows:generos } = await Genero.findAndCountAll({
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPaginas = Math.round(total/5);
+        const totalPaginas = Math.round(total/5);
         return res.render("generos", { title: "Gêneros", generos, totalPaginas });
+        */
     },
 
     create: (req, res) => {
-        res.render("generoCadastrar", { title: "Cadastrar Gênero" });
+        return res.render("generoCadastrar", { title: "Cadastrar Gênero" });
     },
 
     store: async (req, res) => {
@@ -55,7 +60,7 @@ const generoController = {
             where:{id},
         });
         console.log(genero);
-        res.redirect("/admin/genres");
+        return res.redirect("/admin/genres");
     },
 
 };

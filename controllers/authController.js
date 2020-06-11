@@ -4,39 +4,35 @@ const { Usuario } = require("../models");
 const authController = {
 
     index: (req, res) => {
-        res.render("index", { title: "Início" });
+        return res.render("index", { title: "Início" });
     },
 
     home: (req, res) => {
-        res.render("home", { title: "Início" });
+        return res.render("home", { title: "Início" });
     },
 
     admin: (req, res) => {
-        res.render("admin", { title: "Admin" });
+        return res.render("admin", { title: "Admin" });
     },
 
     create: (req, res) => {
-        res.render("auth/login", { title: "Entre" });
+        return res.render("auth/login", { title: "Entre" });
     },
 
     store: async (req, res) => {
         const { email, senha } = req.body;
-
-        const [usuario] = await Usuario.findAll({ where: { email } })
-        
+        const [usuario] = await Usuario.findAll({ where: { email } })    
         if (!usuario || !bcrypt.compareSync(senha, usuario.senha)) {
             return res.render("auth/login", {
                 title: "Entre",
                 msg: "E-mail ou senha incorretos!", 
             });
         }
-
         req.session.usuario = {
             id: usuario.id,
             nomeUsuario: usuario.nomeUsuario,
             email: usuario.email,
         };
-
         return res.redirect("/home");
     },
 

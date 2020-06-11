@@ -3,17 +3,22 @@ const { Classificacao } = require("../models");
 const classificacaoController = {
 
     index: async (req, res) => {
-        let { page = 1 } = req.query;
-        let { count:total, rows:classificacoes } = await Classificacao.findAndCountAll({
+        const classificacoes = await Classificacao.findAll();
+        return res.render("classificacoes", { title: "Classificações", classificacoes });
+
+        /*
+        const { page = 1 } = req.query;
+        const { count:total, rows:classificacoes } = await Classificacao.findAndCountAll({
             limit: 5,
             offset: (page - 1) * 5,
         });
-        let totalPaginas = Math.round(total/5);
+        const totalPaginas = Math.round(total/5);
         return res.render("classificacoes", { title: "Classificações", classificacoes, totalPaginas });
+        */
     },
 
     create: (req, res) => {
-        res.render("classificacaoCadastrar", { title: "Cadastrar Classificação" });
+        return res.render("classificacaoCadastrar", { title: "Cadastrar Classificação" });
     },
 
     store: async (req, res) => {
@@ -53,7 +58,7 @@ const classificacaoController = {
             where:{id},
         });
         console.log(classificacao);
-        res.redirect("/admin/ratings");
+        return res.redirect("/admin/ratings");
     },
 
 };
