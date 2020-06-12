@@ -23,7 +23,8 @@
           <th scope="row"> <%= historia.id %></th>
           <th> <%= historia.titulo %></th>
           <th>
-            <a href="/story/<%= historia.id %>" class="btn btn-primary">Ver</a>
+            <a href="/story/<%= historia.id %>" class="btn btn-success">Ver</a>
+            <a href="/story/<%= historia.id %>/chapters" class="btn btn-primary">Capítulos</a>
             <a href="/story/edit/<%= historia.id %>" class="btn btn-warning">Editar</a>
             <form action="/story/delete/<%= historia.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-danger">Excluir</button>

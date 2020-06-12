@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: "fkClassificacao",
         });
         Historia.hasMany(models.Capitulo, {
-            foreignKey: "fkCapitulo",
+            foreignKey: "fkHistoria",
         });
         Historia.belongsToMany(models.Usuario, {
             foreignKey: "fkHistoria",
