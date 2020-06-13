@@ -4,7 +4,6 @@ const router = express.Router();
 const authController = require("../controllers/authController");
 const usuarioController = require("../controllers/usuarioController");
 const historiaController = require("../controllers/historiaController");
-const capituloController = require("../controllers/capituloController");
 
 const auth = require("../middlewares/auth");
 
@@ -19,6 +18,5 @@ router.post("/signup", usuarioController.store);
 
 router.get("/users", auth, usuarioController.index);
 router.get("/stories", auth, historiaController.index);
-router.get("/chapters", auth, capituloController.index);
 
 module.exports = router;

@@ -38,7 +38,7 @@ const generoController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const genero = await Genero.findByPk(id);
-        return res.render("generoEditar", {title:"Editar gênero", genero});
+        return res.render("generoEditar", { title:"Editar gênero", genero });
     },
 
     update: async (req, res) => {
@@ -48,8 +48,9 @@ const generoController = {
             nome,
             descricao,
             updatedAt: new Date(),
-        },
-        {where:{id}});
+        }, {
+            where: { id },
+        });
         console.log(genero);
         return res.redirect("/admin/genres");
     },
@@ -57,7 +58,7 @@ const generoController = {
     destroy: async(req, res) => {
         const { id } = req.params;
         const genero = await Genero.destroy({
-            where:{id},
+            where: { id },
         });
         console.log(genero);
         return res.redirect("/admin/genres");

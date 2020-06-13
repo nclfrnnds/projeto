@@ -41,7 +41,7 @@ const usuarioController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const usuario = await Usuario.findByPk(id);
-        return res.render("usuarioEditar", {title:"Editar usuário", usuario});
+        return res.render("usuarioEditar", { title:"Editar usuário", usuario });
     },
 
     update: async (req, res) => {
@@ -73,8 +73,9 @@ const usuarioController = {
             emailSecundario,
             celular,
             updatedAt: new Date(),
-        },
-        {where:{id}});
+        }, {
+            where: { id },
+        });
         console.log(usuario);
         return res.redirect("/users");
     },
@@ -82,7 +83,7 @@ const usuarioController = {
     destroy: async(req, res) => {
         const { id } = req.params;
         const usuario = await Usuario.destroy({
-            where:{id},
+            where: { id },
         });
         console.log(usuario);
         return res.redirect("/users");
@@ -90,8 +91,10 @@ const usuarioController = {
 
     findByUsername: async (req, res) => {
         const { nomeUsuario } = req.params;
-        const usuario = await Usuario.findOne({where:{nomeUsuario}});
-        return res.render("usuario", {title: "Usuário", usuario});
+        const usuario = await Usuario.findOne({
+            where: { nomeUsuario },
+        });
+        return res.render("usuario", { title: "Usuário", usuario });
     },
 
 };

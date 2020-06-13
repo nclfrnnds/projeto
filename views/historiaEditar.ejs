@@ -7,7 +7,7 @@
 
     <h1><%= title %></h1>
 
-    <form action="/story/edit/<%= historia.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form action="/story/<%= historia.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
 
       <label for="titulo">Título</label><br>
       <input type="text" id="titulo" name="titulo" placeholder="Título" value="<%= historia.titulo %>"><br>

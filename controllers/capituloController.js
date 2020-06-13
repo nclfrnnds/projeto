@@ -5,21 +5,25 @@ const capituloController = {
 
     index: async (req, res) => {        
         const { id } = req.params;
-        const historia = await Historia.findOne({where: {id},
+        const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
-        return res.render("capitulos", { title: "Capítulos", historia});
+        const capitulos = await Capitulo.findAll({
+            where: { fkHistoria: id },
+            include: {
+                model: Historia,
+            },
+        });
+        return res.render("capitulos", { title: "Capítulos", historia, capitulos });
     },
 
     create: async (req, res) => {
         const { id } = req.params;
-        const historia = await Historia.findOne({where: {id},
+        const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
         return res.render("capituloPublicar", { title: "Publicar Capítulo", historia });
@@ -44,7 +48,6 @@ const capituloController = {
         }, {
             include: {
                 model: Historia,
-                //required: true,
             },
         });
         if (!capitulo) {
@@ -55,21 +58,23 @@ const capituloController = {
         return res.redirect(`/story/${id}/chapters`);
     },
 
-    /*
     edit: async (req, res) => {
-        const { id } = req.params;
-        const capitulo = await Capitulo.findByPk(id, {
+        const { id, idChapter } = req.params;
+        const capitulo = await Capitulo.findByPk(idChapter, {
             include: {
                 model: Historia,
-                //required: true,
             },
         });
-        const historias = await Historia.findAll();
-        return res.render("capituloEditar", {title:"Editar capítulo", capitulo, historias});
+        const historia = await Historia.findByPk(id, {
+            include: {
+                model: Classificacao,
+            },
+        });
+        return res.render("capituloEditar", { title:"Editar capítulo", capitulo, historia });
     },
 
     update: async (req, res) => {
-        const { id } = req.params;
+        const { id, idChapter } = req.params;
         const {
             titulo,
             texto,
@@ -82,10 +87,11 @@ const capituloController = {
             notasIniciais,
             notasFinais,
             updatedAt: new Date(),
-        }, {where: {id}}, {
+        }, {
+            where: { id: idChapter }
+        }, {
             include: {
                 model: Historia,
-                //required: true,
             },
         });
         console.log(capitulo);
@@ -93,23 +99,28 @@ const capituloController = {
     },
 
     destroy: async(req, res) => {
-        const { id } = req.params;
-        const capitulo = await Capitulo.destroy({where: {id}});
+        const { id, idChapter } = req.params;
+        const capitulo = await Capitulo.destroy({
+            where: { id: idChapter },
+        });
         console.log(capitulo);
         return res.redirect(`/story/${id}/chapters`);
     },
 
     findById: async (req, res) => {
-        const { id } = req.params;
-        const historia = await Historia.findOne({where: {id},
+        const { id, idChapter } = req.params;
+        const capitulo = await Capitulo.findByPk(idChapter, {
             include: {
-                model: Classificacao,
-                //required: true,
+                model: Historia,
             },
         });
-        return res.render("historia", {title: "História", historia});
+        const historia = await Historia.findByPk(id, {
+            include: {
+                model: Classificacao,
+            },
+        });
+        return res.render("capitulo", { title: "Capítulo", capitulo, historia });
     },
-    */
 
 };
 

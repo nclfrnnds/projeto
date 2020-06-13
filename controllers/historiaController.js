@@ -6,7 +6,6 @@ const historiaController = {
         const historias = await Historia.findAll({
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
         return res.render("historias", { title: "Histórias", historias });
@@ -45,7 +44,6 @@ const historiaController = {
         }, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
         if (!historia) {
@@ -59,11 +57,10 @@ const historiaController = {
         const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
         const classificacoes = await Classificacao.findAll();
-        return res.render("historiaEditar", {title:"Editar história", historia, classificacoes});
+        return res.render("historiaEditar", { title:"Editar história", historia, classificacoes });
     },
 
     update: async (req, res) => {
@@ -80,10 +77,11 @@ const historiaController = {
             sinopse,
             fkClassificacao,
             updatedAt: new Date(),
-        }, {where: {id}}, {
+        }, {
+            where: { id },
+        }, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
         console.log(historia);
@@ -92,20 +90,21 @@ const historiaController = {
 
     destroy: async(req, res) => {
         const { id } = req.params;
-        const historia = await Historia.destroy({where: {id}});
+        const historia = await Historia.destroy({
+            where: { id },
+        });
         console.log(historia);
         return res.redirect("/stories");
     },
 
     findById: async (req, res) => {
         const { id } = req.params;
-        const historia = await Historia.findOne({where: {id},
+        const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
-                //required: true,
             },
         });
-        return res.render("historia", {title: "História", historia});
+        return res.render("historia", { title: "História", historia });
     },
 
 };

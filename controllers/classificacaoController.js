@@ -37,7 +37,7 @@ const classificacaoController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const classificacao = await Classificacao.findByPk(id);
-        return res.render("classificacaoEditar", {title:"Editar classificação", classificacao});
+        return res.render("classificacaoEditar", { title:"Editar classificação", classificacao });
     },
 
     update: async (req, res) => {
@@ -46,8 +46,9 @@ const classificacaoController = {
         const classificacao = await Classificacao.update({
             nome,
             updatedAt: new Date(),
-        },
-        {where:{id}});
+        }, {
+            where: { id },
+        });
         console.log(classificacao);
         return res.redirect("/admin/ratings");
     },
@@ -55,7 +56,7 @@ const classificacaoController = {
     destroy: async(req, res) => {
         const { id } = req.params;
         const classificacao = await Classificacao.destroy({
-            where:{id},
+            where: { id },
         });
         console.log(classificacao);
         return res.redirect("/admin/ratings");

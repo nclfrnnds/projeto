@@ -38,7 +38,7 @@ const categoriaController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const categoria = await Categoria.findByPk(id);
-        return res.render("categoriaEditar", {title:"Editar categoria", categoria});
+        return res.render("categoriaEditar", { title:"Editar categoria", categoria });
     },
 
     update: async (req, res) => {
@@ -48,8 +48,9 @@ const categoriaController = {
             nome,
             descricao,
             updatedAt: new Date(),
-        },
-        {where:{id}});
+        }, {
+            where: { id }
+        });
         console.log(categoria);
         return res.redirect("/admin/categories");
     },
@@ -57,7 +58,7 @@ const categoriaController = {
     destroy: async(req, res) => {
         const { id } = req.params;
         const categoria = await Categoria.destroy({
-            where:{id},
+            where: { id },
         });
         console.log(categoria);
         return res.redirect("/admin/categories");

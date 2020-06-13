@@ -7,6 +7,8 @@
 
     <h1><%= title %></h1>
 
+    <%= historia.id %>
+
     <form action="/story/<%= historia.id %>/chapter/<%= capitulo.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
 
       <label for="titulo">Título</label><br>

@@ -21,13 +21,15 @@ const authController = {
 
     store: async (req, res) => {
         const { email, senha } = req.body;
-        const [usuario] = await Usuario.findAll({ where: { email } })    
+        const [usuario] = await Usuario.findAll({
+            where: { email },
+        }); 
         if (!usuario || !bcrypt.compareSync(senha, usuario.senha)) {
             return res.render("auth/login", {
                 title: "Entre",
                 msg: "E-mail ou senha incorretos!", 
             });
-        }
+        };
         req.session.usuario = {
             id: usuario.id,
             nomeUsuario: usuario.nomeUsuario,
