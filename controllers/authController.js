@@ -3,20 +3,30 @@ const { Usuario } = require("../models");
 
 const authController = {
 
-    index: (req, res) => {
-        return res.render("index", { title: "Início" });
-    },
-
     home: (req, res) => {
-        return res.render("home", { title: "Início" });
+        const logado = req.session.usuario;
+        if (!logado) {
+            return res.render("index", { title: "Início" });
+        } else {
+            return res.redirect("/home");
+        }
     },
 
     admin: (req, res) => {
         return res.render("admin", { title: "Admin" });
     },
 
+    index: (req, res) => {
+        return res.render("home", { title: "Início" });
+    },
+
     create: (req, res) => {
-        return res.render("auth/login", { title: "Entre" });
+        const logado = req.session.usuario;
+        if (!logado) {
+            return res.render("auth/login", { title: "Entre" });
+        } else {
+            return res.redirect("/home");
+        }
     },
 
     store: async (req, res) => {
@@ -40,7 +50,6 @@ const authController = {
 
     destroy: (req, res) => {
         req.session.usuario = undefined;
-        //return res.render("logout");
         return res.redirect("/");
     },
 

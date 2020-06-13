@@ -19,7 +19,12 @@ const usuarioController = {
     },
 
     create: (req, res) => {
-        return res.render("auth/signup", { title: "Cadastre-se" });
+        const logado = req.session.usuario;
+        if (!logado) {
+            return res.render("auth/signup", { title: "Cadastre-se" });
+        } else {
+            return res.redirect("/home");
+        }
     },
 
     store: async (req, res) => {
