@@ -12,6 +12,7 @@ router.get("/home", auth, authController.home);
 
 router.get("/login", authController.create);
 router.post("/login", authController.store);
+router.get("/logout", authController.destroy);
 
 router.get("/signup", usuarioController.create);
 router.post("/signup", usuarioController.store);

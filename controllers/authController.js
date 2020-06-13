@@ -39,8 +39,9 @@ const authController = {
     },
 
     destroy: (req, res) => {
-        req.session = undefined;
-        return res.redirect("/login");
+        req.session.usuario = undefined;
+        //return res.render("logout");
+        return res.redirect("/");
     },
 
 };

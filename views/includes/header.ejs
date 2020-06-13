@@ -1,15 +1,35 @@
 <header>
     <nav>
         <ul class="bg-light p-2 justify-content-center nav">
+            <% if (typeof usuario === "undefined") { %>
             <li class="nav-item">
-                <a class="nav-link" href="/home">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Entre</a>
+                <a class="nav-link" href="/">Início</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/signup">Cadastre-se</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Entre</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/home">Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/stories">Histórias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Sair</a>
+            </li>
+            <% } %>
         </ul>
     </nav>
 </header>
+
+
+
+
+
