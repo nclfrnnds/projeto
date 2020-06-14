@@ -31,16 +31,31 @@ module.exports = (sequelize, DataTypes) => {
         Historia.hasMany(models.Capitulo, {
             foreignKey: "fkHistoria",
         });
+        /*Historia.hasMany(models.Autor, {
+            foreignKey: "fkHistoria",
+        });
+        Historia.hasMany(models.GenerosHistoria, {
+            foreignKey: "fkHistoria",
+        });
+        Historia.hasMany(models.CategoriasHistoria, {
+            foreignKey: "fkHistoria",
+        });*/
         Historia.belongsToMany(models.Usuario, {
             foreignKey: "fkHistoria",
+            sourceKey: "id",
+            targetKey: "id",
             through: models.Autor,
         });
         Historia.belongsToMany(models.Genero, {
             foreignKey: "fkHistoria",
+            sourceKey: "id",
+            targetKey: "id",
             through: models.GenerosHistoria,
         });
         Historia.belongsToMany(models.Categoria, {
             foreignKey: "fkHistoria",
+            sourceKey: "id",
+            targetKey: "id",
             through: models.CategoriasHistoria,
         });
     };

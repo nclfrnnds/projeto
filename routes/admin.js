@@ -13,6 +13,7 @@ const classificacaoRouter = require("../routes/classificacao");
 const auth = require("../middlewares/auth");
 
 router.get("/", authController.admin);
+router.get("/painel", auth, authController.painel);
 
 router.use("/genre", generoRouter);
 router.use("/category", categoriaRouter);

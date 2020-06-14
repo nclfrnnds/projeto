@@ -44,8 +44,13 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Usuario.associate = (models) => {
+        /*Usuario.hasMany(models.Autor, {
+            foreignKey: "fkUsuario",
+        });*/
         Usuario.belongsToMany(models.Historia, {
             foreignKey: "fkUsuario",
+            sourceKey: "id",
+            targetKey: "id",
             through: models.Autor,
         });
     };

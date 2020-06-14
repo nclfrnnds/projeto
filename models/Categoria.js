@@ -22,8 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Categoria.associate = (models) => {
+        /*Categoria.hasMany(models.CategoriasHistoria, {
+            foreignKey: "fkCategoria",
+        });*/
         Categoria.belongsToMany(models.Historia, {
             foreignKey: "fkCategoria",
+            sourceKey: "id",
+            targetKey: "id",
             through: models.CategoriasHistoria,
         });
     };

@@ -1,4 +1,4 @@
-const { Historia, Classificacao } = require("../models");
+const { Historia, Classificacao, Autor, Capitulo } = require("../models");
 
 const historiaController = {
 
@@ -33,7 +33,6 @@ const historiaController = {
             fkClassificacao,
         } = req.body;
         //const [ capa ] = req.files;
-        //const { usuario } = req.session;
         const historia = await Historia.create({
             titulo,
             //capa,
@@ -47,6 +46,17 @@ const historiaController = {
             },
         });
         if (!historia) {
+            return res.render("index", { msg: "Falha ao cadastrar!" });
+        }
+        const idUsuario = req.session.usuario.id;
+        const autor = await Autor.create({
+            fkHistoria: historia.id,
+            fkUsuario: idUsuario,
+            principal: true,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+        if (!autor) {
             return res.render("index", { msg: "Falha ao cadastrar!" });
         }
         return res.redirect("/stories");
@@ -90,6 +100,14 @@ const historiaController = {
 
     destroy: async(req, res) => {
         const { id } = req.params;
+        const capitulos = await Capitulo.destroy({
+            where: { fkHistoria: id },
+        });
+        console.log(capitulos);
+        const autor = await Autor.destroy({
+            where: { fkHistoria: id },
+        });
+        console.log(autor);
         const historia = await Historia.destroy({
             where: { id },
         });

@@ -21,7 +21,7 @@ const usuarioController = {
     create: (req, res) => {
         const logado = req.session.usuario;
         if (!logado) {
-            return res.render("auth/signup", { title: "Cadastre-se" });
+            return res.render("usuarioCadastrar", { title: "Cadastre-se" });
         } else {
             return res.redirect("/home");
         }
@@ -38,7 +38,7 @@ const usuarioController = {
             updatedAt: new Date(),
         });
         if(!usuario) {
-            return res.render("auth/signup", { msg: "Falha ao cadastrar!" });
+            return res.render("usuarioCadastrar", { msg: "Falha ao cadastrar!" });
         };
         return res.redirect("/home");
     },

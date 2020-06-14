@@ -24,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     CategoriasHistoria.associate = (models) => {
-
+        /*CategoriasHistoria.belongsTo(models.Historia, {
+            foreignKey: "fkHistoria",
+        });
+        CategoriasHistoria.belongsTo(models.Categoria, {
+            foreignKey: "fkCategoria",
+        });*/ 
     };
 
     return CategoriasHistoria;

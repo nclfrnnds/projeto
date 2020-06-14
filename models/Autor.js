@@ -24,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Autor.associate = (models) => {
-
+        /*Autor.belongsTo(models.Historia, {
+            foreignKey: "fkHistoria",
+        });
+        Autor.belongsTo(models.Usuario, {
+            foreignKey: "fkUsuario",
+        });*/
     };
 
     return Autor;

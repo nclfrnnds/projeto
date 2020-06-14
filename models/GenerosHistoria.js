@@ -24,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     GenerosHistoria.associate = (models) => {
-
+        /*GenerosHistoria.belongsTo(models.Historia, {
+            foreignKey: "fkHistoria",
+        });
+        GenerosHistoria.belongsTo(models.Genero, {
+            foreignKey: "fkGenero",
+        });*/
     };
     
     return GenerosHistoria;

@@ -1,3 +1,7 @@
-<footer class="bg-secondary p-4 justify-content-center d-flex fixed-bottom">
+<footer class="bg-light p-4 justify-content-center d-flex fixed-bottom">
+
+            <% if (typeof usuario === "undefined") { %>
+                <a class="nav-link" href="/admin">Admin</a>
+            <% } %>
 
 </footer>

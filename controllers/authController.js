@@ -13,7 +13,11 @@ const authController = {
     },
 
     admin: (req, res) => {
-        return res.render("admin", { title: "Admin" });
+        return res.render("auth/admin", { title: "Admin" });
+    },
+
+    painel: (req, res) => {
+        return res.render("painel", { title: "Painel Admin" });
     },
 
     index: (req, res) => {
