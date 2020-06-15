@@ -9,8 +9,8 @@
 
     <form action="/login" method="POST">
 
-      <label for="nomeUsuario">Nome de usuário</label><br>
-      <input type="email" id="email" name="email" placeholder="E-mail"><br>
+      <label for="login">Usuário ou e-mail</label><br>
+      <input type="login" id="login" name="login" placeholder="Usuário ou e-mail"><br>
 
       <label for="senha">Senha</label><br>
       <input type="password" id="senha" name="senha" placeholder="Senha"><br><br>
@@ -20,8 +20,8 @@
 
     </form>
 
-    <% if( typeof msg !== "undefined") {%>
-    <p><%= msg %></p>
+    <% if( typeof erroLogin !== "undefined") {%>
+    <p><%= erroLogin %></p>
     <% } %>
 
     </main>
