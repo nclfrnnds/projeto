@@ -83,7 +83,7 @@ const historiaController = {
         //const [ capa ] = req.files;
         const historia = await Historia.update({
             titulo,
-            //capa,
+            //capa: capa.filename,
             sinopse,
             fkClassificacao,
             updatedAt: new Date(),
