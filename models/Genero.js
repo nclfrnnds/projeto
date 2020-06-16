@@ -22,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Genero.associate = (models) => {
-        /*Genero.hasMany(models.GenerosHistoria, {
+        /*Genero.hasMany(models.GeneroHistoria, {
             foreignKey: "fkGenero",
         });*/
         Genero.belongsToMany(models.Historia, {
             foreignKey: "fkGenero",
             sourceKey: "id",
             targetKey: "id",
-            through: models.GenerosHistoria,
+            through: models.GeneroHistoria,
         });
     };
 

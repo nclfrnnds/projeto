@@ -34,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         /*Historia.hasMany(models.Autor, {
             foreignKey: "fkHistoria",
         });
-        Historia.hasMany(models.GenerosHistoria, {
+        Historia.hasMany(models.GeneroHistoria, {
             foreignKey: "fkHistoria",
         });
-        Historia.hasMany(models.CategoriasHistoria, {
+        Historia.hasMany(models.CategoriaHistoria, {
             foreignKey: "fkHistoria",
         });*/
         Historia.belongsToMany(models.Usuario, {
@@ -50,13 +50,13 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: "fkHistoria",
             sourceKey: "id",
             targetKey: "id",
-            through: models.GenerosHistoria,
+            through: models.GeneroHistoria,
         });
         Historia.belongsToMany(models.Categoria, {
             foreignKey: "fkHistoria",
             sourceKey: "id",
             targetKey: "id",
-            through: models.CategoriasHistoria,
+            through: models.CategoriaHistoria,
         });
     };
 

@@ -17,7 +17,7 @@ CREATE TABLE `usuarios` (
   `localizacao` VARCHAR(100),
   `emailSecundario` VARCHAR(200) UNIQUE,
   `celular` BIGINT UNIQUE,
-  `moderador` TINYINT,
+  --`moderador` TINYINT,
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );
@@ -90,9 +90,9 @@ CREATE TABLE `categorias` (
 );
 
 -- -----------------------------------------------------
--- Table `generosHistoria`
+-- Table `generosHistorias`
 -- -----------------------------------------------------
-CREATE TABLE `generosHistoria` (
+CREATE TABLE `generosHistorias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `fkHistoria` INT NOT NULL,
   `fkGenero` INT NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE `generosHistoria` (
 );
 
 -- -----------------------------------------------------
--- Table `categoriasHistoria`
+-- Table `categoriasHistorias`
 -- -----------------------------------------------------
-CREATE TABLE `categoriasHistoria` (
+CREATE TABLE `categoriasHistorias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `fkHistoria` INT NOT NULL,
   `fkCategoria` INT NOT NULL,
@@ -135,4 +135,29 @@ CREATE TABLE `autores` (
     REFERENCES `historias` (`id`),
     FOREIGN KEY (`fkUsuario`)
     REFERENCES `usuarios` (`id`)
+);
+
+-- -----------------------------------------------------
+-- Table `permissoes`
+-- -----------------------------------------------------
+CREATE TABLE `permissoes` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `nome` VARCHAR(100) UNIQUE NOT NULL,
+  `createdAt` DATETIME,
+  `updatedAt` DATETIME
+);
+
+-- -----------------------------------------------------
+-- Table `permissoesUsuarios`
+-- -----------------------------------------------------
+CREATE TABLE `permissoesUsuarios` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `fkUsuario` INT NOT NULL,
+  `fkPermissao` INT NOT NULL,
+  `createdAt` DATETIME,
+  `updatedAt` DATETIME,
+    FOREIGN KEY (`fkUsuario`)
+    REFERENCES `usuarios` (`id`),
+    FOREIGN KEY (`fkPermissao`)
+    REFERENCES `permissoes` (`id`)
 );

@@ -15,7 +15,12 @@ const authController = {
     },
 
     admin: (req, res) => {
-        return res.render("auth/admin", { title: "Admin" });
+        const logado = req.session.usuario;
+        if (!logado) {
+            return res.render("auth/admin", { title: "Admin" });
+        } else {
+            return res.redirect("/admin/painel");
+        }
     },
 
     painel: (req, res) => {

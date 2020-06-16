@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const GenerosHistoria = sequelize.define(
-        "GenerosHistoria", {
+    const CategoriaHistoria = sequelize.define(
+        "CategoriaHistoria", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            fkGenero: {
+            fkCategoria: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
@@ -19,18 +19,18 @@ module.exports = (sequelize, DataTypes) => {
             updatedAt: DataTypes.DATE,
         }, {
             timestamps: false,
-            tableName: "generosHistoria",
+            tableName: "categoriasHistorias",
         }
     );
 
-    GenerosHistoria.associate = (models) => {
-        /*GenerosHistoria.belongsTo(models.Historia, {
+    CategoriaHistoria.associate = (models) => {
+        /*CategoriaHistoria.belongsTo(models.Historia, {
             foreignKey: "fkHistoria",
         });
-        GenerosHistoria.belongsTo(models.Genero, {
-            foreignKey: "fkGenero",
-        });*/
+        CategoriaHistoria.belongsTo(models.Categoria, {
+            foreignKey: "fkCategoria",
+        });*/ 
     };
-    
-    return GenerosHistoria;
+
+    return CategoriaHistoria;
 };

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.BIGINT,
                 unique: true,
             },
-            moderador: DataTypes.BOOLEAN,
+            //moderador: DataTypes.BOOLEAN,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {

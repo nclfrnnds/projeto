@@ -22,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Categoria.associate = (models) => {
-        /*Categoria.hasMany(models.CategoriasHistoria, {
+        /*Categoria.hasMany(models.CategoriaHistoria, {
             foreignKey: "fkCategoria",
         });*/
         Categoria.belongsToMany(models.Historia, {
             foreignKey: "fkCategoria",
             sourceKey: "id",
             targetKey: "id",
-            through: models.CategoriasHistoria,
+            through: models.CategoriaHistoria,
         });
     };
 
