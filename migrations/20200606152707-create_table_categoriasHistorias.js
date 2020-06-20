@@ -27,7 +27,7 @@ module.exports = {
         principal: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-    });
+      });
   },
 
   down: (queryInterface, Sequelize) => {

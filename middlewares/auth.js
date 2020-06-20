@@ -1,10 +1,10 @@
 module.exports = (req, res, next) => {
-    const { usuario } = req.session;
+    const { authUsuario } = req.session;
 
-    if (!usuario) {
+    if (!authUsuario) {
         return res.redirect("/");
     }
 
-    res.locals.usuario = usuario;
+    res.locals.authUsuario = authUsuario;
     return next();
 };

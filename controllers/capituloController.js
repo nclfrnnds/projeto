@@ -37,13 +37,14 @@ const capituloController = {
             texto,
             notasIniciais,
             notasFinais,
-        } = req.body;
+        } = req.body; 
+        
+        const historia = await Historia.findByPk(id);
+        const diretorio = historia.diretorio;
 
-        // modificar depois para separar os diretórios por histórias
-        //em vez de deixar tudo no diretório capítulos     
         const nomeArquivoTxt = `${Date.now()}.txt`;
         const caminhoCompletoTxt = 
-            path.join("public", "uploads", "historias", "capitulos",
+            path.join("uploads", "historias", diretorio,
                 nomeArquivoTxt);
         fs.writeFileSync(caminhoCompletoTxt, texto);
 
@@ -70,24 +71,26 @@ const capituloController = {
 
     edit: async (req, res) => {
         const { id, idChapter } = req.params;
-        const capitulo = await Capitulo.findByPk(idChapter, {
-            include: {
-                model: Historia,
-            },
-        });
-        const nomeArquivoTxt = capitulo.texto;
-        const caminhoCompletoTxt =
-            path.join("public", "uploads", "historias", "capitulos",
-                nomeArquivoTxt);
-        const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
-            encoding: "utf-8"
-        });
         const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
             },
         });
-        return res.render("capituloEditar", { title:"Editar capítulo", capitulo, arquivoTxt, historia });
+        const capitulo = await Capitulo.findByPk(idChapter, {
+            include: {
+                model: Historia,
+            },
+        });
+        const diretorio = historia.diretorio;
+        const nomeArquivoTxt = capitulo.texto;
+        const caminhoCompletoTxt =
+            path.join("uploads", "historias", diretorio,
+                nomeArquivoTxt);
+        const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
+            encoding: "utf-8"
+        });
+
+        return res.render("capituloEditar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
     },
 
     update: async (req, res) => {
@@ -99,10 +102,13 @@ const capituloController = {
             notasFinais,
         } = req.body;
         
+        const historia = await Historia.findByPk(id);
         const arquivo = await Capitulo.findByPk(idChapter);
+        const diretorio = historia.diretorio;
         const nomeArquivoTxt = arquivo.texto;
+        
         const caminhoCompletoTxt = 
-            path.join("public", "uploads", "historias", "capitulos",
+            path.join("uploads", "historias", diretorio,
                 nomeArquivoTxt);
         fs.writeFileSync(caminhoCompletoTxt, texto);
 
@@ -144,7 +150,17 @@ const capituloController = {
                 model: Classificacao,
             },
         });
-        return res.render("capitulo", { title: "Capítulo", capitulo, historia });
+
+        const diretorio = historia.diretorio;
+        const nomeArquivoTxt = capitulo.texto;
+        const caminhoCompletoTxt =
+            path.join("uploads", "historias", diretorio,
+                nomeArquivoTxt);
+        const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
+            encoding: "utf-8"
+        });
+
+        return res.render("capitulo", { title: "Capítulo", capitulo, historia, arquivoTxt });
     },
 
 };

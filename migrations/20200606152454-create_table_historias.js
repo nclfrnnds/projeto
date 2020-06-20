@@ -10,12 +10,13 @@ module.exports = {
         },
         fkClassificacao: {
             type: Sequelize.INTEGER,
-            allowNull: true,
+            allowNull: false,
             references: {
                 model: "classificacoes",
                 key: "id",
             },
         },
+        diretorio: Sequelize.STRING(200),
         titulo: Sequelize.STRING(200),
         capa: Sequelize.STRING(200),
         sinopse: Sequelize.TEXT,
@@ -24,7 +25,7 @@ module.exports = {
         visivel: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-    });
+      });
   },
 
   down: (queryInterface, Sequelize) => {

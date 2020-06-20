@@ -34,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.BIGINT,
                 unique: true,
             },
-            //moderador: DataTypes.BOOLEAN,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
@@ -44,14 +43,23 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Usuario.associate = (models) => {
-        /*Usuario.hasMany(models.Autor, {
+        Usuario.hasMany(models.Autor, {
             foreignKey: "fkUsuario",
-        });*/
+        });
+        Usuario.hasMany(models.PermissaoUsuario, {
+            foreignKey: "fkUsuario",
+        });
         Usuario.belongsToMany(models.Historia, {
             foreignKey: "fkUsuario",
             sourceKey: "id",
             targetKey: "id",
             through: models.Autor,
+        });
+        Usuario.belongsToMany(models.Permissao, {
+            foreignKey: "fkUsuario",
+            sourceKey: "id",
+            targetKey: "id",
+            through: models.PermissaoUsuario,
         });
     };
 

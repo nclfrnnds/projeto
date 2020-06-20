@@ -19,7 +19,7 @@ const usuarioController = {
     },
 
     create: (req, res) => {
-        const logado = req.session.usuario;
+        const logado = req.session.authUsuario;
         if (!logado) {
             return res.render("usuarioCadastrar", { title: "Cadastre-se" });
         } else {

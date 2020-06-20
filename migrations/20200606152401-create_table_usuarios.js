@@ -36,10 +36,9 @@ module.exports = {
             type: Sequelize.BIGINT,
             unique: true,
         },
-        //moderador: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-    });
+      });
   },
 
   down: (queryInterface, Sequelize) => {

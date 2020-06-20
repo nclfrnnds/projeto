@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             fkClassificacao: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
+                allowNull: false,
             },
+            diretorio: DataTypes.STRING,
             titulo: DataTypes.STRING,
             capa: DataTypes.STRING,
             sinopse: DataTypes.TEXT,
@@ -31,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
         Historia.hasMany(models.Capitulo, {
             foreignKey: "fkHistoria",
         });
-        /*Historia.hasMany(models.Autor, {
+        Historia.hasMany(models.Autor, {
             foreignKey: "fkHistoria",
         });
-        Historia.hasMany(models.GeneroHistoria, {
+        /*Historia.hasMany(models.GeneroHistoria, {
             foreignKey: "fkHistoria",
         });
         Historia.hasMany(models.CategoriaHistoria, {

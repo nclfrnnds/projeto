@@ -1,7 +1,9 @@
 <header>
     <nav>
         <ul class="bg-light p-2 justify-content-center nav">
-            <% if (typeof usuario === "undefined") { %>
+            
+            <% if (typeof authUsuario === "undefined" && typeof authAdmin === "undefined") { %>
+
             <li class="nav-item">
                 <a class="nav-link" href="/">Início</a>
             </li>
@@ -11,7 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/login">Entre</a>
             </li>
-            <% } else { %>
+
+            <% } else if (typeof authAdmin === "undefined") { %>
+
             <li class="nav-item">
                 <a class="nav-link" href="/home">Início</a>
             </li>
@@ -24,7 +28,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Sair</a>
             </li>
+
+            <% } else if (typeof authUsuario === "undefined") { %>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/painel">Início</a>
+            </li>     
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/logout">Sair</a>
+            </li>
+
             <% } %>
+
         </ul>
     </nav>
 </header>

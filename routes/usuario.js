@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const usuarioController = require("../controllers/usuarioController");
-
 const auth = require("../middlewares/auth");
 const upload = require("../config/upload");
+
+const usuarioController = require("../controllers/usuarioController");
 
 router.get("/", auth, usuarioController.index);
 router.get("/edit/:id", auth, usuarioController.edit);

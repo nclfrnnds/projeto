@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const authAdmin = require("../middlewares/authAdmin");
+
 const generoController = require("../controllers/generoController");
 
-const auth = require("../middlewares/auth");
-
-router.get("/", auth, generoController.index);
-router.get("/new", auth, generoController.create);
-router.post("/new", auth, generoController.store);
-router.get("/edit/:id", auth, generoController.edit);
-router.put("/edit/:id", auth, generoController.update);
-router.delete("/delete/:id", auth, generoController.destroy);
+router.get("/", authAdmin, generoController.index);
+router.get("/new", authAdmin, generoController.create);
+router.post("/new", authAdmin, generoController.store);
+router.get("/edit/:id", authAdmin, generoController.edit);
+router.put("/edit/:id", authAdmin, generoController.update);
+router.delete("/delete/:id", authAdmin, generoController.destroy);
 
 module.exports = router;

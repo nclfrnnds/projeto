@@ -1,4 +1,6 @@
 const { Historia, Classificacao, Autor, Capitulo } = require("../models");
+const fs = require("fs");
+const path = require("path");
 
 const historiaController = {
 
@@ -33,7 +35,10 @@ const historiaController = {
             fkClassificacao,
         } = req.body;
         //const [ capa ] = req.files;
+
+        const diretorio = `${Date.now()}`;
         const historia = await Historia.create({
+            diretorio,
             titulo,
             //capa,
             sinopse,
@@ -48,7 +53,8 @@ const historiaController = {
         if (!historia) {
             return res.render("index", { msg: "Falha ao cadastrar!" });
         }
-        const idUsuario = req.session.usuario.id;
+
+        const idUsuario = req.session.authUsuario.id;
         const autor = await Autor.create({
             fkHistoria: historia.id,
             fkUsuario: idUsuario,
@@ -59,6 +65,12 @@ const historiaController = {
         if (!autor) {
             return res.render("index", { msg: "Falha ao cadastrar!" });
         }
+
+        fs.mkdir(path.join("uploads", "historias", 
+        diretorio), { recursive: true }, (err) => {
+            if (err) throw err;
+        });
+
         return res.redirect("/stories");
     },
 
@@ -108,10 +120,26 @@ const historiaController = {
             where: { fkHistoria: id },
         });
         console.log(autor);
+        
+        /*
+        const historias = await Historia.findByPk(id);
+        const diretorio = historias.diretorio;
+        console.log(diretorio);
+        */
+
         const historia = await Historia.destroy({
             where: { id },
         });
         console.log(historia);
+
+        /*
+        fs.unlink(path.join("uploads", "historias",
+            diretorio), (err) => {
+            if (err) throw err;
+            console.log("Diretório excluído");
+        });
+        */
+
         return res.redirect("/stories");
     },
 

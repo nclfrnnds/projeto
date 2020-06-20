@@ -2,35 +2,34 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.createTable("generosHistorias", { 
+      return queryInterface.createTable("permissoesUsuarios", { 
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        fkHistoria: {
+        fkUsuario: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "historias",
+                model: "usuarios",
                 key: "id",
             },
         },
-        fkGenero: {
+        fkPermissao: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "generos",
+                model: "permissoes",
                 key: "id",
             },
         },
-        principal: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
       });
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable("generosHistorias");
+      return queryInterface.dropTable("permissoesUsuarios");
   }
 };

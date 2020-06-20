@@ -23,7 +23,7 @@ module.exports = {
         visivel: Sequelize.BOOLEAN,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-    });
+      });
   },
 
   down: (queryInterface, Sequelize) => {

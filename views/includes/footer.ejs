@@ -1,7 +1,9 @@
 <footer class="bg-light p-4 justify-content-center d-flex fixed-bottom">
 
-            <% if (typeof usuario === "undefined") { %>
-                <a class="nav-link" href="/admin">Admin</a>
-            <% } %>
+    <% if (typeof authUsuario === "undefined" && typeof authAdmin === "undefined") { %>
+        <a class="nav-link" href="/admin">Admin</a>
+    <% } else if (typeof authUsuario === "undefined") { %>
+        
+    <% } %>
 
 </footer>

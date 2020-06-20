@@ -1,36 +1,35 @@
 module.exports = (sequelize, DataTypes) => {
-    const Autor = sequelize.define(
-        "Autor", {
+    const PermissaoUsuario = sequelize.define(
+        "PermissaoUsuario", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            fkHistoria: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-            },
             fkUsuario: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            principal: DataTypes.BOOLEAN,
+            fkPermissao: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         }, {
             timestamps: false,
-            tableName: "autores",
+            tableName: "permissoesUsuarios",
         }
     );
 
-    Autor.associate = (models) => {
-        Autor.belongsTo(models.Historia, {
-            foreignKey: "fkHistoria",
-        });
-        Autor.belongsTo(models.Usuario, {
+    PermissaoUsuario.associate = (models) => {
+        PermissaoUsuario.belongsTo(models.Usuario, {
             foreignKey: "fkUsuario",
+        });
+        PermissaoUsuario.belongsTo(models.Permissao, {
+            foreignKey: "fkPermissao",
         });
     };
 
-    return Autor;
+    return PermissaoUsuario;
 };

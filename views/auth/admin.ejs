@@ -7,7 +7,7 @@
 
     <h1><%= title %></h1>
 
-    <form action="/login" method="POST">
+    <form action="/admin" method="POST">
 
       <label for="login">Usuário ou e-mail</label><br>
       <input type="login" id="login" name="login" placeholder="Usuário ou e-mail"><br>
@@ -16,8 +16,8 @@
       <input type="password" id="senha" name="senha" placeholder="Senha"><br><br>
 
       <button type="submit">Entrar</button><br><br>
-      <a href="/signup"><button type="button">Cadastrar</button></a>
 
+      
     </form>
 
     <% if( typeof erroLogin !== "undefined") {%>

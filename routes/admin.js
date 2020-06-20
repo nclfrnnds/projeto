@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const authController = require("../controllers/authController");
+const authAdmin = require("../middlewares/authAdmin");
+
+const authAdminController = require("../controllers/authAdminController");
 const generoController = require("../controllers/generoController");
 const categoriaController = require("../controllers/categoriaController");
 const classificacaoController = require("../controllers/classificacaoController");
@@ -10,17 +12,17 @@ const generoRouter = require("../routes/genero");
 const categoriaRouter = require("../routes/categoria");
 const classificacaoRouter = require("../routes/classificacao");
 
-const auth = require("../middlewares/auth");
+router.get("/", authAdminController.create);
+router.post("/", authAdminController.store);
+router.get("/logout", authAdminController.destroy);
+router.get("/painel", authAdmin, authAdminController.index);
 
-router.get("/", authController.admin);
-router.get("/painel", auth, authController.painel);
+router.get("/genres", authAdmin, generoController.index);
+router.get("/categories", authAdmin, categoriaController.index);
+router.get("/ratings", authAdmin, classificacaoController.index);
 
 router.use("/genre", generoRouter);
 router.use("/category", categoriaRouter);
 router.use("/rating", classificacaoRouter);
-
-router.get("/genres", auth, generoController.index);
-router.get("/categories", auth, categoriaController.index);
-router.get("/ratings", auth, classificacaoController.index);
 
 module.exports = router;

@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const authAdmin = require("../middlewares/authAdmin");
+
 const categoriaController = require("../controllers/categoriaController");
 
-const auth = require("../middlewares/auth");
-
-router.get("/", auth, categoriaController.index);
-router.get("/new", auth, categoriaController.create);
-router.post("/new", auth, categoriaController.store);
-router.get("/edit/:id", auth, categoriaController.edit);
-router.put("/edit/:id", auth, categoriaController.update);
-router.delete("/delete/:id", auth, categoriaController.destroy);
+router.get("/", authAdmin, categoriaController.index);
+router.get("/new", authAdmin, categoriaController.create);
+router.post("/new", authAdmin, categoriaController.store);
+router.get("/edit/:id", authAdmin, categoriaController.edit);
+router.put("/edit/:id", authAdmin, categoriaController.update);
+router.delete("/delete/:id", authAdmin, categoriaController.destroy);
 
 module.exports = router;

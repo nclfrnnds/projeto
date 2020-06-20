@@ -17,7 +17,6 @@ CREATE TABLE `usuarios` (
   `localizacao` VARCHAR(100),
   `emailSecundario` VARCHAR(200) UNIQUE,
   `celular` BIGINT UNIQUE,
-  --`moderador` TINYINT,
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );
@@ -37,7 +36,8 @@ CREATE TABLE `classificacoes` (
 -- -----------------------------------------------------
 CREATE TABLE `historias` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `fkClassificacao` INT,
+  `fkClassificacao` INT NOT NULL,
+  `diretorio` VARCHAR(200),
   `titulo` VARCHAR(200),
   `capa` VARCHAR(200),
   `sinopse` TEXT,
