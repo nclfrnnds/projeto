@@ -19,11 +19,12 @@ const usuarioController = {
     },
 
     create: (req, res) => {
-        const logado = req.session.authUsuario;
-        if (!logado) {
-            return res.render("usuarioCadastrar", { title: "Cadastre-se" });
-        } else {
+        if (req.session.authUsuario) {
             return res.redirect("/home");
+        } else if (req.session.authAdmin) {
+            return res.redirect("/admin/painel");
+        } else {
+            return res.render("usuarioCadastrar", { title: "Cadastre-se" });
         }
     },
 

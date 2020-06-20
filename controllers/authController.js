@@ -5,11 +5,12 @@ const { Op } = require("sequelize");
 const authController = {
 
     home: (req, res) => {
-        const logado = req.session.authUsuario;
-        if (!logado) {
-            return res.render("index", { title: "Início" });
-        } else {
+        if (logado = req.session.authUsuario) {
             return res.redirect("/home");
+        } else if (req.session.authAdmin) {
+            return res.redirect("/admin/painel");
+        } else {
+            return res.render("index", { title: "Início" });
         }
     },
 
@@ -18,11 +19,12 @@ const authController = {
     },
 
     create: (req, res) => {
-        const logado = req.session.authUsuario;
-        if (!logado) {
-            return res.render("auth/login", { title: "Entre" });
-        } else {
+        if (req.session.authUsuario) {
             return res.redirect("/home");
+        } else if (req.session.authAdmin) {
+            return res.redirect("/admin/painel");
+        } else {
+            return res.render("auth/login", { title: "Entre" });
         }
     },
 

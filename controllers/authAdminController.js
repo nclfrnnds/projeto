@@ -9,11 +9,12 @@ const authAdminController = {
     },
 
     create: (req, res) => {
-        const logado = req.session.authAdmin;
-        if (!logado) {
-            return res.render("auth/admin", { title: "Admin" });
-        } else {
+        if (req.session.authAdmin) {
             return res.redirect("/admin/painel");
+        } else if (req.session.authUsuario) {
+            return res.redirect("/home");
+        } else {
+            return res.render("auth/admin", { title: "Admin" });
         }
     },
 
