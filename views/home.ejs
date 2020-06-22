@@ -2,15 +2,23 @@
 <html lang="pt-br">
 <%- include("includes/head") %>
   <body>
+    <div class="corpoPrincipal">
 <%- include("includes/header") %>
-    <main class="container">
+    <main class="conteudoPrincipal">
 
     <h1><%= title %></h1>
 
     <p>Bem vindo, @<%= authUsuario.nomeUsuario %></p>
 
+    <a href="/settings"><button type="button">Configurações</button></a><br><br>
+
+    <form action="/delete/<%= authUsuario.id %>?_method=DELETE" method="POST">
+      <button type="submit">Excluir conta</button>
+    </form>
+
     </main>
 <%- include("includes/footer") %>
 <%- include("includes/scripts") %>
+    </div>
   </body>
 </html>

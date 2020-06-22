@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../includes/head") %>
+  <body>
+    <div class="corpoPrincipal">
+<%- include("../includes/header") %>
+    <main class="conteudoPrincipal">
+
+    <h1><%= title %></h1>
+
+    <p><%= usuario.id %></p>
+    <p><%= usuario.nomeUsuario %></p>
+    <p><%= usuario.email %></p>
+    <p><%= usuario.senha %></p>
+    <p><%= usuario.nome %></p>
+    <p><%= usuario.avatar %></p>
+    <p><%= usuario.descricao %></p>
+    <p><%= usuario.dataNascimento %></p>
+    <p><%= usuario.genero %></p>
+    <p><%= usuario.localizacao %></p>
+    <p><%= usuario.emailSecundario %></p>
+    <p><%= usuario.celular %></p>
+    <p><%= usuario.createdAt %></p>
+    <p><%= usuario.updatedAt %></p>
+
+    </main>
+<%- include("../includes/footer") %>
+<%- include("../includes/scripts") %>
+    </div>
+  </body>
+</html>

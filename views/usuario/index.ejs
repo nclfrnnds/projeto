@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../includes/head") %>
+  <body>
+    <div class="corpoPrincipal">
+<%- include("../includes/header") %>
+    <main class="conteudoPrincipal">
+
+    <h1><%= title %></h1>
+
+    <table class="tabelaDados">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Usuário</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% usuarios.forEach(usuario => { %>
+        <tr>
+          <th scope="row"> <%= usuario.id %></th>
+          <th> <%= usuario.nomeUsuario %></th>
+          <th>
+
+            <% if (typeof authUsuario === "undefined") { %>
+
+            <a href="/user/<%= usuario.nomeUsuario %>"><button type="button">Ver</button></a>
+            <a href="/admin/user/edit/<%= usuario.id %>"><button type="button">Editar</button></a>
+            <form action="/admin/user/delete/<%= usuario.id %>?_method=DELETE" method="POST">
+              <button type="submit">Excluir</button>              
+            </form>
+
+            <% } else if (typeof authAdmin === "undefined") { %>
+
+            <a href="/user/<%= usuario.nomeUsuario %>"><button type="button">Ver</button></a>
+
+            <% } %>
+
+          </th>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    </main>
+<%- include("../includes/footer") %>
+<%- include("../includes/scripts") %>
+    </div>
+  </body>
+</html>

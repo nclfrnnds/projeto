@@ -4,7 +4,7 @@ const classificacaoController = {
 
     index: async (req, res) => {
         const classificacoes = await Classificacao.findAll();
-        return res.render("classificacoes", { title: "Classificações", classificacoes });
+        return res.render("admin/classificacao/index", { title: "Classificações", classificacoes });
 
         /*
         const { page = 1 } = req.query;
@@ -13,12 +13,12 @@ const classificacaoController = {
             offset: (page - 1) * 5,
         });
         const totalPaginas = Math.round(total/5);
-        return res.render("classificacoes", { title: "Classificações", classificacoes, totalPaginas });
+        return res.render("admin/classificacao/index", { title: "Classificações", classificacoes, totalPaginas });
         */
     },
 
     create: (req, res) => {
-        return res.render("classificacaoCadastrar", { title: "Cadastrar Classificação" });
+        return res.render("admin/classificacao/cadastrar", { title: "Cadastrar Classificação" });
     },
 
     store: async (req, res) => {
@@ -37,7 +37,7 @@ const classificacaoController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const classificacao = await Classificacao.findByPk(id);
-        return res.render("classificacaoEditar", { title:"Editar classificação", classificacao });
+        return res.render("admin/classificacao/editar", { title:"Editar classificação", classificacao });
     },
 
     update: async (req, res) => {

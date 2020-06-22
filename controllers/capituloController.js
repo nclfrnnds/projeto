@@ -4,20 +4,42 @@ const path = require("path");
 
 const capituloController = {
 
-    index: async (req, res) => {        
-        const { id } = req.params;
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
-        });
-        const capitulos = await Capitulo.findAll({
-            where: { fkHistoria: id },
-            include: {
-                model: Historia,
-            },
-        });
-        return res.render("capitulos", { title: "Capítulos", historia, capitulos });
+    index: async (req, res) => {
+        
+        if (req.session.authUsuario) {
+
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { id } = req.params;
+            const historia = await Historia.findByPk(id, {
+                include: {
+                    model: Classificacao,
+                },
+            });
+            const capitulos = await Capitulo.findAll({
+                where: { fkHistoria: id },
+                include: {
+                    model: Historia,
+                },
+            });
+            return res.render("capitulo/listar", { title: "Capítulos", historia, capitulos });
+
+        } else if (req.session.authAdmin) {
+
+            const { id } = req.params;
+            const historia = await Historia.findByPk(id, {
+                include: {
+                    model: Classificacao,
+                },
+            });
+            const capitulos = await Capitulo.findAll({
+                where: { fkHistoria: id },
+                include: {
+                    model: Historia,
+                },
+            });
+            return res.render("capitulo/listar", { title: "Capítulos", historia, capitulos });
+
+        }
     },
 
     create: async (req, res) => {
@@ -27,7 +49,7 @@ const capituloController = {
                 model: Classificacao,
             },
         });
-        return res.render("capituloPublicar", { title: "Publicar Capítulo", historia });
+        return res.render("capitulo/publicar", { title: "Publicar Capítulo", historia });
     },
 
     store: async (req, res) => {
@@ -76,11 +98,13 @@ const capituloController = {
                 model: Classificacao,
             },
         });
+
         const capitulo = await Capitulo.findByPk(idChapter, {
             include: {
                 model: Historia,
             },
         });
+
         const diretorio = historia.diretorio;
         const nomeArquivoTxt = capitulo.texto;
         const caminhoCompletoTxt =
@@ -90,7 +114,7 @@ const capituloController = {
             encoding: "utf-8"
         });
 
-        return res.render("capituloEditar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
+        return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
     },
 
     update: async (req, res) => {
@@ -130,21 +154,38 @@ const capituloController = {
     },
 
     destroy: async(req, res) => {
-        const { id, idChapter } = req.params;
-        const capitulo = await Capitulo.destroy({
-            where: { id: idChapter },
-        });
-        console.log(capitulo);
-        return res.redirect(`/story/${id}/chapters`);
+
+        if (req.session.authUsuario) {
+
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { id, idChapter } = req.params;
+            const capitulo = await Capitulo.destroy({
+                where: { id: idChapter },
+            });
+            console.log(capitulo);
+            return res.redirect(`/story/${id}/chapters`);
+
+        } else if (req.session.authAdmin) {
+
+            const { id, idChapter } = req.params;
+            const capitulo = await Capitulo.destroy({
+                where: { id: idChapter },
+            });
+            console.log(capitulo);
+            return res.redirect(`/story/${id}/chapters`);
+
+        }
     },
 
     findById: async (req, res) => {
         const { id, idChapter } = req.params;
+
         const capitulo = await Capitulo.findByPk(idChapter, {
             include: {
                 model: Historia,
             },
         });
+
         const historia = await Historia.findByPk(id, {
             include: {
                 model: Classificacao,
@@ -153,14 +194,16 @@ const capituloController = {
 
         const diretorio = historia.diretorio;
         const nomeArquivoTxt = capitulo.texto;
+
         const caminhoCompletoTxt =
             path.join("uploads", "historias", diretorio,
                 nomeArquivoTxt);
+                
         const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
             encoding: "utf-8"
         });
 
-        return res.render("capitulo", { title: "Capítulo", capitulo, historia, arquivoTxt });
+        return res.render("capitulo/ver", { title: "Capítulo", capitulo, historia, arquivoTxt });
     },
 
 };

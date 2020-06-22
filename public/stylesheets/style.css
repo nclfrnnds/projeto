@@ -1,5 +1,138 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap"); /* Tinos */
+/* @import url("https://fonts.googleapis.com/css2?family=Neuton&display=swap"); /* Neuton */
+/* @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap"); /* Source Serif Pro */
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap"); /* Noto Sans SC */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap"); /* Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap"); /* Lato */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"); /* Noto Sans JP */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); /* Open Sans */
+
+body {
+    background: #ffffff;
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    text-align: left;
+    margin: 0;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.corpoPrincipal {
+    background: #eeeeee;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudoPrincipal { 
+    background: #ffffff;
+    width: 100%;
+    margin: 0px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.topoPrincipal {
+    display: flex;
+    height: 60px; /*10vh;*/
+    background: #405DED;
+    justify-content: center;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.topoPrincipal a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.topoPrincipal nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.topoPrincipal nav ul li {
+    display: block;
+    padding: 20px;
+}
+
+/* FOOTER */
+
+.rodapePrincipal {
+    display: flex;
+    height: 80px; /*15vh;*/
+    background: #379AE6;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.rodapePrincipal a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* TABELAS DOS DADOS */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 2px;
+}
+
+.tabelaDados {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.tabelaDados td,
+.tabelaDados th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+th {
+    display: table-cell;
+    font-weight: bold;
+}
+
+
+@media (min-width: 1200px) {
+    .conteudoPrincipal {
+        max-width: 1140px;
+    }
+}
+
 /*
-nav {
-    background: var(--red);
+@media (min-width: 992px) {
+    .conteudoPrincipal {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px) {
+    .conteudoPrincipal {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .conteudoPrincipal {
+        max-width: 540px;
+    }
 }
 */

@@ -1,8 +1,12 @@
-<footer class="bg-light p-4 justify-content-center d-flex fixed-bottom">
+<footer class="rodapePrincipal">
 
     <% if (typeof authUsuario === "undefined" && typeof authAdmin === "undefined") { %>
-        <a class="nav-link" href="/admin">Admin</a>
+
+        <a href="/admin">Admin</a>
+
     <% } else if (typeof authUsuario === "undefined") { %>
+
+        
         
     <% } %>
 

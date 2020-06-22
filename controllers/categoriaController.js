@@ -4,7 +4,7 @@ const categoriaController = {
 
     index: async (req, res) => {
         const categorias = await Categoria.findAll();
-        return res.render("categorias", { title: "Categorias", categorias });
+        return res.render("admin/categoria/index", { title: "Categorias", categorias });
 
         /*
         const { page = 1 } = req.query;
@@ -13,12 +13,12 @@ const categoriaController = {
             offset: (page - 1) * 5,
         });
         const totalPaginas = Math.round(total/5);
-        return res.render("categorias", { title: "Categorias", categorias, totalPaginas });
+        return res.render("admin/categoria/index", { title: "Categorias", categorias, totalPaginas });
         */
     },
 
     create: (req, res) => {
-        return res.render("categoriaCadastrar", { title: "Cadastrar Categoria" });
+        return res.render("admin/categoria/cadastrar", { title: "Cadastrar Categoria" });
     },
 
     store: async (req, res) => {
@@ -38,7 +38,7 @@ const categoriaController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const categoria = await Categoria.findByPk(id);
-        return res.render("categoriaEditar", { title:"Editar categoria", categoria });
+        return res.render("admin/categoria/editar", { title:"Editar categoria", categoria });
     },
 
     update: async (req, res) => {

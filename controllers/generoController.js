@@ -4,7 +4,7 @@ const generoController = {
 
     index: async (req, res) => {
         const generos = await Genero.findAll();
-        return res.render("generos", { title: "Gêneros", generos });
+        return res.render("admin/genero/index", { title: "Gêneros", generos });
 
         /*
         const { page = 1 } = req.query;
@@ -13,12 +13,12 @@ const generoController = {
             offset: (page - 1) * 5,
         });
         const totalPaginas = Math.round(total/5);
-        return res.render("generos", { title: "Gêneros", generos, totalPaginas });
+        return res.render("admin/genero/index", { title: "Gêneros", generos, totalPaginas });
         */
     },
 
     create: (req, res) => {
-        return res.render("generoCadastrar", { title: "Cadastrar Gênero" });
+        return res.render("admin/genero/cadastrar", { title: "Cadastrar Gênero" });
     },
 
     store: async (req, res) => {
@@ -38,7 +38,7 @@ const generoController = {
     edit: async (req, res) => {
         const { id } = req.params;
         const genero = await Genero.findByPk(id);
-        return res.render("generoEditar", { title:"Editar gênero", genero });
+        return res.render("admin/genero/editar", { title:"Editar gênero", genero });
     },
 
     update: async (req, res) => {

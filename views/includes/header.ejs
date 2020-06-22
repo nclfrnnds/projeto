@@ -1,50 +1,28 @@
-<header>
+<header class="topoPrincipal">
     <nav>
-        <ul class="bg-light p-2 justify-content-center nav">
+        
+        <ul>
             
             <% if (typeof authUsuario === "undefined" && typeof authAdmin === "undefined") { %>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Cadastre-se</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Entre</a>
-            </li>
+            <li><a href="/">Início</a></li>
+            <li><a href="/signup">Cadastre-se</a></li>
+            <li><a href="/login">Entre</a></li>
 
             <% } else if (typeof authAdmin === "undefined") { %>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/home">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/stories">Histórias</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/users">Usuários</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Sair</a>
-            </li>
+            <li><a href="/home">Início</a></li>
+            <li><a href="/stories">Histórias</a></li>
+            <li><a href="/users">Usuários</a></li>
+            <li><a href="/logout">Sair</a></li>
 
             <% } else if (typeof authUsuario === "undefined") { %>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/painel">Início</a>
-            </li>     
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/logout">Sair</a>
-            </li>
+            <li><a href="/admin/painel">Início</a></li>     
+            <li><a href="/admin/logout">Sair</a></li>
 
             <% } %>
 
         </ul>
     </nav>
 </header>
-
-
-
-
-

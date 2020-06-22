@@ -5,27 +5,32 @@ const path = require("path");
 const historiaController = {
 
     index: async (req, res) => {
-        const historias = await Historia.findAll({
-            include: {
-                model: Classificacao,
-            },
-        });
-        return res.render("historias", { title: "Histórias", historias });
 
-        /*
-        const { page = 1 } = req.query;
-        const { count:total, rows:historias } = await Historia.findAndCountAll({
-            limit: 5,
-            offset: (page - 1) * 5,
-        });
-        const totalPaginas = Math.round(total/5);
-        return res.render("historias", { title: "Histórias", historias, totalPaginas });
-        */
+        if (req.session.authUsuario) {
+
+            const sessaoUsuario = req.session.authUsuario.id;
+            const historias = await Historia.findAll({
+                include: {
+                    model: Classificacao,
+                },
+            });
+            return res.render("historia/listar", { title: "Histórias", historias });
+
+        } else if (req.session.authAdmin) {
+
+            const historias = await Historia.findAll({
+                include: {
+                    model: Classificacao,
+                },
+            });
+            return res.render("historia/listar", { title: "Histórias", historias });
+
+        }
     },
 
     create: async (req, res) => {
         const classificacoes = await Classificacao.findAll();
-        return res.render("historiaPublicar", { title: "Publicar História", classificacoes });
+        return res.render("historia/publicar", { title: "Publicar História", classificacoes });
     },
 
     store: async (req, res) => {
@@ -82,7 +87,7 @@ const historiaController = {
             },
         });
         const classificacoes = await Classificacao.findAll();
-        return res.render("historiaEditar", { title:"Editar história", historia, classificacoes });
+        return res.render("historia/editar", { title:"Editar história", historia, classificacoes });
     },
 
     update: async (req, res) => {
@@ -111,36 +116,75 @@ const historiaController = {
     },
 
     destroy: async(req, res) => {
-        const { id } = req.params;
-        const capitulos = await Capitulo.destroy({
-            where: { fkHistoria: id },
-        });
-        console.log(capitulos);
-        const autor = await Autor.destroy({
-            where: { fkHistoria: id },
-        });
-        console.log(autor);
-        
-        /*
-        const historias = await Historia.findByPk(id);
-        const diretorio = historias.diretorio;
-        console.log(diretorio);
-        */
 
-        const historia = await Historia.destroy({
-            where: { id },
-        });
-        console.log(historia);
+        if (req.session.authUsuario) {
 
-        /*
-        fs.unlink(path.join("uploads", "historias",
-            diretorio), (err) => {
-            if (err) throw err;
-            console.log("Diretório excluído");
-        });
-        */
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { id } = req.params;
+            const capitulos = await Capitulo.destroy({
+                where: { fkHistoria: id },
+            });
+            console.log(capitulos);
+            const autor = await Autor.destroy({
+                where: { fkHistoria: id },
+            });
+            console.log(autor);
+            
+            /*
+            const historias = await Historia.findByPk(id);
+            const diretorio = historias.diretorio;
+            console.log(diretorio);
+            */
 
-        return res.redirect("/stories");
+            const historia = await Historia.destroy({
+                where: { id },
+            });
+            console.log(historia);
+
+            /*
+            fs.unlink(path.join("uploads", "historias",
+                diretorio), (err) => {
+                if (err) throw err;
+                console.log("Diretório excluído");
+            });
+            */
+
+            return res.redirect("/stories");
+
+        } else if (req.session.authAdmin) {
+
+            const { id } = req.params;
+            const capitulos = await Capitulo.destroy({
+                where: { fkHistoria: id },
+            });
+            console.log(capitulos);
+            const autor = await Autor.destroy({
+                where: { fkHistoria: id },
+            });
+            console.log(autor);
+            
+            /*
+            const historias = await Historia.findByPk(id);
+            const diretorio = historias.diretorio;
+            console.log(diretorio);
+            */
+
+            const historia = await Historia.destroy({
+                where: { id },
+            });
+            console.log(historia);
+
+            /*
+            fs.unlink(path.join("uploads", "historias",
+                diretorio), (err) => {
+                if (err) throw err;
+                console.log("Diretório excluído");
+            });
+            */
+
+            return res.redirect("/stories");
+
+        }
     },
 
     findById: async (req, res) => {
@@ -150,7 +194,7 @@ const historiaController = {
                 model: Classificacao,
             },
         });
-        return res.render("historia", { title: "História", historia });
+        return res.render("historia/ver", { title: "História", historia });
     },
 
 };

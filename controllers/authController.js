@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 const authController = {
 
     home: (req, res) => {
-        if (logado = req.session.authUsuario) {
+        if (req.session.authUsuario) {
             return res.redirect("/home");
         } else if (req.session.authAdmin) {
             return res.redirect("/admin/painel");

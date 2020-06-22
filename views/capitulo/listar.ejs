@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../includes/head") %>
+  <body>
+    <div class="corpoPrincipal">
+<%- include("../includes/header") %>
+    <main class="conteudoPrincipal">
+
+    <h1><%= title %></h1>
+
+    <p><a href="/story/<%= historia.id %>/chapter/new"><button type="button">Novo capítulo</button></a></p>
+
+    <table class="tabelaDados">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Capítulo</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% capitulos.forEach(capitulo => { %>
+        <tr>
+          <th scope="row"> <%= capitulo.id %></th>
+          <th> <%= capitulo.titulo %></th>
+          <th>
+            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>"><button type="button">Ver</button></a>
+            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/edit"><button type="button">Editar</button></a>
+            <form action="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/delete?_method=DELETE" method="POST">
+              <button type="submit">Excluir</button>
+            </form>
+          </th>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    </main>
+<%- include("../includes/footer") %>
+<%- include("../includes/scripts") %>
+    </div>
+  </body>
+</html>
