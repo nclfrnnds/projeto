@@ -2,18 +2,18 @@
 <html lang="pt-br">
 <%- include("includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainConfiguracoes">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloConfiguracoes"><%= title %></h1>
 
     <p>Bem vindo, @<%= authUsuario.nomeUsuario %></p>
 
-    <a href="/settings"><button type="button">Configurações</button></a><br><br>
+    <a href="/settings"><button type="button" class="btnUsuario">Configurações</button></a><br><br>
 
     <form action="/delete/<%= authUsuario.id %>?_method=DELETE" method="POST">
-      <button type="submit">Excluir conta</button>
+      <button type="submit" class="btnExcluir">Excluir conta</button>
     </form>
 
     </main>

@@ -2,16 +2,16 @@
 <html lang="pt-br">
 <%- include("../../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainCadastrarClassificacao">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloCadastrarClassificacao"><%= title %></h1>
 
     <form action="/admin/rating/new" method="POST">
       <input type="text" id="nome" name="nome" placeholder="Classificação">
-      <button type="submit">Cadastrar</button>
-      <a href="/admin/ratings"><button type="button">Cancelar</button></a>
+      <button type="submit" class="btnCadastrar">Cadastrar</button>
+      <a href="/admin/ratings"><button type="button" class="btnCancelar">Cancelar</button></a>
     </form>
 
     </main>

@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainEditarUsuario">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloEditarUsuario"><%= title %></h1>
 
     <% if (typeof authUsuario === "undefined") { %>
     <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
@@ -66,25 +66,23 @@
       <input type="tel" id="celular" name="celular" placeholder="Celular" value="<%= usuario.celular %>"><br><br>
       -->
       
-      <button type="submit">Salvar alterações</button><br><br>
+      <button type="submit" class="btnSalvar">Salvar alterações</button><br><br>
 
     </form>
 
       <% if (typeof authUsuario === "undefined") { %>
 
-      <a href="/admin/users"><button type="button">Cancelar</button></a>
+      <a href="/admin/users"><button type="button" class="btnCancelar">Cancelar</button></a>
 
       <% } else if (typeof authAdmin === "undefined") { %>
 
-      <a href="/home"><button type="button">Cancelar</button></a><br><br>
+      <a href="/home"><button type="button" class="btnCancelar">Cancelar</button></a><br><br>
 
       <form action="/delete/<%= authUsuario.id %>?_method=DELETE" method="POST">
-        <button type="submit">Excluir conta</button>
+        <button type="submit" class="btnExcluir">Excluir conta</button>
       </form>
 
       <% } %>
-
-    <br><br><br><br>
 
     </main>
 <%- include("../includes/footer") %>

@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainPublicarHistoria">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloPublicarHistoria"><%= title %></h1>
 
     <form action="/story/new" method="POST">
 
@@ -28,12 +28,10 @@
       </select>
       <br><br>
 
-      <button type="submit">Publicar</button><br><br>
-      <a href="/stories"><button type="button">Cancelar</button></a>
+      <button type="submit" class="btnCadastrar">Publicar</button><br><br>
+      <a href="/stories"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>
-
-    <br><br><br><br>
 
     </main>
 <%- include("../includes/footer") %>

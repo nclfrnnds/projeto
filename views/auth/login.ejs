@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainLogin">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloLogin"><%= title %></h1>
 
     <form action="/login" method="POST">
 
@@ -16,8 +16,8 @@
       <label for="senha">Senha</label><br>
       <input type="password" id="senha" name="senha" placeholder="Senha"><br><br>
 
-      <button type="submit">Entrar</button><br><br>
-      <a href="/signup"><button type="button">Cadastrar</button></a>
+      <button type="submit" class="btnEntrar">Entrar</button><br><br>
+      <a href="/signup"><button type="button" class="btnUsuario">Cadastrar</button></a>
 
     </form>
 

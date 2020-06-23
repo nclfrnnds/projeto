@@ -2,17 +2,17 @@
 <html lang="pt-br">
 <%- include("../../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainEditarGenero">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloEditarGenero"><%= title %></h1>
 
     <form action="/admin/genre/edit/<%= genero.id %>?_method=PUT" method="POST">
       <input type="text" id="nome" name="nome" placeholder="Gênero" value="<%= genero.nome %>">
       <input type="text" id="descricao" name="descricao" placeholder="Descrição" value="<%= genero.descricao %>">
-      <button type="submit">Salvar alterações</button>
-      <a href="/admin/genres"><button type="button">Cancelar</button></a>
+      <button type="submit" class="btnSalvar">Salvar alterações</button>
+      <a href="/admin/genres"><button type="button" class="btnCancelar">Cancelar</button></a>
     </form>
 
     </main>

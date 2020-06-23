@@ -2,38 +2,34 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainListarHistorias">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloListarHistorias"><%= title %></h1>
 
-    <p><a href="/story/new"><button type="button">Publicar</button></a></p>
+    <p><a href="/story/new"><button type="button" class="btnAdicionar">Nova história</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">História</th>
           <th scope="col">Ações</th>
         </tr>
-      </thead>
-      <tbody>
         <% historias.forEach(historia => { %>
         <tr>
           <th scope="row"> <%= historia.id %></th>
           <th> <%= historia.titulo %></th>
           <th>
-            <a href="/story/<%= historia.id %>/chapters"><button type="button">Capítulos</button></a>
-            <a href="/story/<%= historia.id %>"><button type="button">Ver</button></a>
-            <a href="/story/<%= historia.id %>/edit"><button type="button">Editar</button></a>
+            <a href="/story/<%= historia.id %>"><button type="button" class="btnLer">Ler</button></a>
+            <a href="/story/<%= historia.id %>/chapters"><button type="button" class="btnCapitulos">Capítulos</button></a>
+            <a href="/story/<%= historia.id %>/edit"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/story/<%= historia.id %>/delete?_method=DELETE" method="POST">
-              <button type="submit">Excluir</button>
+              <button type="submit" class="btnExcluir">Excluir</button>
             </form>
           </th>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

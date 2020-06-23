@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainEditarHistoria">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloEditarHistoria"><%= title %></h1>
 
     <form action="/story/<%= historia.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
 
@@ -32,12 +32,10 @@
       </select>
       <br><br>
 
-      <button type="submit">Salvar alterações</button><br><br>
-      <a href="/stories"><button type="button">Cancelar</button></a>
+      <button type="submit" class="btnSalvar">Salvar alterações</button><br><br>
+      <a href="/stories"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>
-
-    <br><br><br><br>
 
     </main>
 <%- include("../includes/footer") %>

@@ -2,13 +2,13 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainListarCapitulos">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloListarCapitulos"><%= title %></h1>
 
-    <p><a href="/story/<%= historia.id %>/chapter/new"><button type="button">Novo capítulo</button></a></p>
+    <p><a href="/story/<%= historia.id %>/chapter/new"><button type="button" class="btnAdicionar">Novo capítulo</button></a></p>
 
     <table class="tabelaDados">
       <thead>
@@ -24,10 +24,10 @@
           <th scope="row"> <%= capitulo.id %></th>
           <th> <%= capitulo.titulo %></th>
           <th>
-            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>"><button type="button">Ver</button></a>
-            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/edit"><button type="button">Editar</button></a>
+            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>"><button type="button" class="btnLer">Ler</button></a>
+            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/edit"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/delete?_method=DELETE" method="POST">
-              <button type="submit">Excluir</button>
+              <button type="submit" class="btnExcluir">Excluir</button>
             </form>
           </th>
         </tr>

@@ -2,19 +2,19 @@
 <html lang="pt-br">
 <%- include("includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainPainelAdmin">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloPainelAdmin"><%= title %></h1>
 
     <p>Bem vindo, @<%= authAdmin.nomeUsuario %></p>
 
-      <a href="/admin/users"><button type="button">Usuários</button></a><br><br>
-      <a href="/admin/stories"><button type="button">Histórias</button></a><br><br>
-      <a href="/admin/genres"><button type="button">Gêneros</button></a><br><br>
-      <a href="/admin/categories"><button type="button">Categorias</button></a><br><br>
-      <a href="/admin/ratings"><button type="button">Classificações</button></a><br><br>
+      <a href="/admin/users"><button type="button" class="btnAdmin">Usuários</button></a><br><br>
+      <a href="/admin/stories"><button type="button" class="btnAdmin">Histórias</button></a><br><br>
+      <a href="/admin/genres"><button type="button" class="btnAdmin">Gêneros</button></a><br><br>
+      <a href="/admin/categories"><button type="button" class="btnAdmin">Categorias</button></a><br><br>
+      <a href="/admin/ratings"><button type="button" class="btnAdmin">Classificações</button></a><br><br>
 
     </main>
 <%- include("includes/footer") %>

@@ -2,13 +2,13 @@
 <html lang="pt-br">
 <%- include("../../includes/head") %>
   <body>
-    <div class="corpoPrincipal">
+    <div class="divPrincipal">
 <%- include("../../includes/header") %>
-    <main class="conteudoPrincipal">
+    <main class="mainPrincipal mainListarClassificacoes">
 
-    <h1><%= title %></h1>
+    <h1 class="tituloListarClassificacoes"><%= title %></h1>
 
-    <p><a href="/admin/rating/new"><button type="button">Adicionar</button></a></p>
+    <p><a href="/admin/rating/new"><button type="button" class="btnAdicionar">Adicionar</button></a></p>
 
     <table class="tabelaDados">
       <thead>
@@ -24,9 +24,9 @@
           <th scope="row"> <%= classificacao.id %></th>
           <th> <%= classificacao.nome %></th>
           <th>
-            <a href="/admin/rating/edit/<%= classificacao.id %>"><button type="button">Editar</button></a>
+            <a href="/admin/rating/edit/<%= classificacao.id %>"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/admin/rating/delete/<%= classificacao.id %>?_method=DELETE" method="POST">
-              <button type="submit">Excluir</button>
+              <button type="submit" class="btnExcluir">Excluir</button>
             </form>
           </th>
         </tr>

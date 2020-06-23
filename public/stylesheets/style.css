@@ -8,6 +8,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"); /* Noto Sans JP */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); /* Open Sans */
 
+/*
+4 values: top right bottom left
+3 values: top right bottom
+2 values: top right
+1 values: all
+*/
+
 body {
     background: #ffffff;
     font-family: "Lato", Arial, Helvetica, sans-serif;
@@ -19,72 +26,132 @@ body {
     margin: 0;
 }
 
-button, input, optgroup, select, textarea {
-    margin: 0;
+p {
+    line-height: 1.5;
+    margin: 20;
+}
+
+h1 {
+    margin: 20;
+}
+
+label {
+    line-height: 2.5;
+}
+
+button, 
+input, 
+optgroup, 
+select, 
+textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    margin: 0;
 }
 
-.corpoPrincipal {
+.divPrincipal {
     background: #eeeeee;
     display: flex;
     flex-direction: column;
 }
 
-.conteudoPrincipal { 
+.mainPrincipal { 
     background: #ffffff;
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* HEADER */
+.mainPrincipal h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #473ED6;
+}
 
-.topoPrincipal {
+/* HEADER DA PÁGINA (TOPO) */
+
+.headerPrincipal {
     display: flex;
+    justify-content: center;
+    align-content: center;
     height: 60px; /*10vh;*/
     background: #405DED;
-    justify-content: center;
-    align-items: center;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
 }
 
-.topoPrincipal a {
+.headerPrincipal a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 1.25rem;
 }
 
-.topoPrincipal nav ul {
+.conteudoTopo {
     display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 1140px;
+}
+
+.conteudoTopo ul {
+    display: flex;
+    align-content: center;
     flex-wrap: wrap;
     list-style: none;
 }
 
-.topoPrincipal nav ul li {
+.conteudoTopo ul li {
     display: block;
-    padding: 20px;
+    align-self: center;
+    padding-right: 20px;
 }
 
-/* FOOTER */
+/* ITENS DO TOPO */
 
-.rodapePrincipal {
+.logoTopo {
+    align-self: center;
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+/*
+#btnMenuTopo {
+    display: none;
+}
+
+label[for="btnMenuTopo"] {
+    visibility: hidden;
+    align-self: center;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+*/
+
+/* FOOTER DA PÁGINA (RODAPÉ) */
+
+.footerPrincipal {
     display: flex;
-    height: 80px; /*15vh;*/
-    background: #379AE6;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    height: 120px; /*15vh;*/
+    background: #379AE6;
 }
 
-.rodapePrincipal a {
+.footerPrincipal a {
     color: #ffffff;
     text-decoration: none;
 }
+
+/* ITENS DO RODAPÉ */
+
+
 
 /* TABELAS DOS DADOS */
 
@@ -110,29 +177,174 @@ th {
     font-weight: bold;
 }
 
+/* PÁGINA INDEX */
 
-@media (min-width: 1200px) {
-    .conteudoPrincipal {
+.msgInicio {
+    color: #379AE6;
+    font-size: 4rem;
+    line-height: 1.5;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+.imgInicio {
+    max-width: 100%;
+}
+
+/* PÁGINA DE LOGIN */
+
+.mainLogin,
+.mainLoginAdmin {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainLogin form,
+.mainLoginAdmin form {
+    align-self: center;
+    background: #ffffff;
+    width: 50%;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 20px;
+    margin: 20px;
+    border: solid 1px #999999;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 3px 3px 3px 3px #eeeeee
+}
+
+.mainLogin form label,
+.mainLoginAdmin form label {
+    line-height: 2.5;
+}
+
+/* PÁGINA DE CADASTRO */
+
+
+
+/* USUÁRIO */
+
+
+
+/* HISTÓRIA */
+
+
+
+/* CAPÍTULO */
+
+
+
+/* BOTÕES */
+
+.btnVisualizar,
+.btnLer,
+.btnEditar,
+.btnCapitulos,
+.btnCancelar,
+.btnEnviar,
+.btnAdicionar, 
+.btnUsuario,
+.btnAdmin,
+.btnCadastrar,
+.btnSalvar,
+.btnExcluir,
+.btnEntrar {
+    background: white;
+    cursor: pointer;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 480px) {
+
+    .mainPrincipal {
         max-width: 1140px;
     }
-}
 
-/*
-@media (min-width: 992px) {
-    .conteudoPrincipal {
-        max-width: 960px;
+    .conteudoTopo {
+        max-width: 1140px;
     }
-}
 
-@media (min-width: 768px) {
-    .conteudoPrincipal {
-        max-width: 720px;
-    }
 }
 
 @media (min-width: 576px) {
-    .conteudoPrincipal {
-        max-width: 540px;
-    }
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+ 
+}
+
+@media (min-width: 1200px) {
+
+}
+
+/********************/
+
+/*
+.mainInicio,
+.mainErro404,
+.mainPainelAdmin,
+.mainConfiguracoes,
+.mainNovaCategoria,
+.mainEditarCategoria,
+.mainListarCategorias,
+.mainCadastrarClassificacao,
+.mainEditarClassificacao,
+.mainListarClassificacoes,
+.mainCadastrarGenero,
+.mainEditarGenero,
+.mainListarGeneros,
+.mainLoginAdmin,
+.mainLogin,
+.mainEditarCapitulo,
+.mainPublicarCapitulo,
+.mainListarCapitulos,
+.mainCapitulo,
+.mainEditarHistoria,
+.mainPublicarHistoria,
+.mainListarHistorias,
+.mainHistoria,
+.mainCadastrarUsuario,
+.mainEditarUsuario,
+.mainListarUsuarios,
+.mainUsuario {  
+}
+*/
+
+/*
+.tituloInicio,
+.tituloErro404,
+.tituloPainelAdmin,
+.tituloConfiguracoes,
+.tituloNovaCategoria,
+.tituloEditarCategoria,
+.tituloListarCategorias,
+.tituloCadastrarClassificacao,
+.tituloEditarClassificacao,
+.tituloListarClassificacoes,
+.tituloCadastrarGenero,
+.tituloEditarGenero,
+.tituloListarGeneros,
+.tituloLoginAdmin,
+.tituloLogin,
+.tituloEditarCapitulo,
+.tituloPublicarCapitulo,
+.tituloListarCapitulos,
+.tituloCapitulo,
+.tituloEditarHistoria,
+.tituloPublicarHistoria,
+.tituloListarHistorias,
+.tituloHistoria,
+.tituloCadastrarUsuario,
+.tituloEditarUsuario,
+.tituloListarUsuarios,
+.tituloUsuario {  
 }
 */
