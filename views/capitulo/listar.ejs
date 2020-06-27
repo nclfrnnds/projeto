@@ -8,7 +8,7 @@
 
     <h1 class="tituloListarCapitulos"><%= title %></h1>
 
-    <p><a href="/story/<%= historia.id %>/chapter/new"><button type="button" class="btnAdicionar">Novo capítulo</button></a></p>
+    <p><a href="/story/<%= historia.diretorio %>/chapter/new"><button type="button" class="btnAdicionar">Novo capítulo</button></a></p>
 
     <table class="tabelaDados">
       <thead>
@@ -24,9 +24,9 @@
           <th scope="row"> <%= capitulo.id %></th>
           <th> <%= capitulo.titulo %></th>
           <th>
-            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>"><button type="button" class="btnLer">Ler</button></a>
-            <a href="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/edit"><button type="button" class="btnEditar">Editar</button></a>
-            <form action="/story/<%= capitulo.fkHistoria %>/chapter/<%= capitulo.id %>/delete?_method=DELETE" method="POST">
+            <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
+            <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/edit"><button type="button" class="btnEditar">Editar</button></a>
+            <form action="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/delete?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
           </th>

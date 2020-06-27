@@ -8,15 +8,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"); /* Noto Sans JP */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); /* Open Sans */
 
-/*
-4 values: top right bottom left
-3 values: top right bottom
-2 values: top right
-1 values: all
-*/
-
 body {
-    background: #ffffff;
+    background: #eeeeee;
     font-family: "Lato", Arial, Helvetica, sans-serif;
     font-size: 1rem;
     font-weight: 400;
@@ -26,37 +19,44 @@ body {
     margin: 0;
 }
 
-p {
-    line-height: 1.5;
-    margin: 20;
-}
-
-h1 {
-    margin: 20;
-}
-
-label {
-    line-height: 2.5;
-}
-
+label,
+input,
 button, 
-input, 
-optgroup, 
-select, 
-textarea {
+textarea,
+select,
+optgroup {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
     margin: 0;
 }
 
-.divPrincipal {
-    background: #eeeeee;
-    display: flex;
-    flex-direction: column;
+h1 {
+    margin: 20px;
 }
 
+
+
+label {
+    line-height: 2;
+}
+
+input {
+    line-height: 1.5;
+}
+
+button {
+    margin: 10px 0px 0px 0px;
+}
+
+/*
+.divPrincipal {
+}
+*/
+
 .mainPrincipal { 
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     width: 100%;
     margin: 0 auto;
@@ -74,13 +74,18 @@ textarea {
 
 .headerPrincipal {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-content: center;
     height: 60px; /*10vh;*/
     background: #405DED;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
+    /*position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;*/
+    /*z-index: 1030;*/
 }
 
 .headerPrincipal a {
@@ -142,6 +147,11 @@ label[for="btnMenuTopo"] {
     align-items: center;
     height: 120px; /*15vh;*/
     background: #379AE6;
+    /*position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;*/
+    /*z-index: 1030;*/
 }
 
 .footerPrincipal a {
@@ -150,8 +160,6 @@ label[for="btnMenuTopo"] {
 }
 
 /* ITENS DO RODAPÉ */
-
-
 
 /* TABELAS DOS DADOS */
 
@@ -199,11 +207,17 @@ th {
 .mainLoginAdmin {
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    align-items: center;
 }
 
 .mainLogin form,
 .mainLoginAdmin form {
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
     background: #ffffff;
     width: 50%;
     min-width: 200px;
@@ -215,9 +229,24 @@ th {
     box-shadow: 3px 3px 3px 3px #eeeeee
 }
 
-.mainLogin form label,
-.mainLoginAdmin form label {
-    line-height: 2.5;
+/*
+.mainLogin label,
+.mainLoginAdmin label {
+}
+*/
+
+.mainLogin input,
+.mainLoginAdmin input {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.mainLogin button,
+.mainLoginAdmin button,
+.mainLogin a,
+.mainLoginAdmin a {
+    width: 100px;
+    align-self: center;
 }
 
 /* PÁGINA DE CADASTRO */

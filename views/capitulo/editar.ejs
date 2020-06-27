@@ -8,7 +8,7 @@
 
     <h1 class="tituloEditarCapitulo"><%= title %></h1>
 
-    <form action="/story/<%= historia.id %>/chapter/<%= capitulo.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form action="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/edit?_method=PUT" method="POST">
 
       <label for="titulo">Título</label><br>
       <input type="text" id="titulo" name="titulo" placeholder="Título" value="<%= capitulo.titulo %>"><br>
@@ -23,7 +23,7 @@
       <textarea id="notasFinais" name="notasFinais" placeholder="Notas finais" rows="5" cols="40"><%= capitulo.notasFinais %></textarea><br><br>
 
       <button type="submit" class="btnSalvar">Salvar alterações</button><br><br>
-      <a href="/story/<%= historia.id %>/chapters"><button type="button" class="btnCancelar">Cancelar</button></a>
+      <a href="/story/<%= historia.diretorio %>/chapters"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>
 

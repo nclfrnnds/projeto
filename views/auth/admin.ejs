@@ -10,20 +10,20 @@
 
     <form action="/admin" method="POST">
 
-      <label for="login">Usuário ou e-mail</label><br>
-      <input type="login" id="login" name="login" placeholder="Usuário ou e-mail"><br>
+      <label for="login">Usuário ou e-mail</label>
+      <input type="login" id="login" name="login" placeholder="Usuário ou e-mail">
 
-      <label for="senha">Senha</label><br>
-      <input type="password" id="senha" name="senha" placeholder="Senha"><br><br>
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" placeholder="Senha">
 
-      <button type="submit" class="btnEntrar">Entrar</button><br><br>
+      <button type="submit" class="btnEntrar">Entrar</button>
+      
 
+      <% if( typeof erroLogin !== "undefined") {%>
+      <p><%= erroLogin %></p>
+      <% } %>
       
     </form>
-
-    <% if( typeof erroLogin !== "undefined") {%>
-    <p><%= erroLogin %></p>
-    <% } %>
 
     </main>
 <%- include("../includes/footer") %>

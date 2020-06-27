@@ -1,81 +1,52 @@
-const { Capitulo, Historia, Classificacao } = require("../models");
+const { Capitulo, Historia, Usuario, Autor } = require("../models");
 const fs = require("fs");
 const path = require("path");
 
 const capituloController = {
 
     index: async (req, res) => {
-        
-        if (req.session.authUsuario) {
-
-            const sessaoUsuario = req.session.authUsuario.id;
-            const { id } = req.params;
-            const historia = await Historia.findByPk(id, {
-                include: {
-                    model: Classificacao,
-                },
-            });
-            const capitulos = await Capitulo.findAll({
-                where: { fkHistoria: id },
-                include: {
-                    model: Historia,
-                },
-            });
-            return res.render("capitulo/listar", { title: "Capítulos", historia, capitulos });
-
-        } else if (req.session.authAdmin) {
-
-            const { id } = req.params;
-            const historia = await Historia.findByPk(id, {
-                include: {
-                    model: Classificacao,
-                },
-            });
-            const capitulos = await Capitulo.findAll({
-                where: { fkHistoria: id },
-                include: {
-                    model: Historia,
-                },
-            });
-            return res.render("capitulo/listar", { title: "Capítulos", historia, capitulos });
-
-        }
+        const { diretorio } = req.params;
+        const historia = await Historia.findOne({
+            where: { diretorio },
+        });
+        const capitulos = await Capitulo.findAll({
+            where: { fkHistoria: [historia.id] },
+        });
+        return res.render("capitulo/index", { title: "Capítulos", historia, capitulos });
     },
 
     create: async (req, res) => {
-        const { id } = req.params;
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
+        const { diretorio } = req.params;
+        const historia = await Historia.findOne({
+            where: { diretorio },
         });
         return res.render("capitulo/publicar", { title: "Publicar Capítulo", historia });
     },
 
     store: async (req, res) => {
-        const { id } = req.params;
+        const { diretorio } = req.params;
         const {
             titulo,
             texto,
             notasIniciais,
             notasFinais,
         } = req.body; 
-        
-        const historia = await Historia.findByPk(id);
-        const diretorio = historia.diretorio;
 
-        const nomeArquivoTxt = `${Date.now()}.txt`;
-        const caminhoCompletoTxt = 
-            path.join("uploads", "historias", diretorio,
-                nomeArquivoTxt);
-        fs.writeFileSync(caminhoCompletoTxt, texto);
+        const nomeArquivo = Date.now();
+        const caminhoCompleto = 
+            path.join("uploads", "historias", diretorio, `${nomeArquivo}.txt`);
+        fs.writeFileSync(caminhoCompleto, texto);
+
+        const historia = await Historia.findOne({
+            where: { diretorio },
+        });
 
         const capitulo = await Capitulo.create({
             titulo,
-            texto: nomeArquivoTxt,
+            texto: nomeArquivo,
             notasIniciais,
             notasFinais,
-            fkHistoria: id,
+            fkHistoria: [historia.id],
             createdAt: new Date(),
             updatedAt: new Date(),
         }, {
@@ -88,29 +59,24 @@ const capituloController = {
                 msg: "Falha ao cadastrar!"
             });
         }
-        return res.redirect(`/story/${id}/chapters`);
+        return res.redirect(`/story/${diretorio}/chapters`);
     },
 
     edit: async (req, res) => {
-        const { id, idChapter } = req.params;
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
+        const { diretorio, txt } = req.params;
+
+        const historia = await Historia.findOne({
+            where: { diretorio },
         });
 
-        const capitulo = await Capitulo.findByPk(idChapter, {
-            include: {
-                model: Historia,
-            },
+        const capitulo = await Capitulo.findOne({
+            where: { texto: txt },
         });
 
-        const diretorio = historia.diretorio;
-        const nomeArquivoTxt = capitulo.texto;
-        const caminhoCompletoTxt =
-            path.join("uploads", "historias", diretorio,
-                nomeArquivoTxt);
-        const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
+        const caminhoCompleto =
+            path.join("uploads", "historias", diretorio, `${txt}.txt`);
+
+        const arquivoTxt = fs.readFileSync(caminhoCompleto, {
             encoding: "utf-8"
         });
 
@@ -118,7 +84,7 @@ const capituloController = {
     },
 
     update: async (req, res) => {
-        const { id, idChapter } = req.params;
+        const { diretorio, txt } = req.params;
         const {
             titulo,
             texto,
@@ -126,84 +92,82 @@ const capituloController = {
             notasFinais,
         } = req.body;
         
-        const historia = await Historia.findByPk(id);
-        const arquivo = await Capitulo.findByPk(idChapter);
-        const diretorio = historia.diretorio;
-        const nomeArquivoTxt = arquivo.texto;
-        
-        const caminhoCompletoTxt = 
-            path.join("uploads", "historias", diretorio,
-                nomeArquivoTxt);
-        fs.writeFileSync(caminhoCompletoTxt, texto);
+        const caminhoCompleto = 
+            path.join("uploads", "historias", diretorio, `${txt}.txt`);
 
-        const capitulo = await Capitulo.update({
+        fs.writeFileSync(caminhoCompleto, texto);
+
+        await Capitulo.update({
             titulo,
-            texto: nomeArquivoTxt,
             notasIniciais,
             notasFinais,
             updatedAt: new Date(),
-        }, {
-            where: { id: idChapter }
+        }, { 
+            where: { texto: txt }, 
         }, {
             include: {
                 model: Historia,
             },
         });
-        console.log(capitulo);
-        return res.redirect(`/story/${id}/chapters`);
+
+        return res.redirect(`/story/${diretorio}/chapters`);
     },
 
-    destroy: async(req, res) => {
+    destroy: async (req, res) => {
 
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const { id, idChapter } = req.params;
-            const capitulo = await Capitulo.destroy({
-                where: { id: idChapter },
+            const { diretorio, txt } = req.params;
+
+            await Historia.findOne({
+                include: [{
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                }],
+                where: { diretorio }, 
             });
-            console.log(capitulo);
-            return res.redirect(`/story/${id}/chapters`);
+
+            await Capitulo.destroy({ 
+                where: { texto: txt }, 
+            });
+
+            return res.redirect(`/story/${diretorio}/chapters`);
 
         } else if (req.session.authAdmin) {
 
-            const { id, idChapter } = req.params;
-            const capitulo = await Capitulo.destroy({
-                where: { id: idChapter },
+            const { diretorio, txt } = req.params;
+
+            await Historia.findOne({
+                where: { diretorio },
             });
-            console.log(capitulo);
-            return res.redirect(`/story/${id}/chapters`);
+
+            await Capitulo.destroy({ 
+                where: { texto: txt }, 
+            });
+
+            return res.redirect(`/admin/story/${diretorio}/chapters`);
 
         }
     },
 
-    findById: async (req, res) => {
-        const { id, idChapter } = req.params;
 
-        const capitulo = await Capitulo.findByPk(idChapter, {
-            include: {
-                model: Historia,
-            },
+
+    findByFile: async (req, res) => {
+        const { diretorio, txt } = req.params;
+        const historia = await Historia.findOne({
+            where: { diretorio },
         });
-
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
+        const capitulo = await Capitulo.findOne({
+            where: { texto: txt },
         });
-
-        const diretorio = historia.diretorio;
-        const nomeArquivoTxt = capitulo.texto;
-
-        const caminhoCompletoTxt =
-            path.join("uploads", "historias", diretorio,
-                nomeArquivoTxt);
-                
-        const arquivoTxt = fs.readFileSync(caminhoCompletoTxt, {
+        const caminhoCompleto =
+            path.join("uploads", "historias", diretorio, `${txt}.txt`);
+        const arquivoTxt = fs.readFileSync(caminhoCompleto, {
             encoding: "utf-8"
         });
-
-        return res.render("capitulo/ver", { title: "Capítulo", capitulo, historia, arquivoTxt });
+        return res.render("capitulo/ler", { title: "Capítulo", capitulo, historia, arquivoTxt });
     },
 
 };

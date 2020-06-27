@@ -1,6 +1,6 @@
 <header class="headerPrincipal">
     <nav class="conteudoTopo">
-        <div class="logoTopo"><a href="/">Projeto</a></div>
+        <a class="logoTopo" href="/">Projeto</a>
 
         <!--<input type="checkbox" id="btnMenuTopo">
         <label for="btnMenuTopo">&#9776;</label>-->
@@ -13,15 +13,17 @@
             <li><a href="/signup">Cadastre-se</a></li>
             <li><a href="/login">Entre</a></li>
 
-            <% } else if (typeof authAdmin === "undefined") { %>
+            <% } else if (typeof authUsuario !== "undefined") { %>
 
+            <li><a href="/user/<%= authUsuario.nomeUsuario %>">@<%= authUsuario.nomeUsuario %></a></li>
             <li><a href="/home">Início</a></li>
             <li><a href="/stories">Histórias</a></li>
             <li><a href="/users">Usuários</a></li>
             <li><a href="/logout">Sair</a></li>
 
-            <% } else if (typeof authUsuario === "undefined") { %>
+            <% } else if (typeof authAdmin !== "undefined") { %>
 
+            <li><a href="/user/<%= authAdmin.nomeUsuario %>">@<%= authAdmin.nomeUsuario %></a></li>
             <li><a href="/admin/painel">Início</a></li>     
             <li><a href="/admin/logout">Sair</a></li>
 

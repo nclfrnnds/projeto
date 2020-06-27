@@ -10,11 +10,8 @@
 
     <p>Bem vindo, @<%= authUsuario.nomeUsuario %></p>
 
-    <a href="/settings"><button type="button" class="btnUsuario">Configurações</button></a><br><br>
-
-    <form action="/delete/<%= authUsuario.id %>?_method=DELETE" method="POST">
-      <button type="submit" class="btnExcluir">Excluir conta</button>
-    </form>
+    <a href="/mystories"><button type="button" class="btnUsuario">Minhas histórias</button></a>
+    <a href="/settings"><button type="button" class="btnUsuario">Configurações</button></a>
 
     </main>
 <%- include("includes/footer") %>

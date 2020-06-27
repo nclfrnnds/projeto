@@ -65,37 +65,31 @@ const usuarioController = {
             const { 
                 nomeUsuario, 
                 email,
-                senha,
+                //senha,
                 nome,
                 descricao,
                 dataNascimento, 
                 //genero,
                 localizacao,
-                //emailSecundario,
-                //celular,
             } = req.body;
 
-            const hashSenha = bcrypt.hashSync(senha, 10);
-            //const [ avatar ] = req.files;
+            //const hashSenha = bcrypt.hashSync(senha, 10);
+            const [ avatar ] = req.files;
 
-            const usuario = await Usuario.update({
+            await Usuario.update({
                 nomeUsuario,
                 email,
-                senha: hashSenha,
+                //senha: hashSenha,
                 nome,
                 descricao,
                 dataNascimento,
                 //genero,
                 localizacao,
-                //emailSecundario,
-                //celular,
-                //avatar: avatar.filename,
+                avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id: sessaoUsuario },
             });
-
-            console.log(usuario);
             return res.redirect("/home");
 
         } else if (req.session.authAdmin) {
@@ -104,37 +98,31 @@ const usuarioController = {
             const { 
                 nomeUsuario, 
                 email,
-                senha,
+                //senha,
                 nome,
                 descricao,
                 dataNascimento, 
                 //genero,
                 localizacao,
-                //emailSecundario,
-                //celular,
             } = req.body;
 
-            const hashSenha = bcrypt.hashSync(senha, 10);
-            //const [ avatar ] = req.files;
+            //const hashSenha = bcrypt.hashSync(senha, 10);
+            const [ avatar ] = req.files;
 
-            const usuario = await Usuario.update({
+            await Usuario.update({
                 nomeUsuario,
                 email,
-                senha: hashSenha,
+                //senha: hashSenha,
                 nome,
                 descricao,
                 dataNascimento,
                 //genero,
                 localizacao,
-                //emailSecundario,
-                //celular,
-                //avatar: avatar.filename,
+                avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id },
             });
-            
-            console.log(usuario);
             return res.redirect("/admin/users");
 
         }
@@ -144,19 +132,17 @@ const usuarioController = {
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const usuario = await Usuario.destroy({
+            await Usuario.destroy({
                 where: { id: sessaoUsuario },
             });
-            console.log(usuario);
             return res.redirect("/logout");
 
         } else if (req.session.authAdmin) {
 
             const { id } = req.params;
-            const usuario = await Usuario.destroy({
+            await Usuario.destroy({
                 where: { id },
             });
-            console.log(usuario);
             return res.redirect("/admin/users");
             
         }

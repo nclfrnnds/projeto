@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../includes/head") %>
+  <body>
+    <div class="divPrincipal">
+<%- include("../includes/header") %>
+    <main class="mainPrincipal mainListarHistorias">
+
+    <h1 class="tituloListarHistorias"><%= title %></h1>
+
+    <table class="tabelaDados">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">História</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% historias.forEach(historia => { %>
+        <tr>
+          <th scope="row"> <%= historia.id %></th>
+          <th> <%= historia.titulo %></th>
+          <th>
+
+            <% if (typeof authUsuario !== "undefined") { %>
+
+            <a href="/story/<%= historia.diretorio %>"><button type="button" class="btnLer">Ler</button></a>
+            <a href="/story/<%= historia.diretorio %>/chapters"><button type="button" class="btnCapitulos">Capítulos</button></a>
+
+            <% } else if (typeof authAdmin !== "undefined") { %>
+
+            <a href="/admin/story/<%= historia.diretorio %>"><button type="button" class="btnLer">Ler</button></a>
+            <form action="/admin/story/<%= historia.diretorio %>/delete?_method=DELETE" method="POST">
+              <button type="submit" class="btnExcluir">Excluir</button>
+            </form>
+
+            <% } %>
+
+          </th>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    </main>
+<%- include("../includes/footer") %>
+<%- include("../includes/scripts") %>
+    </div>
+  </body>
+</html>

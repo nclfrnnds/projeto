@@ -3,14 +3,13 @@ const router = express.Router();
 
 const authAdmin = require("../middlewares/authAdmin");
 
-const upload = require("../config/upload");
-
 const capituloController = require("../controllers/capituloController");
 
-router.get("/:id/chapters", authAdmin, capituloController.index);
-router.get("/:id/chapter", authAdmin, capituloController.index);
-router.get("/:id/chapter/:idChapter/edit", authAdmin, capituloController.edit); // ADMIN NÃO PODE EDITAR
-router.put("/:id/chapter/:idChapter/edit", authAdmin, upload.any(), capituloController.update); // ADMIN NÃO PODE EDITAR
-router.delete("/:id/chapter/:idChapter/delete", authAdmin, capituloController.destroy); // ADMIN PODE EXCLUIR
+router.get("/:diretorio/chapters", authAdmin, capituloController.index); // tornar pública em capitulo.js e apagar aqui
+router.get("/:diretorio/chapter", authAdmin, capituloController.index); // tornar pública em capitulo.js e apagar aqui
+
+router.delete("/:diretorio/chapter/:txt/delete", authAdmin, capituloController.destroy);
+
+router.get("/:diretorio/chapter/:txt", authAdmin, capituloController.findByFile); // tornar pública em capitulo.js e apagar aqui
 
 module.exports = router;

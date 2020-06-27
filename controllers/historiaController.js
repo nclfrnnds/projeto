@@ -1,31 +1,24 @@
-const { Historia, Classificacao, Autor, Capitulo } = require("../models");
+const { Historia, Classificacao, Autor, Capitulo, Usuario} = require("../models");
 const fs = require("fs");
 const path = require("path");
 
 const historiaController = {
 
     index: async (req, res) => {
+        const historias = await Historia.findAll();
+        return res.render("historia/index", { title: "Histórias", historias });
+    },
 
-        if (req.session.authUsuario) {
-
-            const sessaoUsuario = req.session.authUsuario.id;
-            const historias = await Historia.findAll({
-                include: {
-                    model: Classificacao,
-                },
-            });
-            return res.render("historia/listar", { title: "Histórias", historias });
-
-        } else if (req.session.authAdmin) {
-
-            const historias = await Historia.findAll({
-                include: {
-                    model: Classificacao,
-                },
-            });
-            return res.render("historia/listar", { title: "Histórias", historias });
-
-        }
+    findStoriesByUser: async (req, res) => {
+        const sessaoUsuario = req.session.authUsuario.id;              
+        const historias = await Historia.findAll({
+            include: [{
+                model: Usuario,
+                through: Autor,
+                where: { id: sessaoUsuario },
+            }],
+        });
+        return res.render("historia/listar", { title: "Histórias", historias });
     },
 
     create: async (req, res) => {
@@ -39,13 +32,13 @@ const historiaController = {
             sinopse,
             fkClassificacao,
         } = req.body;
-        //const [ capa ] = req.files;
+        const [ capa ] = req.files;
 
         const diretorio = `${Date.now()}`;
         const historia = await Historia.create({
             diretorio,
             titulo,
-            //capa,
+            capa: capa.filename,
             sinopse,
             fkClassificacao,
             createdAt: new Date(),
@@ -76,43 +69,44 @@ const historiaController = {
             if (err) throw err;
         });
 
-        return res.redirect("/stories");
+        return res.redirect("/mystories");
     },
 
     edit: async (req, res) => {
-        const { id } = req.params;
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
+        const { diretorio } = req.params;
+        const historia = await Historia.findOne({
+            where: { diretorio }, 
+                include: {
+                    model: Classificacao,
+                },
         });
         const classificacoes = await Classificacao.findAll();
         return res.render("historia/editar", { title:"Editar história", historia, classificacoes });
     },
 
     update: async (req, res) => {
-        const { id } = req.params;
+        const { diretorio } = req.params;
         const {
             titulo,
             sinopse,
             fkClassificacao,
         } = req.body;
-        //const [ capa ] = req.files;
+        const [ capa ] = req.files;
         const historia = await Historia.update({
             titulo,
-            //capa: capa.filename,
+            capa: capa.filename,
             sinopse,
             fkClassificacao,
             updatedAt: new Date(),
         }, {
-            where: { id },
+            where: { diretorio },
         }, {
             include: {
                 model: Classificacao,
             },
         });
         console.log(historia);
-        return res.redirect("/stories");
+        return res.redirect("/mystories");
     },
 
     destroy: async(req, res) => {
@@ -120,81 +114,74 @@ const historiaController = {
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const { id } = req.params;
-            const capitulos = await Capitulo.destroy({
-                where: { fkHistoria: id },
+            const { diretorio } = req.params;
+            const historia = await Historia.findOne({ 
+                include: [{
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                }],
+                where: { diretorio }, 
             });
-            console.log(capitulos);
-            const autor = await Autor.destroy({
-                where: { fkHistoria: id },
-            });
-            console.log(autor);
-            
-            /*
-            const historias = await Historia.findByPk(id);
-            const diretorio = historias.diretorio;
-            console.log(diretorio);
-            */
 
-            const historia = await Historia.destroy({
-                where: { id },
-            });
-            console.log(historia);
+            await Capitulo.destroy({ where: { fkHistoria: [historia.id] }, });
 
-            /*
-            fs.unlink(path.join("uploads", "historias",
+            await Autor.destroy({ where: { fkHistoria: [historia.id] }, });
+
+            await Historia.destroy({
+                include: [{
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                }], 
+                where: { diretorio }, });
+
+            /* fs.unlink(path.join("uploads", "historias",
                 diretorio), (err) => {
                 if (err) throw err;
                 console.log("Diretório excluído");
-            });
-            */
+            }); */
 
-            return res.redirect("/stories");
+            return res.redirect("/mystories");
 
         } else if (req.session.authAdmin) {
 
-            const { id } = req.params;
-            const capitulos = await Capitulo.destroy({
-                where: { fkHistoria: id },
-            });
-            console.log(capitulos);
-            const autor = await Autor.destroy({
-                where: { fkHistoria: id },
-            });
-            console.log(autor);
+            const { diretorio } = req.params;
+            const historia = await Historia.findOne({ where: { diretorio }, });
+
+            await Capitulo.destroy({ where: { fkHistoria: [historia.id] }, });
+
+            await Autor.destroy({ where: { fkHistoria: [historia.id] }, });
             
-            /*
-            const historias = await Historia.findByPk(id);
-            const diretorio = historias.diretorio;
-            console.log(diretorio);
-            */
+            await Historia.destroy({ where: { diretorio }, });
 
-            const historia = await Historia.destroy({
-                where: { id },
-            });
-            console.log(historia);
-
-            /*
-            fs.unlink(path.join("uploads", "historias",
+            /* fs.unlink(path.join("uploads", "historias",
                 diretorio), (err) => {
                 if (err) throw err;
                 console.log("Diretório excluído");
-            });
-            */
+            }); */
 
-            return res.redirect("/stories");
+            return res.redirect("/admin/stories");
 
         }
     },
 
-    findById: async (req, res) => {
-        const { id } = req.params;
-        const historia = await Historia.findByPk(id, {
-            include: {
-                model: Classificacao,
-            },
+    findByDirectory: async (req, res) => {
+        const { diretorio } = req.params;
+        const historia = await Historia.findOne({
+            where: { diretorio },
+                include: {
+                    model: Classificacao,
+                },
         });
-        return res.render("historia/ver", { title: "História", historia });
+        const usuario = await Usuario.findOne({
+            include: [{
+                model: Historia,
+                through: Autor,
+                where: { diretorio },
+            }],
+        });
+        return res.render("historia/ler", { title: "História", historia, usuario });
     },
 
 };
