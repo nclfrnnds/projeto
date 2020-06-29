@@ -8,6 +8,14 @@
 
     <h1 class="tituloEditarUsuario"><%= title %></h1>
 
+    <% if (typeof(errors) !== "undefined") { %>
+    <ul>
+      <% errors.forEach((error) => { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
+
     <% if (typeof authUsuario !== "undefined") { %>
     <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
       <% } else if (typeof authAdmin !== "undefined") { %>
@@ -72,6 +80,8 @@
     </main>
 <%- include("../includes/footer") %>
 <%- include("../includes/scripts") %>
+
+<!-- CONSUMO DE API -->
 
 <script type="text/javascript">
 

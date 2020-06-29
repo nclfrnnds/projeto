@@ -25,10 +25,12 @@
         <% classificacoes.forEach(classificacao => { %>
         <option value="<%= classificacao.id %>"><%= classificacao.nome %></option>
         <% }); %>
-      </select>
-      <br><br>
+      </select><br>
 
-      <button type="submit" class="btnCadastrar">Publicar</button><br><br>
+      <label for="finalizada">Finalizada?</label>
+      <input type="checkbox" id="finalizada" name="finalizada"><br>
+
+      <button type="submit" class="btnCadastrar">Publicar</button><br>
       <a href="/mystories"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>

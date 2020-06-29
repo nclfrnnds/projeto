@@ -22,17 +22,19 @@
       <label for="fkClassificacao">Classificação</label><br>
       <select id="fkClassificacao" name="fkClassificacao" placeholder="Classificação">
         <option value="">Selecione...</option>
-        <% classificacoes.forEach(classificacao => {
-          if (historia.Classificacao.id == classificacao.id) { %>
+        <% classificacoes.forEach(classificacao => { %>
+        <% if (historia.Classificacao.id == classificacao.id) { %>
         <option value="<%= historia.Classificacao.id %>" selected><%= historia.Classificacao.nome %></option>
         <% } else { %>
         <option value="<%= classificacao.id %>"><%= classificacao.nome %></option>
-        <% }
-            }); %>
-      </select>
-      <br><br>
+        <% } %>
+        <% }); %>
+      </select><br>
 
-      <button type="submit" class="btnSalvar">Salvar alterações</button><br><br>
+      <label for="finalizada">Finalizada?</label>
+      <input type="checkbox" id="finalizada" name="finalizada" value="<%= historia.sinopse %>"><br>
+
+      <button type="submit" class="btnSalvar">Salvar alterações</button><br>
       <a href="/mystories"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>
