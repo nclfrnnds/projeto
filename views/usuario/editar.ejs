@@ -9,9 +9,9 @@
     <h1 class="tituloEditarUsuario"><%= title %></h1>
 
     <% if (typeof authUsuario !== "undefined") { %>
-    <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
       <% } else if (typeof authAdmin !== "undefined") { %>
-    <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
     <% } %>
 
       <!--<label for="senha">Senha</label><br>
@@ -47,7 +47,9 @@
       </select><br>
 
       <label for="localizacao">Localização</label><br>
-      <input type="text" id="localizacao" name="localizacao" placeholder="Localização" value="<%= usuario.localizacao %>"><br>
+      <select id="localizacao" name="localizacao">
+        <option id="" name="" value="<%= usuario.localizacao %>" selected>Selecione...</option>
+      </select><br>
       
       <button type="submit" class="btnSalvar">Salvar alterações</button>
 
@@ -70,6 +72,43 @@
     </main>
 <%- include("../includes/footer") %>
 <%- include("../includes/scripts") %>
+
+<script type="text/javascript">
+
+const listaDePaises = document.querySelector("#localizacao");
+
+async function listarPaises() {
+  
+    const resposta = await fetch("https://restcountries.eu/rest/v2/all");
+    const paises = await resposta.json();
+    const localizacao = "<%= usuario.localizacao %>";
+
+    listaDePaises.innerHTML = `<option id="" name="" value="">Selecione...</option>`;
+    paises.forEach(pais => {
+      if (localizacao === null || localizacao === "") {
+        if (pais.translations.br === "Brasil") {
+            listaDePaises.innerHTML +=
+                `<option id="" name="" value="${pais.translations.br}" selected>${pais.translations.br}</option>`;
+        } else {
+            listaDePaises.innerHTML +=
+                `<option id="" name="" value="${pais.translations.br}">${pais.translations.br}</option>`;
+        }
+      } else {
+        if (pais.translations.br === localizacao) {
+            listaDePaises.innerHTML +=
+                `<option id="" name="" value="${pais.translations.br}" selected>${pais.translations.br}</option>`;
+        } else {
+            listaDePaises.innerHTML +=
+                `<option id="" name="" value="${pais.translations.br}">${pais.translations.br}</option>`;
+        }
+      }
+    });
+    return paises;
+}
+listarPaises();
+
+</script>
+
     </div>
   </body>
 </html>

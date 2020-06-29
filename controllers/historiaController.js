@@ -32,13 +32,13 @@ const historiaController = {
             sinopse,
             fkClassificacao,
         } = req.body;
-        const [ capa ] = req.files;
+        //const [ capa ] = req.files;
 
         const diretorio = `${Date.now()}`;
         const historia = await Historia.create({
             diretorio,
             titulo,
-            capa: capa.filename,
+            //capa: capa.filename,
             sinopse,
             fkClassificacao,
             createdAt: new Date(),
@@ -91,10 +91,11 @@ const historiaController = {
             sinopse,
             fkClassificacao,
         } = req.body;
-        const [ capa ] = req.files;
+        //const [ capa ] = req.files;
+
         const historia = await Historia.update({
             titulo,
-            capa: capa.filename,
+            //capa: capa.filename,
             sinopse,
             fkClassificacao,
             updatedAt: new Date(),

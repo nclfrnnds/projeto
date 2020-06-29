@@ -3,6 +3,7 @@ const router = express.Router();
 
 const auth = require("../middlewares/auth");
 const authVisitante = require("../middlewares/authVisitante");
+const validacaoUsuario = require("../middlewares/validacaoUsuario");
 
 const uploadAvatar = require("../config/uploadAvatar");
 
@@ -17,7 +18,7 @@ router.get("/logout", auth, authController.destroy);
 router.get("/home", auth, authController.index);
 
 router.get("/signup", usuarioController.create);
-router.post("/signup", usuarioController.store);
+router.post("/signup", validacaoUsuario, usuarioController.store);
 
 router.get("/settings", auth, usuarioController.edit); // separar página de alterar senha
 router.put("/settings", auth, uploadAvatar.any(), usuarioController.update);

@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { Usuario } = require("../models");
+const { check, validationResult, body } = require("express-validator");
 
 const usuarioController = {
 
@@ -22,22 +23,36 @@ const usuarioController = {
     },
 
     store: async (req, res) => {
-        const { nomeUsuario, email, senha } = req.body;
-        const hashSenha =  bcrypt.hashSync(senha, 10);
+        console.log(validationResult(req));
 
-        const usuario = await Usuario.create({
-            nomeUsuario,
-            email,
-            senha: hashSenha,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
+        let listaDeErros = validationResult(req);
 
-        if(!usuario) {
-            return res.render("usuario/cadastrar", { msg: "Falha ao cadastrar!" });
-        };
+        if (listaDeErros.isEmpty()) {
 
-        return res.redirect("/home");
+            const { nomeUsuario, email, senha } = req.body;
+            const hashSenha =  bcrypt.hashSync(senha, 10);
+
+            const usuario = await Usuario.create({
+                nomeUsuario,
+                email,
+                senha: hashSenha,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+
+            if(!usuario) {
+                return res.render("usuario/cadastrar", { msg: "Falha ao cadastrar!" });
+            };
+
+            return res.redirect("/home");
+
+        } else {
+
+            return res.render("usuario/cadastrar", {title: "Cadastre-se", errors:listaDeErros.errors});
+
+        }
+
+
     },
 
     edit: async (req, res) => {
@@ -74,7 +89,7 @@ const usuarioController = {
             } = req.body;
 
             //const hashSenha = bcrypt.hashSync(senha, 10);
-            const [ avatar ] = req.files;
+            //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
@@ -85,7 +100,7 @@ const usuarioController = {
                 dataNascimento,
                 //genero,
                 localizacao,
-                avatar: avatar.filename,
+                //avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id: sessaoUsuario },
@@ -107,7 +122,7 @@ const usuarioController = {
             } = req.body;
 
             //const hashSenha = bcrypt.hashSync(senha, 10);
-            const [ avatar ] = req.files;
+            //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
@@ -118,7 +133,7 @@ const usuarioController = {
                 dataNascimento,
                 //genero,
                 localizacao,
-                avatar: avatar.filename,
+                //avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id },

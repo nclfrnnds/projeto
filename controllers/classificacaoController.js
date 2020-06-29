@@ -5,16 +5,6 @@ const classificacaoController = {
     index: async (req, res) => {
         const classificacoes = await Classificacao.findAll();
         return res.render("admin/classificacao/index", { title: "Classificações", classificacoes });
-
-        /*
-        const { page = 1 } = req.query;
-        const { count:total, rows:classificacoes } = await Classificacao.findAndCountAll({
-            limit: 5,
-            offset: (page - 1) * 5,
-        });
-        const totalPaginas = Math.round(total/5);
-        return res.render("admin/classificacao/index", { title: "Classificações", classificacoes, totalPaginas });
-        */
     },
 
     create: (req, res) => {

@@ -161,3 +161,13 @@ CREATE TABLE `permissoesUsuarios` (
     FOREIGN KEY (`fkPermissao`)
     REFERENCES `permissoes` (`id`)
 );
+-- -----------------------------------------------------
+-- Table `newsletters`
+-- -----------------------------------------------------
+CREATE TABLE `newsletters` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(200) NOT NULL,
+  `nome` VARCHAR(200),
+  `createdAt` DATETIME,
+  `updatedAt` DATETIME
+);

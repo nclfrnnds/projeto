@@ -5,16 +5,6 @@ const generoController = {
     index: async (req, res) => {
         const generos = await Genero.findAll();
         return res.render("admin/genero/index", { title: "Gêneros", generos });
-
-        /*
-        const { page = 1 } = req.query;
-        const { count:total, rows:generos } = await Genero.findAndCountAll({
-            limit: 5,
-            offset: (page - 1) * 5,
-        });
-        const totalPaginas = Math.round(total/5);
-        return res.render("admin/genero/index", { title: "Gêneros", generos, totalPaginas });
-        */
     },
 
     create: (req, res) => {
