@@ -1,6 +1,8 @@
 const { Capitulo, Historia, Usuario, Autor } = require("../models");
 const fs = require("fs");
 const path = require("path");
+const moment = require("moment");
+const { Op } = require("sequelize");
 
 const capituloController = {
 
@@ -15,102 +17,169 @@ const capituloController = {
         return res.render("capitulo/index", { title: "Capítulos", historia, capitulos });
     },
 
-    create: async (req, res) => {
+    findChaptersByStory: async (req, res) => {
         const { diretorio } = req.params;
         const historia = await Historia.findOne({
             where: { diretorio },
         });
-        return res.render("capitulo/publicar", { title: "Publicar Capítulo", historia });
+        const capitulos = await Capitulo.findAll({
+            include: {
+                model: Historia,
+                where: { diretorio: diretorio },
+            },
+        });
+        return res.render("capitulo/listar", { title: "Capítulos", historia, capitulos });
+    },
+
+    create: async (req, res) => {
+        if (req.session.authUsuario) {
+
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio } = req.params;
+
+            const historia = await Historia.findOne({
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                where: { diretorio }, 
+            });
+
+            return res.render("capitulo/publicar", { title: "Publicar Capítulo", historia });
+
+        }
     },
 
     store: async (req, res) => {
-        const { diretorio } = req.params;
-        const {
-            titulo,
-            texto,
-            notasIniciais,
-            notasFinais,
-        } = req.body; 
+        if (req.session.authUsuario) {
 
-        const nomeArquivo = Date.now();
-        const caminhoCompleto = 
-            path.join("uploads", "historias", diretorio, `${nomeArquivo}.txt`);
-        fs.writeFileSync(caminhoCompleto, texto);
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio } = req.params;
 
-        const historia = await Historia.findOne({
-            where: { diretorio },
-        });
+            const {
+                titulo,
+                texto,
+                notasIniciais,
+                notasFinais,
+            } = req.body; 
 
-        const capitulo = await Capitulo.create({
-            titulo,
-            texto: nomeArquivo,
-            notasIniciais,
-            notasFinais,
-            fkHistoria: [historia.id],
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        }, {
-            include: {
-                model: Historia,
-            },
-        });
-        if (!capitulo) {
-            return res.render("index", {
-                msg: "Falha ao cadastrar!"
+            const nomeArquivo = Date.now();
+            const caminhoCompleto = 
+                path.join("uploads", "historias", diretorio, `${nomeArquivo}.txt`);
+            fs.writeFileSync(caminhoCompleto, texto);
+
+            const historia = await Historia.findOne({
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                where: { diretorio }, 
             });
+
+            const capitulo = await Capitulo.create({
+                titulo,
+                texto: nomeArquivo,
+                notasIniciais,
+                notasFinais,
+                fkHistoria: [historia.id],
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }, {
+                include: {
+                    model: Historia,
+                },
+            });
+            if (!capitulo) {
+                return res.render("index", {
+                    msg: "Falha ao cadastrar!"
+                });
+            }
+            return res.redirect(`/mystories/${diretorio}/chapters`);
+
         }
-        return res.redirect(`/story/${diretorio}/chapters`);
     },
 
     edit: async (req, res) => {
-        const { diretorio, txt } = req.params;
+        if (req.session.authUsuario) {
 
-        const historia = await Historia.findOne({
-            where: { diretorio },
-        });
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio, txt } = req.params;
 
-        const capitulo = await Capitulo.findOne({
-            where: { texto: txt },
-        });
+            const historia = await Historia.findOne({
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                where: { diretorio }, 
+            });
 
-        const caminhoCompleto =
-            path.join("uploads", "historias", diretorio, `${txt}.txt`);
+            const capitulo = await Capitulo.findOne({
+                where: {[Op.and]: [
+                    { texto: txt },
+                    { fkHistoria: historia.id }, 
+                ]},
+            });
 
-        const arquivoTxt = fs.readFileSync(caminhoCompleto, {
-            encoding: "utf-8"
-        });
+            const caminhoCompleto =
+                path.join("uploads", "historias", diretorio, `${txt}.txt`);
 
-        return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
+            const arquivoTxt = fs.readFileSync(caminhoCompleto, {
+                encoding: "utf-8"
+            });
+
+            return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
+
+        }
     },
 
     update: async (req, res) => {
-        const { diretorio, txt } = req.params;
-        const {
-            titulo,
-            texto,
-            notasIniciais,
-            notasFinais,
-        } = req.body;
-        
-        const caminhoCompleto = 
-            path.join("uploads", "historias", diretorio, `${txt}.txt`);
+        if (req.session.authUsuario) {
 
-        fs.writeFileSync(caminhoCompleto, texto);
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio, txt } = req.params;
 
-        await Capitulo.update({
-            titulo,
-            notasIniciais,
-            notasFinais,
-            updatedAt: new Date(),
-        }, { 
-            where: { texto: txt }, 
-        }, {
-            include: {
-                model: Historia,
-            },
-        });
+            const historia = await Historia.findOne({
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                where: { diretorio }, 
+            });
 
-        return res.redirect(`/story/${diretorio}/chapters`);
+            const {
+                titulo,
+                texto,
+                notasIniciais,
+                notasFinais,
+            } = req.body;
+            
+            const caminhoCompleto = 
+                path.join("uploads", "historias", diretorio, `${txt}.txt`);
+
+            fs.writeFileSync(caminhoCompleto, texto);
+
+            await Capitulo.update({
+                titulo,
+                notasIniciais,
+                notasFinais,
+                updatedAt: new Date(),
+            }, { 
+                include: {
+                    model: Historia,
+                },
+                where: {[Op.and]: [
+                    { texto: txt },
+                    { fkHistoria: historia.id }, 
+                ]}, 
+            });
+
+            return res.redirect(`/mystories/${diretorio}/chapters`);
+
+        }
     },
 
     destroy: async (req, res) => {
@@ -120,22 +189,25 @@ const capituloController = {
             const sessaoUsuario = req.session.authUsuario.id;
             const { diretorio, txt } = req.params;
 
-            await Historia.findOne({
-                include: [{
+            const historia = await Historia.findOne({
+                include: {
                     model: Usuario,
                     through: Autor,
                     where: { id: sessaoUsuario },
-                }],
+                },
                 where: { diretorio }, 
             });
 
-            await Capitulo.destroy({ 
-                where: { texto: txt }, 
+            await Capitulo.destroy({
+                where: {[Op.and]: [
+                    { texto: txt },
+                    { fkHistoria: historia.id }, 
+                ]}, 
             });
 
-            return res.redirect(`/story/${diretorio}/chapters`);
+            return res.redirect(`/mystories/${diretorio}/chapters`);
 
-        } else if (req.session.authAdmin) {
+        } /*else if (req.session.authAdmin) {
 
             const { diretorio, txt } = req.params;
 
@@ -149,10 +221,8 @@ const capituloController = {
 
             return res.redirect(`/admin/story/${diretorio}/chapters`);
 
-        }
+        }*/
     },
-
-
 
     findByFile: async (req, res) => {
         const { diretorio, txt } = req.params;
@@ -167,7 +237,9 @@ const capituloController = {
         const arquivoTxt = fs.readFileSync(caminhoCompleto, {
             encoding: "utf-8"
         });
-        return res.render("capitulo/ler", { title: "Capítulo", capitulo, historia, arquivoTxt });
+        moment.locale("pt-br", {
+        });
+        return res.render("capitulo/ler", { title: "Capítulo", capitulo, historia, arquivoTxt, diretorio, txt, moment });
     },
 
 };

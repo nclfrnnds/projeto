@@ -1,6 +1,7 @@
 const { Historia, Classificacao, Autor, Capitulo, Usuario} = require("../models");
 const fs = require("fs");
 const path = require("path");
+const moment = require("moment");
 
 const historiaController = {
 
@@ -12,11 +13,11 @@ const historiaController = {
     findStoriesByUser: async (req, res) => {
         const sessaoUsuario = req.session.authUsuario.id;              
         const historias = await Historia.findAll({
-            include: [{
+            include: {
                 model: Usuario,
                 through: Autor,
                 where: { id: sessaoUsuario },
-            }],
+            },
         });
         return res.render("historia/listar", { title: "Histórias", historias });
     },
@@ -27,6 +28,7 @@ const historiaController = {
     },
 
     store: async (req, res) => {
+
         const { 
             titulo, 
             sinopse,
@@ -48,6 +50,7 @@ const historiaController = {
                 model: Classificacao,
             },
         });
+
         if (!historia) {
             return res.render("index", { msg: "Falha ao cadastrar!" });
         }
@@ -60,6 +63,7 @@ const historiaController = {
             createdAt: new Date(),
             updatedAt: new Date(),
         });
+        
         if (!autor) {
             return res.render("index", { msg: "Falha ao cadastrar!" });
         }
@@ -74,26 +78,43 @@ const historiaController = {
 
     edit: async (req, res) => {
         if (req.session.authUsuario) {
+
             const sessaoUsuario = req.session.authUsuario.id;
             const { diretorio } = req.params;
+
             const historia = await Historia.findOne({
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                include: {
+                    model: Classificacao,
+                },
                 where: { diretorio }, 
-                    include: {
-                        model: Classificacao,
-                    },
             });
-            const autor = await Autor.findAll({
-                where: { fkHistoria: [diretorio.id] }
-            });
+            
             const classificacoes = await Classificacao.findAll();
             return res.render("historia/editar", { title:"Editar história", historia, classificacoes });
+
         }
     },
 
     update: async (req, res) => {
         if (req.session.authUsuario) {
+
             const sessaoUsuario = req.session.authUsuario.id;
-            const { diretorio } = req.params;
+            const { diretorio } = req.params; 
+
+            const historia = await Historia.findOne({ 
+                include: {
+                    model: Usuario,
+                    through: Autor,
+                    where: { id: sessaoUsuario },
+                },
+                where: { diretorio }, 
+            });
+
             const {
                 titulo,
                 sinopse,
@@ -101,21 +122,21 @@ const historiaController = {
             } = req.body;
             //const [ capa ] = req.files;
 
-            const historia = await Historia.update({
+            await Historia.update({
                 titulo,
                 //capa: capa.filename,
                 sinopse,
                 fkClassificacao,
                 updatedAt: new Date(),
             }, {
-                where: { diretorio },
-            }, {
                 include: {
                     model: Classificacao,
                 },
+                where: { id: [historia.id] },
             });
-            console.log(historia);
-            return res.redirect("/mystories");  
+
+            return res.redirect("/mystories");
+
         }
     },
 
@@ -126,11 +147,11 @@ const historiaController = {
             const sessaoUsuario = req.session.authUsuario.id;
             const { diretorio } = req.params;
             const historia = await Historia.findOne({ 
-                include: [{
+                include: {
                     model: Usuario,
                     through: Autor,
                     where: { id: sessaoUsuario },
-                }],
+                },
                 where: { diretorio }, 
             });
 
@@ -139,12 +160,13 @@ const historiaController = {
             await Autor.destroy({ where: { fkHistoria: [historia.id] }, });
 
             await Historia.destroy({
-                include: [{
+                include: {
                     model: Usuario,
                     through: Autor,
                     where: { id: sessaoUsuario },
-                }], 
-                where: { diretorio }, });
+                }, 
+                where: { diretorio },
+            });
 
             /* fs.unlink(path.join("uploads", "historias",
                 diretorio), (err) => {
@@ -184,14 +206,20 @@ const historiaController = {
                     model: Classificacao,
                 },
         });
+
         const usuario = await Usuario.findOne({
-            include: [{
+            include: {
                 model: Historia,
                 through: Autor,
                 where: { diretorio },
-            }],
+            },
         });
-        return res.render("historia/ler", { title: "História", historia, usuario });
+
+        const capitulos = await Capitulo.findAll({
+            where: { fkHistoria: [historia.id] },
+        });
+
+        return res.render("historia/ler", { title: "História", historia, usuario, capitulos, moment });
     },
 
 };

@@ -8,17 +8,34 @@
 
     <h1 class="tituloCapitulo"><%= title %></h1>
 
-    <p><%= historia.titulo %></p>
-    <p><%= capitulo.titulo %></p>
-    <p><%= arquivoTxt %></p>
-    <p><%= capitulo.notasIniciais %></p>
-    <p><%= capitulo.notasFinais %></p>
-    <p><%= capitulo.createdAt %></p>
-    <p><%= capitulo.updatedAt %></p>
+    <h3><%= historia.titulo %></h3>
+    <h2><%= capitulo.titulo %></h2>
+
+    <p>Publicado em <%= moment(capitulo.createdAt).locale("pt-br").format("DD/MM/YYYY") %></p>
+    <p>Atualizado em <%= moment(capitulo.updatedAt).format("DD/MM/YYYY") %></p>
+
+    <p>Notas iniciais: <%= capitulo.notasIniciais %></p>
+
+    <div class="capitulo">
+      <!--<p><%= arquivoTxt %></p>-->
+    </div>
+
+    <p>Notas finais: <%= capitulo.notasFinais %></p>
 
     </main>
 <%- include("../includes/footer") %>
 <%- include("../includes/scripts") %>
+
+<script type="text/javascript">
+
+const diretorio = "<%= diretorio %>";
+const txt = "<%= txt %>";
+const caminhoCompleto = (`uploads/historias/${diretorio}/${txt}.txt`);
+
+
+
+</script>
+
     </div>
   </body>
 </html>

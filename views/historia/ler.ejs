@@ -8,14 +8,34 @@
 
     <h1 class="tituloHistoria"><%= title %></h1>
 
-    <p><%= historia.titulo %></p>
-    <p><%= historia.Classificacao.nome %></p>
-    <p><%= usuario.nomeUsuario %></p>
     <p><%= historia.capa %></p>
-    <p><%= historia.sinopse %></p>
-    <p><%= historia.finalizada %></p>
-    <p><%= historia.createdAt %></p>
-    <p><%= historia.updatedAt %></p>
+
+    <h2><%= historia.titulo %></h2>
+    <h3>Escrita por <%= usuario.nomeUsuario %></h3>
+
+    <p>Publicada em <%= moment(historia.createdAt).format("DD/MM/YYYY") %></p>
+    <p>Atualizada em <%= moment(historia.updatedAt).format("DD/MM/YYYY") %></p>
+
+    <p>Classificação: <%= historia.Classificacao.nome %></p>
+    <p>Status: <%= historia.finalizada %></p>
+
+    <p>Sinopse: <%= historia.sinopse %></p>
+
+    <h2>Capítulos</h2>
+
+    <table class="tabelaDados">
+      <tbody>
+        <% capitulos.forEach(capitulo => { %>
+        <tr>
+          <th> <%= capitulo.titulo %></th>
+          <th>
+            <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
+            </form>
+          </th>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
 
     </main>
 <%- include("../includes/footer") %>

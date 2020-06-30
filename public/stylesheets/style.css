@@ -51,6 +51,7 @@ button {
 
 /*
 .divPrincipal {
+    // LEMBRAR DE APAGAR DE TODAS AS PÁGINAS CASO NÃO USE
 }
 */
 
@@ -180,6 +181,8 @@ label[for="btnMenuTopo"] {
 
 /* ITENS DO RODAPÉ */
 
+
+
 /* TABELAS DOS DADOS */
 
 table {
@@ -272,7 +275,7 @@ th {
 
 
 
-/* USUÁRIO */
+/* PÁGINA DE USUÁRIO */
 
 
 
@@ -282,6 +285,10 @@ th {
 
 /* CAPÍTULO */
 
+.capitulo {
+    display: flex;
+    text-align: justify;
+}
 
 
 /* BOTÕES */
@@ -303,6 +310,65 @@ th {
 .btnModalSenha,
 .btnAlterarSenha {
     background: white;
+    cursor: pointer;
+}
+
+/* MODAL ALTERAR SENHA DA PÁGINA DE EDITAR USUÁRIO */
+
+.modalContainerSenha {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.mostrarModalSenha {
+    display: flex;
+}
+
+.modalSenha {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: white;
+    width: 50%;
+    min-width: 30%;
+    padding: 20px;
+    position: relative;
+
+}
+
+@keyframes modalSenha {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.mostrarModalSenha .modalSenha {
+    animation: modalSenha .3s;
+}
+
+.btnFecharModalSenha {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    border: 4px solid white;
     cursor: pointer;
 }
 
@@ -370,10 +436,10 @@ th {
 */
 
 /*
-.tituloInicio,
 .tituloErro404,
-.tituloPainelAdmin,
 .tituloConfiguracoes,
+.tituloInicio,
+.tituloPainelAdmin,
 .tituloNovaCategoria,
 .tituloEditarCategoria,
 .tituloListarCategorias,
@@ -387,11 +453,11 @@ th {
 .tituloLogin,
 .tituloEditarCapitulo,
 .tituloPublicarCapitulo,
-.tituloListarCapitulos,
+.tituloListarCapitulos, x2
 .tituloCapitulo,
 .tituloEditarHistoria,
 .tituloPublicarHistoria,
-.tituloListarHistorias,
+.tituloListarHistorias, x2
 .tituloHistoria,
 .tituloCadastrarUsuario,
 .tituloEditarUsuario,
@@ -400,60 +466,3 @@ th {
 .tituloAlterarSenha {  
 }
 */
-
-.modalContainerSenha {
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, .5);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.mostrarModalSenha {
-    display: flex;
-}
-
-.modalSenha {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: white;
-    width: 50%;
-    min-width: 30%;
-    padding: 20px;
-    position: relative;
-
-}
-
-@keyframes modalSenha {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -60px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-.mostrarModalSenha .modalSenha {
-    animation: modalSenha .3s;
-}
-
-.btnFecharModalSenha {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    border: 4px solid white;
-    cursor: pointer;
-}

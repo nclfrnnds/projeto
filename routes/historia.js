@@ -14,7 +14,7 @@ router.get("/new", auth, historiaController.create);
 router.post("/new", auth, historiaController.store);
 router.get("/:diretorio/edit", auth, historiaController.edit);
 router.put("/:diretorio/edit", auth, uploadCapa.any(), historiaController.update); 
-router.delete("/:diretorio/delete", auth, historiaController.destroy);
+router.delete("/:diretorio/delete", auth, historiaController.destroy); // admin pode excluir
 router.get("/:diretorio", auth, historiaController.findByDirectory); // tornar pública
 
 router.use("/", capituloRouter);

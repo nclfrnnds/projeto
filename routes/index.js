@@ -10,6 +10,7 @@ const uploadAvatar = require("../config/uploadAvatar");
 const authController = require("../controllers/authController");
 const usuarioController = require("../controllers/usuarioController");
 const historiaController = require("../controllers/historiaController");
+const capituloController = require("../controllers/capituloController");
 const newsletterController = require("../controllers/newsletterController");
 
 router.get("/", authController.home);
@@ -28,6 +29,8 @@ router.post("/settings/password", auth, usuarioController.updatePassword);
 router.delete("/delete/:sessaoUsuario", auth, usuarioController.destroy);
 
 router.get("/mystories", auth, historiaController.findStoriesByUser);
+router.get("/mystories/:diretorio/chapters", auth, capituloController.findChaptersByStory);
+router.get("/mystories/:diretorio/chapter", auth, capituloController.findChaptersByStory);
 
 router.get("/users", auth, usuarioController.index); // tornar pública
 router.get("/stories", auth, historiaController.index); // tornar pública
