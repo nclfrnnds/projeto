@@ -17,14 +17,14 @@ router.get("/login", authController.create);
 router.post("/login", authController.store);
 router.get("/logout", auth, authController.destroy);
 router.get("/home", auth, authController.index);
+router.post("/newsletter", newsletterController.store);
 
 router.get("/signup", usuarioController.create);
 router.post("/signup", validacaoCadastro, usuarioController.store);
 
-router.post("/newsletter", newsletterController.store);
-
 router.get("/settings", auth, usuarioController.edit); // separar página de alterar senha
 router.put("/settings", auth, uploadAvatar.any(), usuarioController.update);
+router.post("/settings/password", auth, usuarioController.updatePassword);
 router.delete("/delete/:sessaoUsuario", auth, usuarioController.destroy);
 
 router.get("/mystories", auth, historiaController.findStoriesByUser);

@@ -12,6 +12,7 @@ router.get("/:nomeUsuario", authAdmin, usuarioController.findByUsername); // tor
 
 //router.get("/edit/:id", authAdmin, usuarioController.edit);
 //router.put("/edit/:id", authAdmin, uploadAvatar.any(), usuarioController.update);
+//router.post("/edit/:id/password", authAdmin, usuarioController.updatePassword);
 router.delete("/delete/:id", authAdmin, usuarioController.destroy);
 
 module.exports = router;

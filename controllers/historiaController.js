@@ -73,41 +73,50 @@ const historiaController = {
     },
 
     edit: async (req, res) => {
-        const { diretorio } = req.params;
-        const historia = await Historia.findOne({
-            where: { diretorio }, 
-                include: {
-                    model: Classificacao,
-                },
-        });
-        const classificacoes = await Classificacao.findAll();
-        return res.render("historia/editar", { title:"Editar história", historia, classificacoes });
+        if (req.session.authUsuario) {
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio } = req.params;
+            const historia = await Historia.findOne({
+                where: { diretorio }, 
+                    include: {
+                        model: Classificacao,
+                    },
+            });
+            const autor = await Autor.findAll({
+                where: { fkHistoria: [diretorio.id] }
+            });
+            const classificacoes = await Classificacao.findAll();
+            return res.render("historia/editar", { title:"Editar história", historia, classificacoes });
+        }
     },
 
     update: async (req, res) => {
-        const { diretorio } = req.params;
-        const {
-            titulo,
-            sinopse,
-            fkClassificacao,
-        } = req.body;
-        //const [ capa ] = req.files;
+        if (req.session.authUsuario) {
+            const sessaoUsuario = req.session.authUsuario.id;
+            const { diretorio } = req.params;
+            const {
+                titulo,
+                sinopse,
+                fkClassificacao,
+            } = req.body;
+            //const [ capa ] = req.files;
 
-        const historia = await Historia.update({
-            titulo,
-            //capa: capa.filename,
-            sinopse,
-            fkClassificacao,
-            updatedAt: new Date(),
-        }, {
-            where: { diretorio },
-        }, {
-            include: {
-                model: Classificacao,
-            },
-        });
-        console.log(historia);
-        return res.redirect("/mystories");
+            const historia = await Historia.update({
+                titulo,
+                //capa: capa.filename,
+                sinopse,
+                fkClassificacao,
+                updatedAt: new Date(),
+            }, {
+                where: { diretorio },
+            }, {
+                include: {
+                    model: Classificacao,
+                },
+            });
+            console.log(historia);
+            return res.redirect("/mystories");  
+        }
     },
 
     destroy: async(req, res) => {

@@ -8,22 +8,11 @@
 
     <h1 class="tituloEditarUsuario"><%= title %></h1>
 
-    <% if (typeof(errors) !== "undefined") { %>
-    <ul>
-      <% errors.forEach((error) => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
-
     <% if (typeof authUsuario !== "undefined") { %>
     <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
       <% } else if (typeof authAdmin !== "undefined") { %>
     <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
     <% } %>
-
-      <!--<label for="senha">Senha</label><br>
-      <input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>"><br>-->
 
       <label for="nomeUsuario">Nome de usuário</label><br>
       <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Nome de usuário" value="<%= usuario.nomeUsuario %>"><br>
@@ -58,6 +47,8 @@
       <select id="localizacao" name="localizacao">
         <option id="" name="" value="<%= usuario.localizacao %>" selected>Selecione...</option>
       </select><br>
+
+      <button type="button" class="btnModalSenha">Alterar senha</button><br>
       
       <button type="submit" class="btnSalvar">Salvar alterações</button>
 
@@ -78,12 +69,41 @@
       <% } %>
 
     </main>
+
+    <div id="modalAlterarSenha" class="modalContainerSenha">
+      <div class="modalSenha">
+
+        <button type="button" class="btnFecharModalSenha">X</button>
+
+        <h1 class="tituloAlterarSenha">Alterar senha</h1>
+
+        <div class="alertaSenha"></div>
+
+        <% if (typeof authUsuario !== "undefined") { %>
+        <form action="/settings/password" method="POST" class="formAlterarSenha">
+          <% } else if (typeof authAdmin !== "undefined") { %>
+        <form action="/admin/user/edit/<%= usuario.id %>/password" method="POST" class="formAlterarSenha">
+        <% } %>
+        
+        <label for="senha">Digite sua nova senha</label><br>
+        <input type="password" id="senha" name="senha" placeholder="Senha" value=""><br>
+        <!--<input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>"><br>-->
+
+        <button type="submit" class="btnAlterarSenha">Salvar alterações</button>
+
+        <button type="button" class="btnFechar">Fechar</button>
+
+        </form>
+
+      </div>
+    </div>
+
 <%- include("../includes/footer") %>
 <%- include("../includes/scripts") %>
 
-<!-- CONSUMO DE API -->
-
 <script type="text/javascript">
+
+// API RESTCOUNTRIES
 
 const listaDePaises = document.querySelector("#localizacao");
 
@@ -116,6 +136,59 @@ async function listarPaises() {
     return paises;
 }
 listarPaises();
+
+// MODAL ALTERAR SENHA
+
+function iniciaModal(modalID) {
+  const modalSenha = document.getElementById(modalID);
+  //console.log(modalSenha);
+  if(modalSenha) {
+    modalSenha.classList.add("mostrarModalSenha");
+    modalSenha.addEventListener("click", function (event) {
+      if(event.target.id == modalID || event.target.className == "btnFecharModalSenha" || event.target.className == "btnFechar") {
+        modalSenha.classList.remove("mostrarModalSenha");
+      }
+    });
+  }
+}
+
+const btnModalSenha = document.querySelector(".btnModalSenha");
+btnModalSenha.addEventListener("click", function () {
+  iniciaModal("modalAlterarSenha");
+});
+
+// ALTERAR SENHA
+
+const senha = document.getElementById("senha");
+const btnAlterarSenha = document.querySelector(".btnAlterarSenha");
+const alertaSenha = document.querySelector(".alertaSenha");
+
+btnAlterarSenha.addEventListener("click", async function alterarSenha(event) {
+    event.preventDefault();
+    if (senha.value === "") {
+        return alertaSenha.innerHTML = "<p>Senha não pode ficar em branco!</p>";
+    } else {
+        const resposta = await fetch("/settings/password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                senha: senha.value,
+            }),
+        });
+        console.log(resposta);
+        if (resposta.status == 201) {
+            alertaSenha.value = "";
+            senha.value = "";
+            return alertaSenha.innerHTML = "<p>Senha alterada com sucesso!</p>";
+        } else {
+            alertaSenha.value = "";
+            senha.value = "";
+            return alertaSenha.innerHTML = "<p>Erro na alteração! Tente novamente</p>";
+        }
+    }
+});
 
 </script>
 

@@ -298,7 +298,10 @@ th {
 .btnCadastrar,
 .btnSalvar,
 .btnExcluir,
-.btnEntrar {
+.btnEntrar,
+.btnFechar,
+.btnModalSenha,
+.btnAlterarSenha {
     background: white;
     cursor: pointer;
 }
@@ -393,6 +396,64 @@ th {
 .tituloCadastrarUsuario,
 .tituloEditarUsuario,
 .tituloListarUsuarios,
-.tituloUsuario {  
+.tituloUsuario
+.tituloAlterarSenha {  
 }
 */
+
+.modalContainerSenha {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.mostrarModalSenha {
+    display: flex;
+}
+
+.modalSenha {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: white;
+    width: 50%;
+    min-width: 30%;
+    padding: 20px;
+    position: relative;
+
+}
+
+@keyframes modalSenha {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.mostrarModalSenha .modalSenha {
+    animation: modalSenha .3s;
+}
+
+.btnFecharModalSenha {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    border: 4px solid white;
+    cursor: pointer;
+}

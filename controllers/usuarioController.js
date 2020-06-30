@@ -64,13 +64,13 @@ const usuarioController = {
             });
             return res.render("usuario/editar", { title:"Configurações", usuario });
 
-        } else if (req.session.authAdmin) {
+        } /* else if (req.session.authAdmin) {
 
             const { id } = req.params;
             const usuario = await Usuario.findByPk(id);
             return res.render("usuario/editar", { title:"Editar usuário", usuario });
 
-        }
+        } */
     },
 
     update: async (req, res) => {
@@ -80,21 +80,17 @@ const usuarioController = {
             const { 
                 nomeUsuario, 
                 email,
-                //senha,
                 nome,
                 descricao,
                 dataNascimento, 
                 //genero,
                 localizacao,
             } = req.body;
-
-            //const hashSenha = bcrypt.hashSync(senha, 10);
             //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
                 email,
-                //senha: hashSenha,
                 nome,
                 descricao,
                 dataNascimento,
@@ -107,27 +103,23 @@ const usuarioController = {
             });
             return res.redirect("/home");
 
-        } else if (req.session.authAdmin) {
+        } /* else if (req.session.authAdmin) {
 
             const { id } = req.params;
             const { 
                 nomeUsuario, 
                 email,
-                //senha,
                 nome,
                 descricao,
                 dataNascimento, 
                 //genero,
                 localizacao,
             } = req.body;
-
-            //const hashSenha = bcrypt.hashSync(senha, 10);
             //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
                 email,
-                //senha: hashSenha,
                 nome,
                 descricao,
                 dataNascimento,
@@ -140,7 +132,52 @@ const usuarioController = {
             });
             return res.redirect("/admin/users");
 
-        }
+        } */
+    },
+
+    updatePassword: async (req, res) => {
+        if (req.session.authUsuario) {
+
+            try {
+                const sessaoUsuario = req.session.authUsuario.id;
+                const { senha } = req.body;
+                const hashSenha = bcrypt.hashSync(senha, 10);
+                const senhaAlterada = await Usuario.update({
+                    senha: hashSenha,
+                    updatedAt: new Date(),
+                }, {
+                    where: { id: sessaoUsuario },
+                });
+                return res.status(201).json(senhaAlterada);
+            } catch (error) {
+                return res.status(400).json({
+                    error: true,
+                    msg: "Erro na requisição. Tente novamente!",
+                });
+            }
+
+        } /* else if (req.session.authAdmin) {
+
+            try {
+                const { id } = req.params;
+                const { senha } = req.body;
+                const hashSenha = bcrypt.hashSync(senha, 10);
+                const senhaAlterada = await Usuario.update({
+                    senha: hashSenha,
+                    updatedAt: new Date(),
+                }, {
+                    where: { id },
+                });
+                return res.status(201).json(senhaAlterada);
+            } catch (error) {
+                return res.status(400).json({
+                    error: true,
+                    msg: "Erro na requisição. Tente novamente!",
+                });
+            }
+
+        } */
+
     },
 
     destroy: async(req, res) => {
