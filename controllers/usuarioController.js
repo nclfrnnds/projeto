@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const { Usuario } = require("../models");
 const { check, validationResult, body } = require("express-validator");
+const moment = require("moment");
 
 const usuarioController = {
 
@@ -83,7 +84,7 @@ const usuarioController = {
                 nome,
                 descricao,
                 dataNascimento, 
-                //genero,
+                genero,
                 localizacao,
             } = req.body;
             //const [ avatar ] = req.files;
@@ -94,7 +95,7 @@ const usuarioController = {
                 nome,
                 descricao,
                 dataNascimento,
-                //genero,
+                genero,
                 localizacao,
                 //avatar: avatar.filename,
                 updatedAt: new Date(),
@@ -205,7 +206,7 @@ const usuarioController = {
         const usuario = await Usuario.findOne({
             where: { nomeUsuario },
         });
-        return res.render("usuario/ver", { title: "Usuário", usuario });
+        return res.render("usuario/ver", { title: `Perfil: ${usuario.nomeUsuario}`, usuario, moment });
     },
 
 };

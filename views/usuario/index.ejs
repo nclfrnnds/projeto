@@ -9,17 +9,8 @@
     <h1 class="tituloListarUsuarios"><%= title %></h1>
 
     <table class="tabelaDados">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Usuário</th>
-          <th scope="col">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
         <% usuarios.forEach(usuario => { %>
         <tr>
-          <th scope="row"> <%= usuario.id %></th>
           <th> <%= usuario.nomeUsuario %></th>
           <th>
 
@@ -40,7 +31,6 @@
           </th>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

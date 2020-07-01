@@ -9,17 +9,8 @@
     <h1 class="tituloListarCapitulos"><%= title %></h1>
 
     <table class="tabelaDados">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Capítulo</th>
-          <th scope="col">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
         <% capitulos.forEach(capitulo => { %>
         <tr>
-          <th scope="row"> <%= capitulo.id %></th>
           <th> <%= capitulo.titulo %></th>
           <th>
 
@@ -29,8 +20,10 @@
 
             <% } else if (typeof authAdmin !== "undefined") { %>
 
+            <!-- NÃO ATIVA -->
             <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
             
+            <!-- NÃO ATIVA -->
             <form action="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/delete?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
@@ -40,7 +33,6 @@
           </th>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

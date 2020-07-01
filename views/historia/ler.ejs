@@ -6,20 +6,23 @@
 <%- include("../includes/header") %>
     <main class="mainPrincipal mainHistoria">
 
-    <h1 class="tituloHistoria"><%= title %></h1>
+    <h1 class="tituloHistoria"><%= historia.titulo %></h1>
 
     <p><%= historia.capa %></p>
 
-    <h2><%= historia.titulo %></h2>
-    <h3>Escrita por <%= usuario.nomeUsuario %></h3>
+    <h2>Escrita por <%= usuario.nomeUsuario %></h2>
 
     <p>Publicada em <%= moment(historia.createdAt).format("DD/MM/YYYY") %></p>
-    <p>Atualizada em <%= moment(historia.updatedAt).format("DD/MM/YYYY") %></p>
 
-    <p>Classificação: <%= historia.Classificacao.nome %></p>
-    <p>Status: <%= historia.finalizada %></p>
+    <p><b>Classificação:</b> <%= historia.Classificacao.nome %></p>
+    
+    <% if (historia.finalizada == true) { %>
+    <p><b>Status:</b> Finalizada</p>
+    <% } else if (historia.finalizada == false) { %>
+    <p><b>Status:</b> Em andamento</p>
+    <% } %>
 
-    <p>Sinopse: <%= historia.sinopse %></p>
+    <p><b>Sinopse:</b> <%= historia.sinopse %></p>
 
     <h2>Capítulos</h2>
 

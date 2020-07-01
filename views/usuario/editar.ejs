@@ -14,41 +14,59 @@
     <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
     <% } %>
 
-      <label for="nomeUsuario">Nome de usuário</label><br>
-      <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Nome de usuário" value="<%= usuario.nomeUsuario %>"><br>
+      <label for="nomeUsuario">Nome de usuário</label>
+      <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Nome de usuário" value="<%= usuario.nomeUsuario %>">
 
-      <label for="email">E-mail</label><br>
-      <input type="email" id="email" name="email" placeholder="E-mail" value="<%= usuario.email %>"><br>
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="E-mail" value="<%= usuario.email %>">
 
-      <label for="nome">Nome</label><br>
-      <input type="text" id="nome" name="nome" placeholder="Nome" value="<%= usuario.nome %>"><br>
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" placeholder="Nome" value="<%= usuario.nome %>">
 
-      <label for="avatar">Avatar</label><br>
-      <input type="file" id="avatar" name="avatar" placeholder="Avatar" value="<%= usuario.avatar %>"><br>
+      <label for="avatar">Avatar</label>
 
-      <label for="descricao">Descrição</label><br>
+      <input type="file" id="avatar" name="avatar">
+
+      <label for="descricao">Descrição</label>
       <textarea id="descricao" name="descricao" placeholder="Descrição" rows="3" cols="25">
         <%= usuario.descricao %>
-      </textarea><br>
+      </textarea>
 
-      <label for="dataNascimento">Data de nascimento</label><br>
+      <label for="dataNascimento">Data de nascimento</label>
       <input type="date" id="dataNascimento" name="dataNascimento" placeholder="Data de nascimento"
-        value="<%= usuario.dataNascimento %>"><br>
+        value="<%= usuario.dataNascimento %>">
 
-      <label for="genero">Gênero</label><br>
+      <label for="genero">Gênero</label>
       <select id="genero" name="genero">
-        <option id="" name="" value="" selected>Selecione...</option>
-        <option id="masculino" name="masculino" value="<%= usuario.genero %>">Masculino</option>
-        <option id="feminino" name="feminino" value="<%= usuario.genero %>">Feminino</option>
-        <option id="outro" name="outro" value="<%= usuario.genero %>">Outro</option>
-      </select><br>
 
-      <label for="localizacao">Localização</label><br>
+      <% if (usuario.genero == "" || usuario.genero == null) { %>
+          <option id="" name="" value="" selected>Selecione...</option>
+          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
+          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
+          <option id="outro" name="outro" value="Outro">Outro</option>
+      <% } else if (usuario.genero == "Masculino") { %>
+          <option id="" name="" value="">Selecione...</option>
+          <option id="masculino" name="masculino" value="Masculino" selected>Masculino</option>
+          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
+          <option id="outro" name="outro" value="Outro">Outro</option>
+      <% } else if (usuario.genero == "Feminino") { %>
+          <option id="" name="" value="">Selecione...</option>
+          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
+          <option id="feminino" name="feminino" value="Feminino" selected>Feminino</option>
+          <option id="outro" name="outro" value="Outro">Outro</option>
+      <% } else if (usuario.genero == "Outro") { %>
+          <option id="" name="" value="">Selecione...</option>
+          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
+          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
+          <option id="outro" name="outro" value="Outro" selected>Outro</option>
+      <% } %>
+
+      </select>
+
+      <label for="localizacao">Localização</label>
       <select id="localizacao" name="localizacao">
         <option id="" name="" value="<%= usuario.localizacao %>" selected>Selecione...</option>
-      </select><br>
-
-      <button type="button" class="btnModalSenha">Alterar senha</button><br>
+      </select>
       
       <button type="submit" class="btnSalvar">Salvar alterações</button>
 
@@ -58,11 +76,15 @@
 
       <a href="/home"><button type="button" class="btnCancelar">Cancelar</button></a>
 
+      <button type="button" class="btnModalSenha">Alterar senha</button>
+
       <form action="/delete/<%= authUsuario.id %>?_method=DELETE" method="POST">
         <button type="submit" class="btnExcluir">Excluir conta</button>
       </form>
 
       <% } else if (typeof authAdmin !== "undefined") { %>
+
+      <button type="button" class="btnModalSenha">Alterar senha</button>
 
       <a href="/admin/users"><button type="button" class="btnCancelar">Cancelar</button></a>
 
@@ -85,9 +107,9 @@
         <form action="/admin/user/edit/<%= usuario.id %>/password" method="POST" class="formAlterarSenha">
         <% } %>
         
-        <label for="senha">Digite sua nova senha</label><br>
-        <input type="password" id="senha" name="senha" placeholder="Senha" value=""><br>
-        <!--<input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>"><br>-->
+        <label for="senha">Digite sua nova senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Senha" value="">
+        <!--<input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>">-->
 
         <button type="submit" class="btnAlterarSenha">Salvar alterações</button>
 

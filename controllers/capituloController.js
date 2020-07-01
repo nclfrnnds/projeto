@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const moment = require("moment");
 const { Op } = require("sequelize");
+const readline = require('readline');
 
 const capituloController = {
 
@@ -46,7 +47,7 @@ const capituloController = {
                 where: { diretorio }, 
             });
 
-            return res.render("capitulo/publicar", { title: "Publicar Capítulo", historia });
+            return res.render("capitulo/publicar", { title: "Publicar capítulo", historia });
 
         }
     },
@@ -232,14 +233,31 @@ const capituloController = {
         const capitulo = await Capitulo.findOne({
             where: { texto: txt },
         });
+
         const caminhoCompleto =
             path.join("uploads", "historias", diretorio, `${txt}.txt`);
+
         const arquivoTxt = fs.readFileSync(caminhoCompleto, {
             encoding: "utf-8"
         });
-        moment.locale("pt-br", {
+
+        /*const arquivoTxt = fs.readFileSync(caminhoCompleto, {
+            encoding: "utf-8"
+        }).split(/\r?\n/).forEach(function (line) {
+            console.log(line);
+        });*/
+
+        /*const rl = readline.createInterface({
+            input: fs.createReadStream(caminhoCompleto),
+            crlfDelay: Infinity
         });
-        return res.render("capitulo/ler", { title: "Capítulo", capitulo, historia, arquivoTxt, diretorio, txt, moment });
+        
+        rl.on("line", (line) => {
+            console.log(line);
+        });*/
+        
+        return res.render("capitulo/ler", { title: `História: ${historia.titulo} - ${capitulo.titulo}`, 
+        capitulo, historia, arquivoTxt, diretorio, txt, moment });
     },
 
 };

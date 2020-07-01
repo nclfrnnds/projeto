@@ -24,7 +24,7 @@ const historiaController = {
 
     create: async (req, res) => {
         const classificacoes = await Classificacao.findAll();
-        return res.render("historia/publicar", { title: "Publicar História", classificacoes });
+        return res.render("historia/publicar", { title: "Publicar história", classificacoes });
     },
 
     store: async (req, res) => {
@@ -33,6 +33,7 @@ const historiaController = {
             titulo, 
             sinopse,
             fkClassificacao,
+            finalizada,
         } = req.body;
         //const [ capa ] = req.files;
 
@@ -43,6 +44,7 @@ const historiaController = {
             //capa: capa.filename,
             sinopse,
             fkClassificacao,
+            finalizada: finalizada ? 1 : 0,
             createdAt: new Date(),
             updatedAt: new Date(),
         }, {
@@ -119,6 +121,7 @@ const historiaController = {
                 titulo,
                 sinopse,
                 fkClassificacao,
+                finalizada,
             } = req.body;
             //const [ capa ] = req.files;
 
@@ -127,6 +130,7 @@ const historiaController = {
                 //capa: capa.filename,
                 sinopse,
                 fkClassificacao,
+                finalizada: finalizada ? 1 : 0,
                 updatedAt: new Date(),
             }, {
                 include: {
@@ -219,7 +223,7 @@ const historiaController = {
             where: { fkHistoria: [historia.id] },
         });
 
-        return res.render("historia/ler", { title: "História", historia, usuario, capitulos, moment });
+        return res.render("historia/ler", { title: `História: ${historia.titulo}`, historia, usuario, capitulos, moment });
     },
 
 };

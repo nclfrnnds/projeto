@@ -10,16 +10,16 @@
 
     <form action="/story/<%= historia.diretorio %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
 
-      <label for="titulo">Título</label><br>
-      <input type="text" id="titulo" name="titulo" placeholder="Título" value="<%= historia.titulo %>"><br>
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" name="titulo" placeholder="Título" value="<%= historia.titulo %>">
 
-      <label for="capa">Capa</label><br>
-      <input type="file" id="capa" name="capa" placeholder="Capa" value="<%= historia.capa %>"><br>
+      <label for="capa">Capa</label>
+      <input type="file" id="capa" name="capa" placeholder="Capa" value="<%= historia.capa %>">
 
-      <label for="sinopse">Sinopse</label><br>
-      <textarea id="sinopse" name="sinopse" placeholder="Sinopse" rows="3" cols="25"><%= historia.sinopse %></textarea><br>
+      <label for="sinopse">Sinopse</label>
+      <textarea id="sinopse" name="sinopse" placeholder="Sinopse" rows="3" cols="25"><%= historia.sinopse %></textarea>
       
-      <label for="fkClassificacao">Classificação</label><br>
+      <label for="fkClassificacao">Classificação</label>
       <select id="fkClassificacao" name="fkClassificacao" placeholder="Classificação">
         <option value="">Selecione...</option>
         <% classificacoes.forEach(classificacao => { %>
@@ -29,12 +29,16 @@
         <option value="<%= classificacao.id %>"><%= classificacao.nome %></option>
         <% } %>
         <% }); %>
-      </select><br>
+      </select>
 
       <label for="finalizada">Finalizada?</label>
-      <input type="checkbox" id="finalizada" name="finalizada" value="<%= historia.sinopse %>"><br>
+      <% if(historia.finalizada == 1) { %>
+      <input type="checkbox" id="finalizada" name="finalizada" checked="checked">
+      <% } else { %>
+      <input type="checkbox" id="finalizada" name="finalizada">
+      <% } %>
 
-      <button type="submit" class="btnSalvar">Salvar alterações</button><br>
+      <button type="submit" class="btnSalvar">Salvar alterações</button>
       <a href="/mystories"><button type="button" class="btnCancelar">Cancelar</button></a>
 
     </form>

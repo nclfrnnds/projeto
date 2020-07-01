@@ -7,15 +7,20 @@
     <main class="mainPrincipal mainUsuario">
 
     <h1 class="tituloUsuario"><%= title %></h1>
+    <h2><%= usuario.nomeUsuario %></h2>
 
-    <p><%= usuario.nomeUsuario %></p>
-    <p><%= usuario.email %></p>
-    <p><%= usuario.nome %></p>
+    <h3><%= usuario.nome %></h3>
+
     <p><%= usuario.avatar %></p>
+
     <p><%= usuario.descricao %></p>
-    <p><%= usuario.dataNascimento %></p>
-    <p><%= usuario.genero %></p>
-    <p><%= usuario.localizacao %></p>
+
+    <% if(usuario.dataNascimento !== null || usuario.dataNascimento !== "0000-00-00") { %>
+    <p>Data de nascimento: <%= moment(usuario.dataNascimento).format("DD/MM/YYYY") %> %></p>
+    <% } %>
+
+    <p>Gênero: <%= usuario.genero %></p>
+    <p>País: <%= usuario.localizacao %></p>
 
     </main>
 <%- include("../includes/footer") %>

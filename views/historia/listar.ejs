@@ -11,17 +11,8 @@
     <p><a href="/story/new"><button type="button" class="btnAdicionar">Nova história</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">História</th>
-          <th scope="col">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
         <% historias.forEach(historia => { %>
         <tr>
-          <th scope="row"> <%= historia.id %></th>
           <th> <%= historia.titulo %></th>
           <th>
             <a href="/story/<%= historia.diretorio %>"><button type="button" class="btnLer">Ler</button></a>
@@ -33,7 +24,6 @@
           </th>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

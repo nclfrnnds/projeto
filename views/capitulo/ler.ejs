@@ -6,21 +6,22 @@
 <%- include("../includes/header") %>
     <main class="mainPrincipal mainCapitulo">
 
-    <h1 class="tituloCapitulo"><%= title %></h1>
+    <h2><%= historia.titulo %></h2>
 
-    <h3><%= historia.titulo %></h3>
-    <h2><%= capitulo.titulo %></h2>
+    <h1 class="tituloCapitulo"><%= capitulo.titulo %></h1>
 
-    <p>Publicado em <%= moment(capitulo.createdAt).locale("pt-br").format("DD/MM/YYYY") %></p>
+    <p>Publicado em <%= moment(capitulo.createdAt).format("DD/MM/YYYY") %></p>
     <p>Atualizado em <%= moment(capitulo.updatedAt).format("DD/MM/YYYY") %></p>
 
-    <p>Notas iniciais: <%= capitulo.notasIniciais %></p>
+    <p><b>Notas iniciais:</b> <%= capitulo.notasIniciais %></p>
 
-    <div class="capitulo">
-      <!--<p><%= arquivoTxt %></p>-->
+    <div class="textoCapitulo">
+
+      <%= arquivoTxt %>
+    
     </div>
 
-    <p>Notas finais: <%= capitulo.notasFinais %></p>
+    <p><b>Notas finais:</b> <%= capitulo.notasFinais %></p>
 
     </main>
 <%- include("../includes/footer") %>
@@ -32,7 +33,17 @@ const diretorio = "<%= diretorio %>";
 const txt = "<%= txt %>";
 const caminhoCompleto = (`uploads/historias/${diretorio}/${txt}.txt`);
 
+const capitulo = document.querySelector(".capitulo");
 
+capitulo.addEventListener("change", function() {
+
+  let fr = new FileReader();
+
+  fr.onload = function () {
+    document.getElementById()
+  }
+
+});
 
 </script>
 

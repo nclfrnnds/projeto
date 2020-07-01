@@ -11,17 +11,8 @@
     <p><a href="/story/<%= historia.diretorio %>/chapter/new"><button type="button" class="btnAdicionar">Novo capítulo</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Capítulo</th>
-          <th scope="col">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
         <% capitulos.forEach(capitulo => { %>
         <tr>
-          <th scope="row"> <%= capitulo.id %></th>
           <th> <%= capitulo.titulo %></th>
           <th>
             <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
@@ -32,7 +23,6 @@
           </th>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>
