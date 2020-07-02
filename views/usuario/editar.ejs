@@ -9,9 +9,9 @@
     <h1 class="tituloEditarUsuario"><%= title %></h1>
 
     <% if (typeof authUsuario !== "undefined") { %>
-    <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
+    <form action="/settings?_method=PUT" method="POST" enctype="multipart/form-data" class="formUsuario">
       <% } else if (typeof authAdmin !== "undefined") { %>
-    <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="formEditarUsuario">
+    <form action="/admin/user/edit/<%= usuario.id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="formUsuario">
     <% } %>
 
       <label for="nomeUsuario">Nome de usuário</label>

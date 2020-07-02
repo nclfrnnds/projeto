@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const moment = require("moment");
 const { Op } = require("sequelize");
-const readline = require('readline');
+const readline = require("readline");
 
 const capituloController = {
 
@@ -68,7 +68,10 @@ const capituloController = {
             const nomeArquivo = Date.now();
             const caminhoCompleto = 
                 path.join("uploads", "historias", diretorio, `${nomeArquivo}.txt`);
-            fs.writeFileSync(caminhoCompleto, texto);
+
+            fs.writeFile(caminhoCompleto, texto, (err) => {
+                if (err) throw err;
+            });
 
             const historia = await Historia.findOne({
                 include: {
@@ -131,6 +134,13 @@ const capituloController = {
                 encoding: "utf-8"
             });
 
+            /*const arquivoTxt = fs.readFile(caminhoCompleto, {
+                encoding: "utf-8"
+            }, (err, data) => {
+                if (err) throw err;
+                    console.log(data);
+            });*/
+
             return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
 
         }
@@ -161,7 +171,9 @@ const capituloController = {
             const caminhoCompleto = 
                 path.join("uploads", "historias", diretorio, `${txt}.txt`);
 
-            fs.writeFileSync(caminhoCompleto, texto);
+            fs.writeFile(caminhoCompleto, texto, (err) => {
+                if (err) throw err;
+            });
 
             await Capitulo.update({
                 titulo,
@@ -241,10 +253,30 @@ const capituloController = {
             encoding: "utf-8"
         });
 
-        /*const arquivoTxt = fs.readFileSync(caminhoCompleto, {
+        /*const arquivoTxt = fs.readFile(caminhoCompleto, {
+            encoding: "utf-8"
+        }, (err, data) => {
+            if (err) throw err;
+            console.log(data);
+        });*/
+
+        /*const arquivoTxt = fs.readFile(caminhoCompleto, {
             encoding: "utf-8"
         }).split(/\r?\n/).forEach(function (line) {
             console.log(line);
+        });*/
+
+        /*fs.readFile(caminhoCompleto, {
+                    encoding: "utf-8"
+                }, function (err, data) {
+            if (err) {
+                throw err;
+            }
+            var linhas = data.split(/\r?\n/);
+            linhas.forEach(function (linha) {
+                var duasposicoes = linha.toString().substring(0, 3);
+                console.log(duasposicoes);
+            })
         });*/
 
         /*const rl = readline.createInterface({

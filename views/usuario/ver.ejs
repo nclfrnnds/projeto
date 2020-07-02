@@ -6,21 +6,21 @@
 <%- include("../includes/header") %>
     <main class="mainPrincipal mainUsuario">
 
-    <h1 class="tituloUsuario"><%= title %></h1>
-    <h2><%= usuario.nomeUsuario %></h2>
+    <h1 class="tituloUsuario"><%= usuario.nomeUsuario %></h1>
 
-    <h3><%= usuario.nome %></h3>
+    <h2><%= usuario.nome %></h2>
 
-    <p><%= usuario.avatar %></p>
+    <!--<%= usuario.avatar %>-->
+    <!--<img src="">-->
 
     <p><%= usuario.descricao %></p>
 
     <% if(usuario.dataNascimento !== null || usuario.dataNascimento !== "0000-00-00") { %>
-    <p>Data de nascimento: <%= moment(usuario.dataNascimento).format("DD/MM/YYYY") %> %></p>
+    <p><b>Data de nascimento:</b> <%= moment(usuario.dataNascimento).format("DD/MM/YYYY") %> %></p>
     <% } %>
 
-    <p>Gênero: <%= usuario.genero %></p>
-    <p>País: <%= usuario.localizacao %></p>
+    <p><b>Gênero:</b> <%= usuario.genero %></p>
+    <p><b>País:</b> <%= usuario.localizacao %></p>
 
     </main>
 <%- include("../includes/footer") %>

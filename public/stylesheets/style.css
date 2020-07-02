@@ -157,13 +157,10 @@ label[for="btnMenuTopo"] {
 
 /* TABELAS DOS DADOS */
 
-table {
-    border-collapse: collapse;
-    border-spacing: 2px;
-}
-
 .tabelaDados {
     width: 100%;
+    border-collapse: collapse;
+    border-spacing: 1px;
     margin-bottom: 1rem;
 }
 
@@ -171,12 +168,7 @@ table {
 .tabelaDados th {
     padding: .75rem;
     vertical-align: top;
-    border-top: 1px solid #dee2e6;
-}
-
-th {
-    display: table-cell;
-    font-weight: bold;
+    border-top: 1px solid #eeeeee;
 }
 
 /* PÁGINA INDEX */
@@ -409,6 +401,16 @@ th {
 
 /* PÁGINAS ADMIN DE CADASTRO DE CLASSIFICAÇÃO, GÊNERO E CATEGORIA */
 
+.mainIndexCategorias,
+.mainIndexClassificacoes,
+.mainIndexGeneros {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .mainCadastrarClassificacao form,
 .mainEditarClassificacao form,
 .mainCadastrarGenero form,
@@ -495,69 +497,6 @@ th {
 
 }
 
-/*
-.mainIndex, XXX
-.mainErro404,
-.mainPainelAdmin, XXX
-.mainHome, XXX
-.mainCadastrarCategoria, XXX
-.mainEditarCategoria, XXX
-.mainListarCategorias,
-.mainCadastrarClassificacao, XXX
-.mainEditarClassificacao, XXX
-.mainListarClassificacoes, 
-.mainCadastrarGenero, XXX
-.mainEditarGenero, XXX
-.mainListarGeneros,
-.mainLoginAdmin, XXX
-.mainLogin, XXX
-.mainEditarCapitulo, XXX
-.mainPublicarCapitulo, XXX
-.mainListarCapitulos,
-.mainCapitulo,
-.mainEditarHistoria, XXX
-.mainPublicarHistoria, XXX
-.mainListarHistorias,
-.mainHistoria,
-.mainCadastrarUsuario, XXX
-.mainEditarUsuario, XXX
-.mainListarUsuarios,
-.mainUsuario {  
-}
-*/
-
-/*
-.tituloErro404,
-.tituloHome,
-.tituloIndex,
-.tituloPainelAdmin,
-.tituloCadastrarCategoria,
-.tituloEditarCategoria,
-.tituloListarCategorias,
-.tituloCadastrarClassificacao,
-.tituloEditarClassificacao,
-.tituloListarClassificacoes,
-.tituloCadastrarGenero,
-.tituloEditarGenero,
-.tituloListarGeneros,
-.tituloLoginAdmin,
-.tituloLogin,
-.tituloEditarCapitulo,
-.tituloPublicarCapitulo,
-.tituloListarCapitulos, x2
-.tituloCapitulo,
-.tituloEditarHistoria,
-.tituloPublicarHistoria,
-.tituloListarHistorias, x2
-.tituloHistoria,
-.tituloCadastrarUsuario,
-.tituloEditarUsuario,
-.tituloListarUsuarios,
-.tituloUsuario
-.tituloAlterarSenha {  
-}
-*/
-
 /* MODAL ALTERAR SENHA DA PÁGINA DE EDITAR USUÁRIO */
 
 .modalContainerSenha {
@@ -629,3 +568,71 @@ th {
     border: 4px solid white;
     cursor: pointer;
 }
+
+/*
+.mainPrincipal, XXX
+.mainErro404,
+.mainLogin, XXX
+.mainLoginAdmin, XXX
+.mainIndex, XXX
+.mainHome, XXX
+.mainPainelAdmin, XXX
+.mainCadastrarCategoria, XXX
+.mainEditarCategoria, XXX
+.mainIndexCategorias,
+.mainCadastrarClassificacao, XXX
+.mainEditarClassificacao, XXX
+.mainIndexClassificacoes, 
+.mainCadastrarGenero, XXX
+.mainEditarGenero, XXX
+.mainIndexGeneros,
+.mainEditarCapitulo, XXX
+.mainPublicarCapitulo, XXX
+.mainListarCapitulos,
+.mainIndexCapitulos,
+.mainCapitulo,
+.mainEditarHistoria, XXX
+.mainPublicarHistoria, XXX
+.mainListarHistorias,
+.mainIndexHistorias,
+.mainHistoria,
+.mainCadastrarUsuario, XXX
+.mainEditarUsuario, XXX
+.mainIndexUsuarios,
+.mainUsuario {  
+}
+*/
+
+/*
+.tituloErro404,
+.tituloLogin,
+.tituloLoginAdmin,
+.tituloIndex,
+.tituloHome,
+.tituloPainelAdmin,
+.tituloCadastrarCategoria,
+.tituloEditarCategoria,
+.tituloIndexCategorias,
+.tituloCadastrarClassificacao,
+.tituloEditarClassificacao,
+.tituloIndexClassificacoes,
+.tituloCadastrarGenero,
+.tituloEditarGenero,
+.tituloIndexGeneros,
+.tituloEditarCapitulo,
+.tituloPublicarCapitulo,
+.tituloListarCapitulos, 
+.tituloIndexCapitulos,
+.tituloCapitulo,
+.tituloEditarHistoria,
+.tituloPublicarHistoria,
+.tituloListarHistorias, 
+.tituloIndexHistorias,
+.tituloHistoria,
+.tituloCadastrarUsuario,
+.tituloEditarUsuario,
+.tituloIndexUsuarios,
+.tituloUsuario
+.tituloAlterarSenha {  
+}
+*/
