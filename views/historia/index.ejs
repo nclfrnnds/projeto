@@ -11,9 +11,8 @@
     <table class="tabelaDados">
         <% historias.forEach(historia => { %>
         <tr>
-          <th> <%= historia.titulo %></th>
-          <th>
-
+          <td> <%= historia.titulo %></td>
+          <td>        
             <% if (typeof authUsuario !== "undefined") { %>
 
             <a href="/story/<%= historia.diretorio %>"><button type="button" class="btnLer">Ler</button></a>
@@ -29,8 +28,7 @@
             </form>
 
             <% } %>
-
-          </th>
+          </td>
         </tr>
         <% }); %>
     </table>

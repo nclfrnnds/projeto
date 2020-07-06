@@ -13,14 +13,14 @@
     <table class="tabelaDados">
         <% capitulos.forEach(capitulo => { %>
         <tr>
-          <th> <%= capitulo.titulo %></th>
-          <th>
+          <td> <%= capitulo.titulo %></td>
+          <td>
             <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
             <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/edit"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>/delete?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
-          </th>
+          </td>
         </tr>
         <% }); %>
     </table>

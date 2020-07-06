@@ -43,7 +43,10 @@ button {
 
 .mainPrincipal { 
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background: #ffffff;
     width: 100%;
     margin: 0 auto;
@@ -67,8 +70,8 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-content: center;
-    height: 60px;
+    align-items: center;
+    height: 80px;
     background: #555555;
     position: sticky;
     top: 0;
@@ -82,6 +85,7 @@ button {
 .conteudoTopo {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 100%;
     width: 100%;
     max-width: 1140px;
@@ -89,19 +93,16 @@ button {
 
 .conteudoTopo ul {
     display: flex;
-    align-content: center;
     flex-wrap: wrap;
     list-style: none;
 }
 
 .conteudoTopo ul li {
     display: block;
-    align-self: center;
     padding-right: 20px;
 }
 
 .logoTopo {
-    align-self: center;
     color: #ffffff;
     font-size: 1.25rem;
     font-weight: bold;
@@ -130,19 +131,19 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    text-align: center;
+    height: 360px;
     background: #999999;
+}
+
+.footerPrincipal p {
+    margin: 10px;
 }
 
 .footerPrincipal a {
     color: #ffffff;
     font-size: 0.75rem;
     text-decoration: none;
-}
-
-.footerPrincipal form {
-    text-align: center;
-    padding: 10px;
 }
 
 .footerPrincipal label {
@@ -155,44 +156,40 @@ label[for="btnMenuTopo"] {
     width: 240px;
 }
 
+.listaAlertaNews {
+    margin: 0px;
+}
+
 /* TABELAS DOS DADOS */
 
 .tabelaDados {
     width: 100%;
     border-collapse: collapse;
-    border-spacing: 1px;
-    margin-bottom: 1rem;
 }
 
 .tabelaDados td,
 .tabelaDados th {
     padding: .75rem;
-    vertical-align: top;
     border-top: 1px solid #eeeeee;
 }
 
 /* PÁGINA INDEX */
 
 .mainIndex {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     width: 100%;
     height: 100vh;
-    background-repeat: no-repeat;
+    text-align: center;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     background-image: url("../images/photo-1501504905252-473c47e087f8.jpg");
     padding: 0px;
 }
 
 .mainIndex h1 {
+    color: #ffffff;
     font-size: 3.5rem;
     font-weight: normal;
-    color: #ffffff;
     text-shadow: 2px 2px 2px #555555;
 }
 
@@ -207,16 +204,6 @@ label[for="btnMenuTopo"] {
 
 /* PÁGINAS DE LOGIN, LOGIN ADMIN E CADASTRO */
 
-.mainLogin,
-.mainLoginAdmin,
-.mainCadastrarUsuario {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .mainLogin form,
 .mainLoginAdmin form,
 .mainCadastrarUsuario form {
@@ -225,6 +212,7 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
     background: #ffffff;
     width: 50%;
     min-width: 200px;
@@ -256,7 +244,6 @@ label[for="btnMenuTopo"] {
 .mainLoginAdmin a,
 .mainCadastrarUsuario a {
     width: 100px;
-    align-self: center;
 }
 
 .mainLogin p,
@@ -266,15 +253,6 @@ label[for="btnMenuTopo"] {
 }
 
 /* PÁGINA INÍCIO */
-
-.mainHome,
-.mainPainelAdmin {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
 .mainHome button,
 .mainPainelAdmin button {
@@ -297,24 +275,25 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
     text-decoration: none;
+    width: 60%;
 }
 
 .mainEditarUsuario input,
 .mainEditarUsuario select {
+    width: 60%;
     min-width: 250px;
-    width: 40%;
 }
 
 .mainEditarUsuario textarea {
     resize: none;
+    width: 60%;
     min-width: 250px;
-    width: 40%;
     height: 150px;
 }
 
 .mainEditarUsuario button {
-    align-self: center;
     width: 150px;
 }
 
@@ -327,27 +306,28 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    width: 60%;
 }
 
 .mainPublicarHistoria input,
 .mainEditarHistoria input,
 .mainPublicarHistoria select,
 .mainEditarHistoria select {
+    width: 60%;
     min-width: 250px;
-    width: 40%;
 }
 
 .mainPublicarHistoria textarea,
 .mainEditarHistoria textarea {
     resize: none;
+    width: 60%;
     min-width: 250px;
-    width: 40%;
     height: 150px;
 }
 
 .mainPublicarHistoria button,
 .mainEditarHistoria button {
-    align-self: center;
     width: 150px;
 }
 
@@ -360,6 +340,8 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    width: 100%;
 }
 
 .mainPublicarCapitulo input,
@@ -383,7 +365,6 @@ label[for="btnMenuTopo"] {
 
 .mainPublicarCapitulo button,
 .mainEditarCapitulo button {
-    align-self: center;
     width: 150px;
 }
 
@@ -393,6 +374,7 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
 }
 
 .textoCapitulo {
@@ -400,16 +382,6 @@ label[for="btnMenuTopo"] {
 }
 
 /* PÁGINAS ADMIN DE CADASTRO DE CLASSIFICAÇÃO, GÊNERO E CATEGORIA */
-
-.mainIndexCategorias,
-.mainIndexClassificacoes,
-.mainIndexGeneros {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
 .mainCadastrarClassificacao form,
 .mainEditarClassificacao form,
@@ -422,6 +394,7 @@ label[for="btnMenuTopo"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
 }
 
 .mainCadastrarClassificacao input,
@@ -441,8 +414,18 @@ label[for="btnMenuTopo"] {
 .mainEditarGenero button,
 .mainCadastrarCategoria button,
 .mainEditarCategoria button {
-    align-self: center;
     width: 150px;
+}
+
+.mainIndexClassificacao,
+.mainIndexGeneros,
+.mainIndexCategorias {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 /* BOTÕES */
@@ -462,7 +445,9 @@ label[for="btnMenuTopo"] {
 .btnEntrar,
 .btnFechar,
 .btnModalSenha,
-.btnAlterarSenha {
+.btnModalAvatar,
+.btnAlterarSenha,
+.btnAlterarAvatar {
     background: white;
     cursor: pointer;
 }
@@ -499,7 +484,7 @@ label[for="btnMenuTopo"] {
 
 /* MODAL ALTERAR SENHA DA PÁGINA DE EDITAR USUÁRIO */
 
-.modalContainerSenha {
+.modalContainer {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, .5);
@@ -512,12 +497,12 @@ label[for="btnMenuTopo"] {
     align-items: center;
 }
 
-.modalContainerSenha h1 {
+.modalContainer h1 {
     margin: 0px;
     color: #555555;
 }
 
-.modalContainerSenha form {
+.modalContainer form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -525,11 +510,13 @@ label[for="btnMenuTopo"] {
     align-items: center;
 }
 
-.mostrarModalSenha {
+.mostrarModalSenha,
+.mostrarModalAvatar {
     display: flex;
 }
 
-.modalSenha {
+.modalSenha,
+.modalAvatar {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -554,11 +541,24 @@ label[for="btnMenuTopo"] {
     }
 }
 
-.mostrarModalSenha .modalSenha {
+@keyframes modalAvatar {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.mostrarModalSenha .modalSenha,
+.mostrarModalAvatar .modalAvatar {
     animation: modalSenha .3s;
 }
 
-.btnFecharModalSenha {
+.btnFecharModalSenha,
+.btnFecharModalAvatar {
     position: absolute;
     top: -20px;
     right: -20px;

@@ -11,29 +11,23 @@
     <p><a href="/admin/category/new"><button type="button" class="btnAdicionar">Adicionar</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Categoria</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Ações</th>
+          <th>Categoria</th>
+          <th>Descrição</th>
+          <th>Ações</th>
         </tr>
-      </thead>
-      <tbody>
         <% categorias.forEach(categoria => { %>
         <tr>
-          <th scope="row"> <%= categoria.id %></th>
-          <th> <%= categoria.nome %></th>
-          <th> <%= categoria.descricao %></th>
-          <th>
+          <td> <%= categoria.nome %></td>
+          <td> <%= categoria.descricao %></td>
+          <td>
             <a href="/admin/category/edit/<%= categoria.id %>"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/admin/category/delete/<%= categoria.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
-          </th>
+          </td>
         </tr>
         <% }); %>
-      </tbody>
     </table>
     
     </main>

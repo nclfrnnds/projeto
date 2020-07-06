@@ -28,17 +28,15 @@
     <h2>Capítulos</h2>
 
     <table class="tabelaDados">
-      <tbody>
         <% capitulos.forEach(capitulo => { %>
         <tr>
-          <th> <%= capitulo.titulo %></th>
-          <th>
+          <td> <%= capitulo.titulo %></td>
+          <td>
             <a href="/story/<%= historia.diretorio %>/chapter/<%= capitulo.texto %>"><button type="button" class="btnLer">Ler</button></a>
             </form>
-          </th>
+          </td>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

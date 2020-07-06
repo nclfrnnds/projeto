@@ -11,29 +11,23 @@
     <p><a href="/admin/genre/new"><button type="button" class="btnAdicionar">Adicionar</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Gênero</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Ações</th>
+          <th>Gênero</th>
+          <th>Descrição</th>
+          <th>Ações</th>
         </tr>
-      </thead>
-      <tbody>
         <% generos.forEach(genero => { %>
         <tr>
-          <th scope="row"> <%= genero.id %></th>
-          <th> <%= genero.nome %></th>
-          <th> <%= genero.descricao %></th>
-          <th>
+          <td> <%= genero.nome %></td>
+          <td> <%= genero.descricao %></td>
+          <td>
             <a href="/admin/genre/edit/<%= genero.id %>"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/admin/genre/delete/<%= genero.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
-          </th>
+          </td>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>

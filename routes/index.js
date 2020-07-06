@@ -26,6 +26,7 @@ router.post("/signup", validacaoCadastro, usuarioController.store);
 router.get("/settings", auth, usuarioController.edit); // separar página de alterar senha
 router.put("/settings", auth, uploadAvatar.any(), usuarioController.update);
 router.post("/settings/password", auth, usuarioController.updatePassword);
+router.post("/settings/avatar", auth, uploadAvatar.any(), usuarioController.updateAvatar);
 router.delete("/delete/:sessaoUsuario", auth, usuarioController.destroy);
 
 router.get("/mystories", auth, historiaController.findStoriesByUser);

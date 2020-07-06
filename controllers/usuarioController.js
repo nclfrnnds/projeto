@@ -87,7 +87,6 @@ const usuarioController = {
                 genero,
                 localizacao,
             } = req.body;
-            //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
@@ -97,7 +96,6 @@ const usuarioController = {
                 dataNascimento,
                 genero,
                 localizacao,
-                //avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id: sessaoUsuario },
@@ -113,10 +111,9 @@ const usuarioController = {
                 nome,
                 descricao,
                 dataNascimento, 
-                //genero,
+                genero,
                 localizacao,
             } = req.body;
-            //const [ avatar ] = req.files;
 
             await Usuario.update({
                 nomeUsuario,
@@ -124,9 +121,8 @@ const usuarioController = {
                 nome,
                 descricao,
                 dataNascimento,
-                //genero,
+                genero,
                 localizacao,
-                //avatar: avatar.filename,
                 updatedAt: new Date(),
             }, {
                 where: { id },
@@ -149,7 +145,7 @@ const usuarioController = {
                 }, {
                     where: { id: sessaoUsuario },
                 });
-                return res.status(201).json(senhaAlterada);
+                return res.status(202).json(senhaAlterada);
             } catch (error) {
                 return res.status(400).json({
                     error: true,
@@ -169,7 +165,7 @@ const usuarioController = {
                 }, {
                     where: { id },
                 });
-                return res.status(201).json(senhaAlterada);
+                return res.status(202).json(senhaAlterada);
             } catch (error) {
                 return res.status(400).json({
                     error: true,
@@ -180,6 +176,49 @@ const usuarioController = {
         } */
 
     },
+
+    updateAvatar: async (req, res) => {
+        if (req.session.authUsuario) {
+
+            try {
+                const sessaoUsuario = req.session.authUsuario.id;
+                const [ avatar ] = req.files;
+                const avatarAlterado = await Usuario.update({
+                    avatar: avatar.filename,
+                    updatedAt: new Date(),
+                }, {
+                    where: { id: sessaoUsuario },
+                });
+                return res.status(202).json(avatarAlterado);
+            } catch (error) {
+                return res.status(400).json({
+                    error: true,
+                    msg: "Erro na requisição. Tente novamente!",
+                });
+            }
+
+        } /* else if (req.session.authAdmin) {
+
+            try {
+                const { id } = req.params;
+                const [ avatar ] = req.files;
+                const avatarAlterado = await Usuario.update({
+                    avatar: avatar.filename,
+                    updatedAt: new Date(),
+                }, {
+                    where: { id },
+                });
+                return res.status(202).json(avatarAlterado);
+            } catch (error) {
+                return res.status(400).json({
+                    error: true,
+                    msg: "Erro na requisição. Tente novamente!",
+                });
+            }
+
+        } */
+
+    }, 
 
     destroy: async(req, res) => {
         if (req.session.authUsuario) {

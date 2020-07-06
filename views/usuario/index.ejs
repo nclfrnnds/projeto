@@ -11,9 +11,8 @@
     <table class="tabelaDados">
         <% usuarios.forEach(usuario => { %>
         <tr>
-          <th> <%= usuario.nomeUsuario %></th>
-          <th>
-
+          <td> <%= usuario.nomeUsuario %></td>
+          <td>
             <% if (typeof authUsuario !== "undefined") { %>
 
             <a href="/user/<%= usuario.nomeUsuario %>"><button type="button" class="btnVisualizar">Visualizar</button></a>
@@ -27,8 +26,7 @@
             </form>
 
             <% } %>
-
-          </th>
+          </td>
         </tr>
         <% }); %>
     </table>

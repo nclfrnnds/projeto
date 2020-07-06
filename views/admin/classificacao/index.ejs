@@ -11,27 +11,21 @@
     <p><a href="/admin/rating/new"><button type="button" class="btnAdicionar">Adicionar</button></a></p>
 
     <table class="tabelaDados">
-      <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Classificação</th>
-          <th scope="col">Ações</th>
+          <th>Classificação</th>
+          <th>Ações</th>
         </tr>
-      </thead>
-      <tbody>
         <% classificacoes.forEach(classificacao => { %>
         <tr>
-          <th scope="row"> <%= classificacao.id %></th>
-          <th> <%= classificacao.nome %></th>
-          <th>
+          <td> <%= classificacao.nome %></td>
+          <td>
             <a href="/admin/rating/edit/<%= classificacao.id %>"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/admin/rating/delete/<%= classificacao.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>
-          </th>
+          </td>
         </tr>
         <% }); %>
-      </tbody>
     </table>
 
     </main>
