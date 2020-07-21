@@ -1,13 +1,3 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap"); /* Tinos */
-/* @import url("https://fonts.googleapis.com/css2?family=Neuton&display=swap"); /* Neuton */
-/* @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap"); /* Source Serif Pro */
-/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap"); /* Noto Sans SC */
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap"); /* Roboto */
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap"); /* Lato */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"); /* Noto Sans JP */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); /* Open Sans */
-
 body {
     background: #eeeeee;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -34,12 +24,6 @@ optgroup {
 button {
     margin: 10px 0px 0px 0px;
 }
-
-/*
-.divPrincipal {
-    // LEMBRAR DE APAGAR DE TODAS AS PÁGINAS CASO NÃO USE
-}
-*/
 
 .mainPrincipal { 
     display: flex;
@@ -95,6 +79,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    text-align: center;
 }
 
 .conteudoTopo ul li {

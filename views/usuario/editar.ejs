@@ -2,7 +2,6 @@
 <html lang="pt-br">
 <%- include("../includes/head") %>
   <body>
-    <div class="divPrincipal">
 <%- include("../includes/header") %>
     <main class="mainPrincipal mainEditarUsuario">
 
@@ -29,42 +28,26 @@
       <label for="nome">Nome</label>
       <input type="text" id="nome" name="nome" placeholder="Nome" value="<%= usuario.nome %>">
 
-      <!--<label for="avatar">Avatar</label>
-      <input type="file" id="avatar" name="avatar">-->
-
       <label for="descricao">Descrição</label>
-      <textarea id="descricao" name="descricao" placeholder="Descrição" rows="3" cols="25">
-        <%= usuario.descricao %>
-      </textarea>
+      <textarea id="descricao" name="descricao" placeholder="Descrição" rows="3" cols="25"><%= usuario.descricao %></textarea>
 
       <label for="dataNascimento">Data de nascimento</label>
       <input type="date" id="dataNascimento" name="dataNascimento" placeholder="Data de nascimento" value="<%= usuario.dataNascimento %>">
 
       <label for="genero">Gênero</label>
       <select id="genero" name="genero">
-
-      <% if (usuario.genero == "" || usuario.genero == null) { %>
-          <option id="" name="" value="" selected>Selecione...</option>
-          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
-          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
-          <option id="outro" name="outro" value="Outro">Outro</option>
-      <% } else if (usuario.genero == "Masculino") { %>
-          <option id="" name="" value="">Selecione...</option>
-          <option id="masculino" name="masculino" value="Masculino" selected>Masculino</option>
-          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
-          <option id="outro" name="outro" value="Outro">Outro</option>
-      <% } else if (usuario.genero == "Feminino") { %>
-          <option id="" name="" value="">Selecione...</option>
-          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
-          <option id="feminino" name="feminino" value="Feminino" selected>Feminino</option>
-          <option id="outro" name="outro" value="Outro">Outro</option>
-      <% } else if (usuario.genero == "Outro") { %>
-          <option id="" name="" value="">Selecione...</option>
-          <option id="masculino" name="masculino" value="Masculino">Masculino</option>
-          <option id="feminino" name="feminino" value="Feminino">Feminino</option>
-          <option id="outro" name="outro" value="Outro" selected>Outro</option>
+       <% if ((usuario.genero == null) || (usuario.genero == "")) { %>
+        <option id="" name="" value="" selected>Selecione...</option>
+       <% } else { %>
+        <option id="" name="" value="">Selecione...</option>
+       <% } %>
+      <% for (let i=0; i<generos.length; i+=2) { %>
+        <% if (usuario.genero == generos[i]) { %>
+          <option id="" name="" value="<%= generos[i] %>" selected><%= generos[i+1] %></option>
+        <% } else { %>
+          <option id="" name="" value="<%= generos[i] %>"><%= generos[i+1] %></option>
+        <% } %>
       <% } %>
-
       </select>
 
       <label for="localizacao">Localização</label>
@@ -109,7 +92,6 @@
         
         <label for="senha">Digite sua nova senha</label>
         <input type="password" id="senha" name="senha" placeholder="Senha" value="">
-        <!--<input type="password" id="senha" name="senha" placeholder="Senha" value="<%= usuario.senha %>">-->
 
         <button type="submit" class="btnAlterarSenha">Salvar alterações</button>
 
@@ -291,6 +273,5 @@ btnAlterarAvatar.addEventListener("click", async function alterarAvatar(event) {
 
 <script type="text/javascript" src="../../javascripts/validarUsuario.js"></script>
 
-    </div>
   </body>
 </html>

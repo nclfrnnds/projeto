@@ -59,14 +59,16 @@ const usuarioController = {
     edit: async (req, res) => {
         if (req.session.authUsuario) {
 
+            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
             const sessaoUsuario = req.session.authUsuario.id;
             const usuario = await Usuario.findOne({
                 where: { id: sessaoUsuario },
             });
-            return res.render("usuario/editar", { title:"Configurações", usuario });
+            return res.render("usuario/editar", { title:"Configurações", usuario, generos });
 
         } /* else if (req.session.authAdmin) {
 
+            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
             const { id } = req.params;
             const usuario = await Usuario.findByPk(id);
             return res.render("usuario/editar", { title:"Editar usuário", usuario });
