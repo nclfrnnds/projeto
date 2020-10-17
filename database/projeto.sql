@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `azstories` DEFAULT CHARACTER SET utf8 ;
-USE `azstories` ;
+CREATE SCHEMA IF NOT EXISTS `projeto` DEFAULT CHARACTER SET utf8 ;
+USE `projeto` ;
 
 -- -----------------------------------------------------
 -- Table `usuarios`
@@ -13,7 +13,7 @@ CREATE TABLE `usuarios` (
   `avatar` VARCHAR(200),
   `descricao` TEXT,
   `dataNascimento` DATE,
-  `genero` VARCHAR(20),
+  `genero` VARCHAR(1),
   `localizacao` VARCHAR(100),
   `emailSecundario` VARCHAR(200) UNIQUE,
   `celular` BIGINT UNIQUE,

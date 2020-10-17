@@ -9,6 +9,12 @@ body {
     margin: 0;
 }
 
+p:empty,
+h1:empty,
+h2:empty {
+    display: none;
+}
+
 label,
 input,
 button, 
@@ -22,7 +28,7 @@ optgroup {
 }
 
 button {
-    margin: 10px 0px 0px 0px;
+    margin: .75rem 0rem 0rem 0rem;
 }
 
 .mainPrincipal { 
@@ -33,15 +39,18 @@ button {
     align-items: center;
     background: #ffffff;
     width: 100%;
+    max-width: 1140px;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
 }
 
-.mainPrincipal h1 {
+.mainPrincipal h1,
+.modalContainer h1 {
     text-align: center;
     font-size: 2rem;
     color: #555555;
+    font-weight: normal;
 }
 
 .mainPrincipal h2 {
@@ -94,20 +103,6 @@ button {
     padding-left: 20px;
 }
 
-/*
-#btnMenuTopo {
-    display: none;
-}
-
-label[for="btnMenuTopo"] {
-    visibility: hidden;
-    align-self: center;
-    color: #ffffff;
-    font-size: 2rem;
-    cursor: pointer;
-}
-*/
-
 /* FOOTER DA PÁGINA (RODAPÉ) E ITENS DO RODAPÉ */
 
 .footerPrincipal {
@@ -122,12 +117,12 @@ label[for="btnMenuTopo"] {
 }
 
 .footerPrincipal p {
-    margin: 10px;
+    margin: .75rem;
 }
 
 .footerPrincipal a {
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: .75rem;
     text-decoration: none;
 }
 
@@ -137,12 +132,12 @@ label[for="btnMenuTopo"] {
 
 .footerPrincipal input {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     width: 240px;
 }
 
 .listaAlertaNews {
-    margin: 0px;
+    margin: 0;
 }
 
 /* TABELAS DOS DADOS */
@@ -432,22 +427,23 @@ label[for="btnMenuTopo"] {
 .btnModalSenha,
 .btnModalAvatar,
 .btnAlterarSenha,
-.btnAlterarAvatar {
+.btnAlterarAvatar,
+.btnFecharSenha,
+.btnFecharAvatar {
     background: white;
     cursor: pointer;
+}
+
+.btnAlterarSenha,
+.btnAlterarAvatar,
+.btnFecharSenha,
+.btnFecharAvatar {
+    width: 150px;
 }
 
 /* MEDIA QUERIES */
 
 @media (min-width: 480px) {
-
-    .mainPrincipal {
-        max-width: 1140px;
-    }
-
-    .conteudoTopo {
-        max-width: 1140px;
-    }
 
 }
 
@@ -482,11 +478,6 @@ label[for="btnMenuTopo"] {
     align-items: center;
 }
 
-.modalContainer h1 {
-    margin: 0px;
-    color: #555555;
-}
-
 .modalContainer form {
     display: flex;
     flex-wrap: wrap;
@@ -510,9 +501,16 @@ label[for="btnMenuTopo"] {
     text-align: center;
     background: white;
     width: 50%;
-    min-width: 30%;
+    min-width: 220px;
     padding: 20px;
     position: relative;
+}
+
+.modalSenha label,
+.modalSenha input,
+.modalAvatar label,
+.modalAvatar input {
+    width: 100%;
 }
 
 @keyframes modalSenha {

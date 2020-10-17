@@ -95,7 +95,7 @@
 
         <button type="submit" class="btnAlterarSenha">Salvar alterações</button>
 
-        <button type="button" class="btnFechar">Fechar</button>
+        <button type="button" class="btnFecharSenha">Fechar</button>
 
         </form>
 
@@ -122,7 +122,7 @@
 
         <button type="submit" class="btnAlterarAvatar">Salvar alterações</button>
 
-        <button type="button" class="btnFechar">Fechar</button>
+        <button type="button" class="btnFecharAvatar">Fechar</button>
 
         </form>
 
@@ -176,7 +176,7 @@ function iniciaModalSenha(modalID) {
   if(modalSenha) {
     modalSenha.classList.add("mostrarModalSenha");
     modalSenha.addEventListener("click", function (event) {
-      if(event.target.id == modalID || event.target.className == "btnFecharModalSenha" || event.target.className == "btnFechar") {
+      if(event.target.id == modalID || event.target.className == "btnFecharModalSenha" || event.target.className == "btnFecharSenha") {
         modalSenha.classList.remove("mostrarModalSenha");
       }
     });
@@ -195,7 +195,7 @@ function iniciaModalAvatar(modalID) {
   if(modalAvatar) {
     modalAvatar.classList.add("mostrarModalAvatar");
     modalAvatar.addEventListener("click", function (event) {
-      if(event.target.id == modalID || event.target.className == "btnFecharModalAvatar" || event.target.className == "btnFechar") {
+      if(event.target.id == modalID || event.target.className == "btnFecharModalAvatar" || event.target.className == "btnFecharAvatar") {
         modalAvatar.classList.remove("mostrarModalAvatar");
       }
     });
@@ -211,13 +211,26 @@ btnModalAvatar.addEventListener("click", function () {
 const senha = document.getElementById("senha");
 const btnAlterarSenha = document.querySelector(".btnAlterarSenha");
 const alertaSenha = document.querySelector(".alertaSenha");
+const urlUsuario = "/settings/password";
+const urlAdmin = "/admin/user/edit/<%= usuario.id %>/password";
+
+console.log(urlAdmin);
 
 btnAlterarSenha.addEventListener("click", async function alterarSenha(event) {
   event.preventDefault();
   if (senha.value === "") {
       return alertaSenha.innerHTML = "<p>Senha não pode ficar em branco!</p>";
   } else {
-      const resposta = await fetch("/settings/password", {
+
+      function url () {
+        if (typeof authUsuario !== "undefined") {
+          return urlUsuario;
+        } else if (typeof authAdmin !== "undefined") {
+          return urlAdmin;
+        }
+      }
+
+      const resposta = await fetch(url(), {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -226,6 +239,7 @@ btnAlterarSenha.addEventListener("click", async function alterarSenha(event) {
               senha: senha.value,
           }),
       });
+
       console.log(resposta);
       if (resposta.status == 202) {
           alertaSenha.value = "";
@@ -271,7 +285,7 @@ btnAlterarAvatar.addEventListener("click", async function alterarAvatar(event) {
 
 </script>
 
-<script type="text/javascript" src="../../javascripts/validarUsuario.js"></script>
+<script type="text/javascript" src="/../../javascripts/validarUsuario.js"></script>
 
   </body>
 </html>

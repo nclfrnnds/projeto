@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const moment = require("moment");
 
 const indexRouter = require("./routes/index");
 const usuarioRouter = require("./routes/usuario");
@@ -12,6 +13,8 @@ const historiaRouter = require("./routes/historia");
 const adminRouter = require("./routes/admin");
 
 const app = express();
+
+moment.locale("pt-br");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

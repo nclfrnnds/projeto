@@ -10,10 +10,10 @@ const usuarioController = require("../controllers/usuarioController");
 router.get("/", authAdmin, usuarioController.index); // tornar pública em usuário.js e apagar aqui
 router.get("/:nomeUsuario", authAdmin, usuarioController.findByUsername); // tornar pública em usuário.js e apagar aqui
 
-//router.get("/edit/:id", authAdmin, usuarioController.edit);
-//router.put("/edit/:id", authAdmin, uploadAvatar.any(), usuarioController.update);
-//router.post("/edit/:id/password", authAdmin, usuarioController.updatePassword);
-//router.post("/edit/:id/avatar", authAdmin, uploadAvatar.any(), usuarioController.updateAvatar);
+router.get("/edit/:id", authAdmin, usuarioController.edit);
+router.put("/edit/:id", authAdmin, uploadAvatar.any(), usuarioController.update);
+router.post("/edit/:id/password", authAdmin, usuarioController.updatePassword);
+router.post("/edit/:id/avatar", authAdmin, uploadAvatar.any(), usuarioController.updateAvatar);
 router.delete("/delete/:id", authAdmin, usuarioController.destroy);
 
 module.exports = router;

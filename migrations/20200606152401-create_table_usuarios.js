@@ -26,7 +26,7 @@ module.exports = {
         avatar: Sequelize.STRING(200),
         descricao: Sequelize.TEXT,
         dataNascimento: Sequelize.DATEONLY,
-        genero: Sequelize.STRING(20),
+        genero: Sequelize.STRING(1),
         localizacao: Sequelize.STRING(100),
         emailSecundario: {
             type: Sequelize.STRING(200),

@@ -134,13 +134,6 @@ const capituloController = {
                 encoding: "utf-8"
             });
 
-            /*const arquivoTxt = fs.readFile(caminhoCompleto, {
-                encoding: "utf-8"
-            }, (err, data) => {
-                if (err) throw err;
-                    console.log(data);
-            });*/
-
             return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
 
         }
@@ -220,7 +213,7 @@ const capituloController = {
 
             return res.redirect(`/mystories/${diretorio}/chapters`);
 
-        } /*else if (req.session.authAdmin) {
+        } else if (req.session.authAdmin) {
 
             const { diretorio, txt } = req.params;
 
@@ -234,7 +227,7 @@ const capituloController = {
 
             return res.redirect(`/admin/story/${diretorio}/chapters`);
 
-        }*/
+        }
     },
 
     findByFile: async (req, res) => {
@@ -252,41 +245,6 @@ const capituloController = {
         const arquivoTxt = fs.readFileSync(caminhoCompleto, {
             encoding: "utf-8"
         });
-
-        /*const arquivoTxt = fs.readFile(caminhoCompleto, {
-            encoding: "utf-8"
-        }, (err, data) => {
-            if (err) throw err;
-            console.log(data);
-        });*/
-
-        /*const arquivoTxt = fs.readFile(caminhoCompleto, {
-            encoding: "utf-8"
-        }).split(/\r?\n/).forEach(function (line) {
-            console.log(line);
-        });*/
-
-        /*fs.readFile(caminhoCompleto, {
-                    encoding: "utf-8"
-                }, function (err, data) {
-            if (err) {
-                throw err;
-            }
-            var linhas = data.split(/\r?\n/);
-            linhas.forEach(function (linha) {
-                var duasposicoes = linha.toString().substring(0, 3);
-                console.log(duasposicoes);
-            })
-        });*/
-
-        /*const rl = readline.createInterface({
-            input: fs.createReadStream(caminhoCompleto),
-            crlfDelay: Infinity
-        });
-        
-        rl.on("line", (line) => {
-            console.log(line);
-        });*/
         
         return res.render("capitulo/ler", { title: `História: ${historia.titulo} - ${capitulo.titulo}`, 
         capitulo, historia, arquivoTxt, diretorio, txt, moment });

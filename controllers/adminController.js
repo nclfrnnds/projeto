@@ -30,23 +30,20 @@ const adminController = {
 
         if (usuario) {
 
-            const {count: totalPermissoes, rows: permissoesUsuario} 
-            = await PermissaoUsuario.findAndCountAll({
+            const {count: totalPermissoes, rows: permissoesUsuario} = 
+            await PermissaoUsuario.findAndCountAll({
                 include: {
                     model: Permissao,
                 },
                 where: { fkUsuario: usuario.id },
             });
 
-            let listaDeIndices = [];
             const arrayAdmin = ["Admin", "admin", "Administrador", "administrador"];                
-            permissoesUsuario.forEach(permissaoUsuario => {
-                arrayAdmin.forEach(admin => {
-                    const indice = (permissaoUsuario.Permissao.nome).includes(admin);
-                    listaDeIndices.push(indice);
+            const verificaAdmin = permissoesUsuario.map(permissaoUsuario => {
+                arrayAdmin.map(admin => {
+                    (permissaoUsuario.Permissao.nome).includes(admin);
                 });
             });
-            const verificaAdmin = listaDeIndices.includes(true);
 
             if (!usuario || !bcrypt.compareSync(senha, usuario.senha)) {
                 return res.render("auth/admin", {

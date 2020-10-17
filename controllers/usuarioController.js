@@ -59,21 +59,21 @@ const usuarioController = {
     edit: async (req, res) => {
         if (req.session.authUsuario) {
 
-            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
             const sessaoUsuario = req.session.authUsuario.id;
             const usuario = await Usuario.findOne({
                 where: { id: sessaoUsuario },
             });
+            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
             return res.render("usuario/editar", { title:"Configurações", usuario, generos });
 
-        } /* else if (req.session.authAdmin) {
+        } else if (req.session.authAdmin) {
 
-            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
             const { id } = req.params;
             const usuario = await Usuario.findByPk(id);
-            return res.render("usuario/editar", { title:"Editar usuário", usuario });
+            const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
+            return res.render("usuario/editar", { title:"Editar usuário", usuario , generos});
 
-        } */
+        }
     },
 
     update: async (req, res) => {
@@ -104,7 +104,7 @@ const usuarioController = {
             });
             return res.redirect("/home");
 
-        } /* else if (req.session.authAdmin) {
+        } else if (req.session.authAdmin) {
 
             const { id } = req.params;
             const { 
@@ -131,7 +131,7 @@ const usuarioController = {
             });
             return res.redirect("/admin/users");
 
-        } */
+        }
     },
 
     updatePassword: async (req, res) => {
@@ -155,7 +155,7 @@ const usuarioController = {
                 });
             }
 
-        } /* else if (req.session.authAdmin) {
+        } else if (req.session.authAdmin) {
 
             try {
                 const { id } = req.params;
@@ -175,7 +175,7 @@ const usuarioController = {
                 });
             }
 
-        } */
+        }
 
     },
 
@@ -199,7 +199,7 @@ const usuarioController = {
                 });
             }
 
-        } /* else if (req.session.authAdmin) {
+        } else if (req.session.authAdmin) {
 
             try {
                 const { id } = req.params;
@@ -218,7 +218,7 @@ const usuarioController = {
                 });
             }
 
-        } */
+        }
 
     }, 
 
@@ -247,7 +247,8 @@ const usuarioController = {
         const usuario = await Usuario.findOne({
             where: { nomeUsuario },
         });
-        return res.render("usuario/ver", { title: `Perfil: ${usuario.nomeUsuario}`, usuario, moment });
+        const generos = ["M", "Masculino", "F", "Feminino", "O", "Outro"];
+        return res.render("usuario/ver", { title: `Perfil: ${usuario.nomeUsuario}`, usuario, generos, moment });
     },
 
 };

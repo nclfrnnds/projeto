@@ -19,7 +19,7 @@
             <% } else if (typeof authAdmin !== "undefined") { %>
 
             <a href="/admin/user/<%= usuario.nomeUsuario %>"><button type="button" class="btnVisualizar">Visualizar</button></a>
-            <!--<a href="/admin/user/edit/<%= usuario.id %>"><button type="button" class="btnEditar">Editar</button></a>-->
+            <a href="/admin/user/edit/<%= usuario.id %>"><button type="button" class="btnEditar">Editar</button></a>
             <form action="/admin/user/delete/<%= usuario.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btnExcluir">Excluir</button>
             </form>

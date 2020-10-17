@@ -14,11 +14,17 @@
 
     <p><%= usuario.descricao %></p>
 
-    <% if(usuario.dataNascimento !== null || usuario.dataNascimento !== "0000-00-00") { %>
-    <p><b>Data de nascimento:</b> <%= moment(usuario.dataNascimento).format("DD/MM/YYYY") %> %></p>
+    <% if(usuario.dataNascimento != null || usuario.dataNascimento != "0000-00-00") { %>
+    <p><b>Data de nascimento:</b> <%= moment(usuario.dataNascimento).format("L") %> %></p>
+
     <% } %>
 
-    <p><b>Gênero:</b> <%= usuario.genero %></p>
+    <% for (let i=0; i<generos.length; i+=2) { %>
+      <% if (usuario.genero == generos[i]) { %>
+    <p><b>Gênero:</b> <%= generos[i+1] %></p>
+      <% } %>
+    <% } %>
+
     <p><b>País:</b> <%= usuario.localizacao %></p>
 
     </main>
