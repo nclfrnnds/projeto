@@ -45,7 +45,7 @@ const usuarioController = {
                 return res.render("usuario/cadastrar", { msg: "Falha ao cadastrar!" });
             };
 
-            return res.redirect("/home");
+            return res.redirect("/login");
 
         } else {
 

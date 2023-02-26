@@ -16,7 +16,7 @@
 
     <div class="textoCapitulo">
 
-      <%= arquivoTxt %>
+      <%- conteudoCapitulo %>
     
     </div>
 
@@ -28,21 +28,7 @@
 
 <script type="text/javascript">
 
-const diretorio = "<%= diretorio %>";
-const txt = "<%= txt %>";
-const caminhoCompleto = (`uploads/historias/${diretorio}/${txt}.txt`);
 
-const capitulo = document.querySelector(".capitulo");
-
-capitulo.addEventListener("change", function() {
-
-  let fr = new FileReader();
-
-  fr.onload = function () {
-    document.getElementById()
-  }
-
-});
 
 </script>
 

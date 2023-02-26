@@ -10,15 +10,45 @@ module.exports = {
           updatedAt: new Date(),
         }, {
           fkUsuario: 2,
-          fkPermissao: 2,
+          fkPermissao: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         }, {
           fkUsuario: 3,
-          fkPermissao: 3,
+          fkPermissao: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
-        },
+        }, {
+          fkUsuario: 4,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          fkUsuario: 5,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          fkUsuario: 6,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          fkUsuario: 7,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          fkUsuario: 8,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, {
+          fkUsuario: 9,
+          fkPermissao: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, 
       ], {});
   },
 

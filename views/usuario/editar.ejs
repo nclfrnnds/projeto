@@ -143,11 +143,12 @@ async function listarPaises() {
     const resposta = await fetch("https://restcountries.eu/rest/v2/all");
     const paises = await resposta.json();
     const localizacao = "<%= usuario.localizacao %>";
-
-    listaDePaises.innerHTML = `<option id="" name="" value="">Selecione...</option>`;
+    const selecionar = `<option id="" name="" value="">Selecione...</option>`;
+    listaDePaises.innerHTML = selecionar;
+    
     paises.forEach(pais => {
       if (localizacao === null || localizacao === "") {
-        if (pais.translations.br === "Brasil") {
+        if (pais.translations.br === selecionar) {
             listaDePaises.innerHTML +=
                 `<option id="" name="" value="${pais.translations.br}" selected>${pais.translations.br}</option>`;
         } else {

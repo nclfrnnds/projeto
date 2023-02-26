@@ -65,9 +65,9 @@ const capituloController = {
                 notasFinais,
             } = req.body; 
 
-            const nomeArquivo = Date.now();
+            const arquivo = Date.now();
             const caminhoCompleto = 
-                path.join("uploads", "historias", diretorio, `${nomeArquivo}.txt`);
+                path.join("uploads", "historias", diretorio, `${arquivo}.txt`);
 
             fs.writeFile(caminhoCompleto, texto, (err) => {
                 if (err) throw err;
@@ -84,7 +84,7 @@ const capituloController = {
 
             const capitulo = await Capitulo.create({
                 titulo,
-                texto: nomeArquivo,
+                texto: arquivo,
                 notasIniciais,
                 notasFinais,
                 fkHistoria: [historia.id],
@@ -109,7 +109,7 @@ const capituloController = {
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const { diretorio, txt } = req.params;
+            const { diretorio, arquivo } = req.params;
 
             const historia = await Historia.findOne({
                 include: {
@@ -122,19 +122,19 @@ const capituloController = {
 
             const capitulo = await Capitulo.findOne({
                 where: {[Op.and]: [
-                    { texto: txt },
+                    { texto: arquivo },
                     { fkHistoria: historia.id }, 
                 ]},
             });
 
             const caminhoCompleto =
-                path.join("uploads", "historias", diretorio, `${txt}.txt`);
+                path.join("uploads", "historias", diretorio, `${arquivo}.txt`);
 
-            const arquivoTxt = fs.readFileSync(caminhoCompleto, {
+            const conteudoTxt = fs.readFileSync(caminhoCompleto, {
                 encoding: "utf-8"
             });
 
-            return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, arquivoTxt });
+            return res.render("capitulo/editar", { title:"Editar capítulo", historia, capitulo, conteudoTxt });
 
         }
     },
@@ -143,7 +143,7 @@ const capituloController = {
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const { diretorio, txt } = req.params;
+            const { diretorio, arquivo } = req.params;
 
             const historia = await Historia.findOne({
                 include: {
@@ -162,7 +162,7 @@ const capituloController = {
             } = req.body;
             
             const caminhoCompleto = 
-                path.join("uploads", "historias", diretorio, `${txt}.txt`);
+                path.join("uploads", "historias", diretorio, `${arquivo}.txt`);
 
             fs.writeFile(caminhoCompleto, texto, (err) => {
                 if (err) throw err;
@@ -178,7 +178,7 @@ const capituloController = {
                     model: Historia,
                 },
                 where: {[Op.and]: [
-                    { texto: txt },
+                    { texto: arquivo },
                     { fkHistoria: historia.id }, 
                 ]}, 
             });
@@ -193,7 +193,7 @@ const capituloController = {
         if (req.session.authUsuario) {
 
             const sessaoUsuario = req.session.authUsuario.id;
-            const { diretorio, txt } = req.params;
+            const { diretorio, arquivo } = req.params;
 
             const historia = await Historia.findOne({
                 include: {
@@ -206,7 +206,7 @@ const capituloController = {
 
             await Capitulo.destroy({
                 where: {[Op.and]: [
-                    { texto: txt },
+                    { texto: arquivo },
                     { fkHistoria: historia.id }, 
                 ]}, 
             });
@@ -215,14 +215,14 @@ const capituloController = {
 
         } else if (req.session.authAdmin) {
 
-            const { diretorio, txt } = req.params;
+            const { diretorio, arquivo } = req.params;
 
             await Historia.findOne({
                 where: { diretorio },
             });
 
             await Capitulo.destroy({ 
-                where: { texto: txt }, 
+                where: { texto: arquivo }, 
             });
 
             return res.redirect(`/admin/story/${diretorio}/chapters`);
@@ -231,23 +231,33 @@ const capituloController = {
     },
 
     findByFile: async (req, res) => {
-        const { diretorio, txt } = req.params;
+        const { diretorio, arquivo } = req.params;
         const historia = await Historia.findOne({
             where: { diretorio },
         });
         const capitulo = await Capitulo.findOne({
-            where: { texto: txt },
+            where: { texto: arquivo },
         });
 
         const caminhoCompleto =
-            path.join("uploads", "historias", diretorio, `${txt}.txt`);
+            path.join("uploads", "historias", diretorio, `${arquivo}.txt`);
 
-        const arquivoTxt = fs.readFileSync(caminhoCompleto, {
-            encoding: "utf-8"
+        const fileStream = fs.createReadStream(caminhoCompleto);
+        const rl = readline.createInterface({
+            input: fileStream,
+            crlfDelay: Infinity
         });
+
+        const conteudoTxt = [];
+
+        for await (const line of rl) {
+            conteudoTxt.push(line + "<br />");
+        };
+
+        const conteudoCapitulo = conteudoTxt.join("");
         
         return res.render("capitulo/ler", { title: `História: ${historia.titulo} - ${capitulo.titulo}`, 
-        capitulo, historia, arquivoTxt, diretorio, txt, moment });
+        capitulo, historia, conteudoCapitulo, diretorio, arquivo, moment });
     },
 
 };

@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `projeto` DEFAULT CHARACTER SET utf8 ;
-USE `projeto` ;
+CREATE SCHEMA IF NOT EXISTS `db_projeto` DEFAULT CHARACTER SET utf8 ;
+USE `db_projeto` ;
 
 -- -----------------------------------------------------
 -- Table `usuarios`
